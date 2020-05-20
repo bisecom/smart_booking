@@ -9,7 +9,7 @@ namespace DAL.Interfaces
 {
     public interface IUnitOfWork : IDisposable
     {
-        IRepository<User> Users { get; }
+        IUserRepository Users { get; }
         IRepository<UserRole> UserRoles { get; }
         IRepository<Employee> Employees { get; }
         IRepository<Country> Countries { get; }

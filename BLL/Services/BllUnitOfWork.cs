@@ -18,7 +18,7 @@ namespace BLL.Services
             Database = db;
         }
 
-        public IServiceRepository<UserDTM> UsersDTM
+        public UserDTMServiceRepo UsersDTM
         {
             get
             {
@@ -50,9 +50,14 @@ namespace BLL.Services
             GC.SuppressFinalize(this);
         }
 
-        public void SaveChanges()
+        public bool SaveChanges()
         {
-            Database.Save();
+            try
+            {
+                Database.Save();
+                return true;
+            }
+            catch { return false; }
         }
     }
 }

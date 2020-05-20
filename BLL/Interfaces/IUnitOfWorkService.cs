@@ -1,4 +1,5 @@
 ﻿using BLL.Interfaces;
+using BLL.Services;
 using smart_booking.BLL.DataTransferModels;
 using System;
 using System.Collections.Generic;
@@ -10,7 +11,9 @@ namespace BLL.Interfaces
 {
     public interface IUnitOfWorkService : IDisposable
     {
-        IServiceRepository<UserDTM> UsersDTM { get; }
-        void SaveChanges();
+        UserDTMServiceRepo UsersDTM { get; }
+        //IServiceRepository<UserDTM> UsersDTM { get; }
+        
+        bool SaveChanges();
     }
 }

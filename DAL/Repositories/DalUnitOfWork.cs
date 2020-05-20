@@ -23,7 +23,7 @@ namespace DAL.Repositories
             db = new SBContext("SBContext");
         }
 
-        public IRepository<User> Users  {
+        public IUserRepository Users  {
             get
             {
                 if (userRepository == null)

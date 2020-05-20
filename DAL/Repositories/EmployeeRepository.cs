@@ -19,16 +19,26 @@ namespace DAL.Repositories
             this.db = context;
         }
 
-        public void Create(Employee item)
+        public bool Create(Employee item)
         {
-            db.Employees.Add(item);
+            try
+            {
+                db.Employees.Add(item);
+                return true;
+            }
+            catch { return false; }
         }
 
-        public void Delete(string id)
+        public bool Delete(int id)
         {
-            Employee empl = db.Employees.Find(id);
-            if (empl != null)
-                db.Employees.Remove(empl);
+            try
+            {
+                Employee empl = db.Employees.Find(id);
+                if (empl != null)
+                    db.Employees.Remove(empl);
+                return true;
+            }
+            catch { return false; }
         }
 
         public IEnumerable<Employee> Find(Func<Employee, bool> predicate)
@@ -36,7 +46,7 @@ namespace DAL.Repositories
             return db.Employees;
         }
 
-        public Employee Get(string id)
+        public Employee Get(int id)
         {
             return db.Employees.Find(id);
         }
@@ -46,9 +56,14 @@ namespace DAL.Repositories
             throw new NotImplementedException();
         }
 
-        public void Update(Employee item)
+        public bool Update(Employee item)
         {
-            db.Entry(item).State = EntityState.Modified;
+            try
+            {
+                db.Entry(item).State = EntityState.Modified;
+                return true;
+            }
+            catch { return false; }
         }
     }
 }

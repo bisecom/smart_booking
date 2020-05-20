@@ -19,16 +19,26 @@ namespace DAL.Repositories
             this.db = context;
         }
 
-        public void Create(Country item)
+        public bool Create(Country item)
         {
-            db.Countries.Add(item);
+            try
+            {
+                db.Countries.Add(item);
+                return true;
+            }
+            catch { return false; }
         }
 
-        public void Delete(string id)
+        public bool Delete(int id)
         {
-            Country country = db.Countries.Find(id);
-            if (country != null)
-                db.Countries.Remove(country);
+            try
+            {
+                Country country = db.Countries.Find(id);
+                if (country != null)
+                    db.Countries.Remove(country);
+                return true;
+            }
+            catch { return false; }
         }
 
         public IEnumerable<Country> Find(Func<Country, bool> predicate)
@@ -36,7 +46,7 @@ namespace DAL.Repositories
             return db.Countries;
         }
 
-        public Country Get(string id)
+        public Country Get(int id)
         {
             return db.Countries.Find(id);
         }
@@ -46,9 +56,14 @@ namespace DAL.Repositories
             return db.Countries;
         }
 
-        public void Update(Country item)
+        public bool Update(Country item)
         {
-            db.Entry(item).State = EntityState.Modified;
+            try
+            {
+                db.Entry(item).State = EntityState.Modified;
+                return true;
+            }
+            catch { return false; }
         }
     }
 }

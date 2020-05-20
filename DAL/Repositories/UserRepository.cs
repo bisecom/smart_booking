@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace DAL.Repositories
 {
-    public class UserRepository : IRepository<User>
+    public class UserRepository : IUserRepository
     {
         private SBContext db;
 
@@ -18,19 +18,30 @@ namespace DAL.Repositories
         {
             this.db = context;
         }
-        public void Create(User item)
+        public bool Create(User item)
         {
-            db.Users.Add(item);
+            try
+            {
+                db.Users.Add(item);
+                return true;
+            }
+            catch { return false; }
         }
 
-        public void Delete(string id)
+        public bool Delete(string id)
         {
-            User user = db.Users.Find(id);
-            if (user != null)
-                db.Users.Remove(user);
+            try
+            {
+                User user = db.Users.Find(id);
+                if (user != null)
+                    db.Users.Remove(user);
+                return true;
+            }
+            catch { return false; }
+            
         }
 
-        public IEnumerable<User> Find(Func<User, bool> predicate)//should be deleted
+        public IQueryable<User> Find(Func<User, bool> predicate)//should be deleted
         {
             return db.Users;
         }
@@ -40,14 +51,20 @@ namespace DAL.Repositories
             return db.Users.Find(id);
         }
 
-        public IEnumerable<User> GetAll()
+        public IQueryable<User> GetAll()
         {
             return db.Users.AsQueryable();
         }
-
-        public void Update(User item)
+        
+        public bool Update(User user)
         {
-            db.Entry(item).State = EntityState.Modified;
+            try
+            {
+                var initialUser = Get(user.Id);
+                db.Entry(initialUser).CurrentValues.SetValues(user);
+                return true;
+            }
+            catch { return false; }
         }
     }
 }

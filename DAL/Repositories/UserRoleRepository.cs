@@ -19,16 +19,26 @@ namespace DAL.Repositories
             this.db = context;
         }
 
-        public void Create(UserRole item)
+        public bool Create(UserRole item)
         {
-            db.UserRoles.Add(item);
+            try
+            {
+                db.UserRoles.Add(item);
+                return true;
+            }
+            catch { return false; }
         }
 
-        public void Delete(string id)
+        public bool Delete(int id)
         {
-            UserRole userRole = db.UserRoles.Find(id);
-            if (userRole != null)
-                db.UserRoles.Remove(userRole);
+            try
+            {
+                UserRole userRole = db.UserRoles.Find(id);
+                if (userRole != null)
+                    db.UserRoles.Remove(userRole);
+                return true;
+            }
+            catch { return false; }
         }
 
         public IEnumerable<UserRole> Find(Func<UserRole, bool> predicate)
@@ -36,7 +46,7 @@ namespace DAL.Repositories
             return db.UserRoles;
         }
 
-        public UserRole Get(string id)
+        public UserRole Get(int id)
         {
             throw new NotImplementedException();
         }
@@ -46,9 +56,14 @@ namespace DAL.Repositories
             return db.UserRoles;
         }
 
-        public void Update(UserRole item)
+        public bool Update(UserRole item)
         {
-            db.Entry(item).State = EntityState.Modified;
+            try
+            {
+                db.Entry(item).State = EntityState.Modified;
+                return true;
+            }
+            catch { return false; }
         }
     }
 }
