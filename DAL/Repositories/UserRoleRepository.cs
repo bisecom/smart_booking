@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace DAL.Repositories
 {
-    public class UserRoleRepository : IRepository<UserRole>
+    public class UserRoleRepository : IRepository<MUserRole>
     {
         private SBContext db;
 
@@ -19,11 +19,11 @@ namespace DAL.Repositories
             this.db = context;
         }
 
-        public bool Create(UserRole item)
+        public bool Create(MUserRole item)
         {
             try
             {
-                db.UserRoles.Add(item);
+                db.MUserRoles.Add(item);
                 return true;
             }
             catch { return false; }
@@ -33,30 +33,30 @@ namespace DAL.Repositories
         {
             try
             {
-                UserRole userRole = db.UserRoles.Find(id);
+                MUserRole userRole = db.MUserRoles.Find(id);
                 if (userRole != null)
-                    db.UserRoles.Remove(userRole);
+                    db.MUserRoles.Remove(userRole);
                 return true;
             }
             catch { return false; }
         }
 
-        public IEnumerable<UserRole> Find(Func<UserRole, bool> predicate)
+        public IEnumerable<MUserRole> Find(Func<MUserRole, bool> predicate)
         {
-            return db.UserRoles;
+            return db.MUserRoles;
         }
 
-        public UserRole Get(int id)
+        public MUserRole Get(int id)
         {
             throw new NotImplementedException();
         }
 
-        public IEnumerable<UserRole> GetAll()
+        public IEnumerable<MUserRole> GetAll()
         {
-            return db.UserRoles;
+            return db.MUserRoles;
         }
 
-        public bool Update(UserRole item)
+        public bool Update(MUserRole item)
         {
             try
             {

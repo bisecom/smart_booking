@@ -1,4 +1,5 @@
 ﻿using BLL.Interfaces;
+using BLL.Utils;
 using smart_booking.BLL.DataTransferModels;
 using System;
 using System.Collections.Generic;
@@ -67,10 +68,10 @@ namespace smart_booking.Controllers
             {
                 return Request.CreateErrorResponse(HttpStatusCode.BadRequest, ex);
             }
-
-        }
-        // POST: api/Users/userDTM
-        public HttpResponseMessage Post([FromBody] UserDTM userDtm)
+            
+    }
+    // POST: api/Users/userDTM
+    public HttpResponseMessage Post([FromBody] UserDTM userDtm)
         {
             try
             {

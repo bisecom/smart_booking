@@ -10,10 +10,10 @@ namespace BLL.Interfaces
     public interface IServiceRepository<T> where T : class
     {
         IEnumerable<T> GetAll();
-        T Get(string id);
+        T Get(int id);
         IEnumerable<T> Find(Func<T, Boolean> predicate);
         bool Create(T item);
         bool Update(T item);
-        bool Delete(string id);
+        bool Delete(int id);
     }
 }

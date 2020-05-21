@@ -32,7 +32,7 @@ namespace DAL.Repositories
             }
         }
 
-        public IRepository<UserRole> UserRoles {
+        public IRepository<MUserRole> MUserRoles {
             get
             {
                 if (userRoleRepository == null)

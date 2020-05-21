@@ -1,18 +1,18 @@
-namespace smart_booking.Migrations
+namespace DAL.Migrations
 {
     using System;
     using System.Data.Entity;
     using System.Data.Entity.Migrations;
     using System.Linq;
 
-    internal sealed class Configuration : DbMigrationsConfiguration<smart_booking.Models.ApplicationDbContext>
+    internal sealed class Configuration : DbMigrationsConfiguration<smart_booking.DAL.EF.SBContext>
     {
         public Configuration()
         {
-            AutomaticMigrationsEnabled = true;
+            AutomaticMigrationsEnabled = false;
         }
 
-        protected override void Seed(smart_booking.Models.ApplicationDbContext context)
+        protected override void Seed(smart_booking.DAL.EF.SBContext context)
         {
             //  This method will be called after migrating to the latest version.
 

@@ -2,13 +2,6 @@
 using System.Threading.Tasks;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
-using smart_booking.Models.business;
-using smart_booking.Models.calendar;
-using smart_booking.Models.user;
-using smart_booking.Models.utils;
-using Microsoft.AspNet.Identity.Owin;
-using smart_booking.Models.database;
-using System.Data.Entity;
 
 namespace smart_booking.Models
 {

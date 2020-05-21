@@ -1,13 +1,6 @@
 ﻿using BLL.Interfaces;
-using smart_booking.BLL.DataTransferModels;
 using smart_booking.Models;
-using smart_booking.Models.user;
-using smart_booking.Models.utils;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Net;
-using System.Net.Http;
 using System.Web.Http;
 
 namespace smart_booking.Controllers

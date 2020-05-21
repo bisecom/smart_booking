@@ -1,6 +1,5 @@
 ﻿using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
-using smart_booking.Models.user;
 using System;
 using System.Collections.Generic;
 using System.Data.Entity;

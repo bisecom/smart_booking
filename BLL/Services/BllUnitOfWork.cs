@@ -13,12 +13,14 @@ namespace BLL.Services
     {
         IUnitOfWork Database { get; set; }
         private UserDTMServiceRepo UsersDtmRepo;
+        private CountryDTMServiceRepo CountriesDtmRepo;
+        private Time_ZoneDTMServiceRepo Time_ZoneDtmRepo;
         public BllUnitOfWork(IUnitOfWork db)
         {
             Database = db;
         }
 
-        public UserDTMServiceRepo UsersDTM
+        public IUserServiceRepository UsersDTM
         {
             get
             {
@@ -28,7 +30,25 @@ namespace BLL.Services
             }
         }
 
-
+        public IServiceRepository<CountryDTM> CountriesDTM
+        {
+            get
+            {
+                if (CountriesDtmRepo == null)
+                    CountriesDtmRepo = new CountryDTMServiceRepo(Database);
+                return CountriesDtmRepo;
+            }
+        }
+        
+        public IServiceRepository<Time_zoneDTM> TimezonesDTM
+        {
+            get
+            {
+                if (Time_ZoneDtmRepo == null)
+                    Time_ZoneDtmRepo = new Time_ZoneDTMServiceRepo(Database);
+                return Time_ZoneDtmRepo;
+            }
+        }
 
         private bool disposed = false;
 

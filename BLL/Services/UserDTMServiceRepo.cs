@@ -34,7 +34,7 @@ namespace BLL.Services
                     Time_ZoneId = userDtm.Time_ZoneId,
                     Birthdate = userDtm.Birthdate,
                     PlanId = userDtm.PlanId,
-                    UserRoleId = userDtm.UserRoleId,
+                    MUserRoleId = userDtm.UserRoleId,
                     City = userDtm.City
                 };
                 if (Database.Users.Update(user))
@@ -82,7 +82,7 @@ namespace BLL.Services
                 Time_ZoneId = user.Time_ZoneId,
                 Birthdate = user.Birthdate,
                 PlanId = user.PlanId,
-                UserRoleId = user.UserRoleId,
+                UserRoleId = user.MUserRoleId,
                 City = user.City
             };
         }
@@ -105,7 +105,7 @@ namespace BLL.Services
                     Time_ZoneId = userDtm.Time_ZoneId,
                     Birthdate = userDtm.Birthdate,
                     PlanId = userDtm.PlanId,
-                    UserRoleId = userDtm.UserRoleId,
+                    MUserRoleId = userDtm.UserRoleId,
                     City = userDtm.City
 
                 };
