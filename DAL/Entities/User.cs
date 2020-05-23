@@ -28,8 +28,8 @@ namespace smart_booking.DAL.Entities
         public byte? PaymentOverdue { get; set; }
         public bool? IsMale { get; set; }
         public DateTime? Birthdate { get; set; }
-        public int? UserRoleId { get; set; }
-        public virtual UserRole UserRole { get; set; }
+        public int? MUserRoleId { get; set; }
+        public virtual MUserRole MUserRole { get; set; }
 
         public virtual ICollection<Employee> Employees { get; set; }
         public User()

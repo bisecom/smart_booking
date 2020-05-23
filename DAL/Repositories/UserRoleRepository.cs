@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace DAL.Repositories
 {
-    public class UserRoleRepository : IRepository<UserRole>
+    public class UserRoleRepository : IRepository<MUserRole>
     {
         private SBContext db;
 
@@ -19,36 +19,51 @@ namespace DAL.Repositories
             this.db = context;
         }
 
-        public void Create(UserRole item)
+        public bool Create(MUserRole item)
         {
-            db.UserRoles.Add(item);
+            try
+            {
+                db.MUserRoles.Add(item);
+                return true;
+            }
+            catch { return false; }
         }
 
-        public void Delete(string id)
+        public bool Delete(int id)
         {
-            UserRole userRole = db.UserRoles.Find(id);
-            if (userRole != null)
-                db.UserRoles.Remove(userRole);
+            try
+            {
+                MUserRole userRole = db.MUserRoles.Find(id);
+                if (userRole != null)
+                    db.MUserRoles.Remove(userRole);
+                return true;
+            }
+            catch { return false; }
         }
 
-        public IEnumerable<UserRole> Find(Func<UserRole, bool> predicate)
+        public IEnumerable<MUserRole> Find(Func<MUserRole, bool> predicate)
         {
-            return db.UserRoles;
+            return db.MUserRoles;
         }
 
-        public UserRole Get(string id)
+        public async Task<MUserRole> Get(int id)
         {
             throw new NotImplementedException();
         }
 
-        public IEnumerable<UserRole> GetAll()
+        public IEnumerable<MUserRole> GetAll()
         {
-            return db.UserRoles;
+            return db.MUserRoles;
         }
 
-        public void Update(UserRole item)
+        public bool Update(MUserRole item)
         {
-            db.Entry(item).State = EntityState.Modified;
+            try
+            {
+                db.Entry(item).State = EntityState.Modified;
+                return true;
+            }
+            catch { return false; }
         }
     }
 }

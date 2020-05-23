@@ -19,16 +19,26 @@ namespace DAL.Repositories
             this.db = context;
         }
 
-        public void Create(Time_zone item)
+        public bool Create(Time_zone item)
         {
-            db.Time_zones.Add(item);
+            try
+            {
+                db.Time_zones.Add(item);
+                return true;
+            }
+            catch { return false; }
         }
 
-        public void Delete(string id)
+        public bool Delete(int id)
         {
-            Time_zone tz = db.Time_zones.Find(id);
-            if (tz != null)
-                db.Time_zones.Remove(tz);
+            try
+            {
+                Time_zone tz = db.Time_zones.Find(id);
+                if (tz != null)
+                    db.Time_zones.Remove(tz);
+                return true;
+            }
+            catch { return false; }
         }
 
         public IEnumerable<Time_zone> Find(Func<Time_zone, bool> predicate)
@@ -36,9 +46,9 @@ namespace DAL.Repositories
             return db.Time_zones;
         }
 
-        public Time_zone Get(string id)
+        public async Task<Time_zone> Get(int id)
         {
-            return db.Time_zones.Find(id);
+            return await db.Time_zones.FindAsync(id);
         }
 
         public IEnumerable<Time_zone> GetAll()
@@ -46,9 +56,14 @@ namespace DAL.Repositories
             return db.Time_zones;
         }
 
-        public void Update(Time_zone item)
+        public bool Update(Time_zone item)
         {
-            db.Entry(item).State = EntityState.Modified;
+            try
+            {
+                db.Entry(item).State = EntityState.Modified;
+                return true;
+            }
+            catch { return false; }
         }
     }
 }

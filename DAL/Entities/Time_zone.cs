@@ -9,6 +9,9 @@ namespace smart_booking.DAL.Entities
     {
         public int Id { get; set; }
         public string Zone { get; set; }
+        public string CountryCode { get; set; }
+        public string UTC_Jan_1_2020 { get; set; }
+        public string DST_Jul_1_2020 { get; set; }
 
         public virtual ICollection<Business> Businesses { get; set; }
         public virtual ICollection<User> Users { get; set; }

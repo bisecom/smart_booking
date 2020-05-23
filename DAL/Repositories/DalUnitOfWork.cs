@@ -23,7 +23,7 @@ namespace DAL.Repositories
             db = new SBContext("SBContext");
         }
 
-        public IRepository<User> Users  {
+        public IUserRepository Users  {
             get
             {
                 if (userRepository == null)
@@ -32,7 +32,7 @@ namespace DAL.Repositories
             }
         }
 
-        public IRepository<UserRole> UserRoles {
+        public IRepository<MUserRole> MUserRoles {
             get
             {
                 if (userRoleRepository == null)
@@ -90,7 +90,7 @@ namespace DAL.Repositories
 
         public void Save()
         {
-            db.SaveChanges();
+            db.SaveChangesAsync();
         }
     }
 }

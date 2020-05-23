@@ -16,9 +16,10 @@ namespace smart_booking.DAL.EF
         public SBContext(string connectionString)
             : base(connectionString)
         { }
+        public SBContext() { }
         public DbSet<User> Users { get; set; }
         public DbSet<Slot> Slots { get; set; }
-        public DbSet<UserRole> UserRoles { get; set; }
+        public DbSet<MUserRole> MUserRoles { get; set; }
         public DbSet<Service> Services { get; set; }
         public DbSet<ServiceCategory> ServiceCategories { get; set; }
         public DbSet<Business> Businesses { get; set; }

@@ -235,45 +235,26 @@
     <Compile Include="Areas\HelpPage\SampleGeneration\TextSample.cs" />
     <Compile Include="Areas\HelpPage\XmlDocumentationProvider.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\BaseApiController.cs" />
+    <Compile Include="Controllers\CountriesController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
-    <Compile Include="Controllers\UserController.cs" />
+    <Compile Include="Controllers\Time_zonesController.cs" />
+    <Compile Include="Controllers\UsersController.cs" />
     <Compile Include="Controllers\ValuesController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\auth\AccountBindingModels.cs" />
     <Compile Include="Models\auth\AccountViewModels.cs" />
     <Compile Include="Models\auth\IdentityModels.cs" />
-    <Compile Include="Models\business\Business.cs" />
-    <Compile Include="Models\business\Client.cs" />
-    <Compile Include="Models\business\Service.cs" />
-    <Compile Include="Models\business\ServiceCategory.cs" />
-    <Compile Include="Models\calendar\Booking.cs" />
-    <Compile Include="Models\calendar\CalendarSetting.cs" />
-    <Compile Include="Models\calendar\Slot.cs" />
     <Compile Include="Models\database\AppDbInitializer.cs" />
-    <Compile Include="Models\database\SBContext.cs" />
-    <Compile Include="Models\database\SmartBookingDbInitializer.cs" />
-    <Compile Include="Models\user\CustomerNotification.cs" />
-    <Compile Include="Models\user\Employee.cs" />
-    <Compile Include="Models\user\Permission.cs" />
-    <Compile Include="Models\user\TeamNotification.cs" />
-    <Compile Include="Models\user\User.cs" />
-    <Compile Include="Models\user\UserRole.cs" />
-    <Compile Include="Models\user\WorkingBreak.cs" />
-    <Compile Include="Models\user\WorkingHour.cs" />
-    <Compile Include="Models\utils\Country.cs" />
-    <Compile Include="Models\utils\Currency.cs" />
-    <Compile Include="Models\utils\PageLanguage.cs" />
-    <Compile Include="Models\utils\Time_zone.cs" />
-    <Compile Include="Models\utils\UtilData.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Providers\ApplicationOAuthProvider.cs" />
     <Compile Include="Results\ChallengeResult.cs" />
     <Compile Include="Startup.cs" />
     <Compile Include="Utils\AutofacConfig.cs" />
     <Compile Include="Utils\AutofacWebModule.cs" />
+    <Compile Include="Utils\SeedDbUponRequest.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Areas\HelpPage\HelpPage.css" />

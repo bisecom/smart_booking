@@ -1,4 +1,5 @@
-﻿using BLL.Interfaces;
+﻿using AutoMapper;
+using BLL.Interfaces;
 using BLL.Utils;
 using DAL.Interfaces;
 using smart_booking.BLL.DataTransferModels;
@@ -11,7 +12,7 @@ using System.Threading.Tasks;
 
 namespace BLL.Services
 {
-    public class UserDTMServiceRepo : IServiceRepository<UserDTM>
+    public class UserDTMServiceRepo : IUserServiceRepository
     {
         IUnitOfWork Database { get; set; }
 
@@ -19,30 +20,49 @@ namespace BLL.Services
         {
             Database = uow;
         }
-
-        public IQueryable<UserDTM> GetUsers()
-        {
-            throw new NotImplementedException();
-        }
-
+       
         public bool Update(UserDTM userDtm)
         {
-            throw new NotImplementedException();
+            try
+            {
+                User user = new User
+                {
+                    Id = userDtm.Id,
+                    FirstName = userDtm.FirstName,
+                    SecondName = userDtm.SecondName,
+                    CountryId = userDtm.CountryId,
+                    Time_ZoneId = userDtm.Time_ZoneId,
+                    Birthdate = userDtm.Birthdate,
+                    PlanId = userDtm.PlanId,
+                    MUserRoleId = userDtm.UserRoleId,
+                    City = userDtm.City
+                };
+                if (Database.Users.Update(user))
+                {
+                    Database.Save();
+                    return true;
+                }
+                return false;
+            }
+            catch { return false; }
         }
 
         public bool Delete(string id)
         {
-            throw new NotImplementedException();
+            try
+            {
+                Database.Users.Delete(id);
+                Database.Save();
+                return true;
+            }
+            catch { return false; }
         }
 
-        public void Dispose()
+        public IQueryable<UserDTM> GetAll()
         {
-            Database.Dispose();
-        }
-
-        public IEnumerable<UserDTM> GetAll()
-        {
-            throw new NotImplementedException();
+            var config = new MapperConfiguration(cfg => cfg.CreateMap<User, UserDTM>());
+            var mapper = new Mapper(config);
+            return mapper.Map<IQueryable<User>, IQueryable<UserDTM>>(Database.Users.GetAll());
         }
 
         public UserDTM Get(string id)
@@ -62,12 +82,12 @@ namespace BLL.Services
                 Time_ZoneId = user.Time_ZoneId,
                 Birthdate = user.Birthdate,
                 PlanId = user.PlanId,
-                UserRoleId = user.UserRoleId,
+                UserRoleId = user.MUserRoleId,
                 City = user.City
             };
         }
 
-        public IEnumerable<UserDTM> Find(Func<UserDTM, bool> predicate)
+        public IQueryable<UserDTM> Find(Func<UserDTM, bool> predicate)
         {
             throw new NotImplementedException();
         }
@@ -83,9 +103,9 @@ namespace BLL.Services
                     SecondName = userDtm.SecondName,
                     CountryId = userDtm.CountryId,
                     Time_ZoneId = userDtm.Time_ZoneId,
-                    Birthdate = DateTime.Now,
+                    Birthdate = userDtm.Birthdate,
                     PlanId = userDtm.PlanId,
-                    UserRoleId = userDtm.UserRoleId,
+                    MUserRoleId = userDtm.UserRoleId,
                     City = userDtm.City
 
                 };
@@ -94,6 +114,11 @@ namespace BLL.Services
                 return true;
             }
             catch { return false; }
+        }
+
+        public void Dispose()
+        {
+            Database.Dispose();
         }
     }
 }
