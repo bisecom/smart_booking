@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using System.Web;
 using System.Web.Http;
 using System.Web.Http.ModelBinding;
+using BLL.Interfaces;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
 using Microsoft.AspNet.Identity.Owin;
@@ -16,6 +17,7 @@ using Microsoft.Owin.Security;
 using Microsoft.Owin.Security.Cookies;
 using Microsoft.Owin.Security.DataProtection;
 using Microsoft.Owin.Security.OAuth;
+using smart_booking.BLL.DataTransferModels;
 using smart_booking.Models;
 using smart_booking.Providers;
 using smart_booking.Results;
@@ -24,17 +26,28 @@ namespace smart_booking.Controllers
 {
     [Authorize]
     [RoutePrefix("api/Account")]
-    public class AccountController : ApiController
+    public class AccountController : BaseApiController
     {
+        public AccountController(IUnitOfWorkService repo)
+            : base(repo) { }
+
         private const string LocalLoginProvider = "Local";
         private ApplicationUserManager _userManager;
 
-        public AccountController()
-        {
-        }
+        //public AccountController()
+        //{
+        //}
+
+        //public AccountController(ApplicationUserManager userManager,
+        //    ISecureDataFormat<AuthenticationTicket> accessTokenFormat)
+        //{
+        //    UserManager = userManager;
+        //    AccessTokenFormat = accessTokenFormat;
+        //}
 
         public AccountController(ApplicationUserManager userManager,
-            ISecureDataFormat<AuthenticationTicket> accessTokenFormat)
+           ISecureDataFormat<AuthenticationTicket> accessTokenFormat, IUnitOfWorkService repo)
+            : base(repo)
         {
             UserManager = userManager;
             AccessTokenFormat = accessTokenFormat;
@@ -128,7 +141,7 @@ namespace smart_booking.Controllers
 
             IdentityResult result = await UserManager.ChangePasswordAsync(User.Identity.GetUserId(), model.OldPassword,
                 model.NewPassword);
-            
+
             if (!result.Succeeded)
             {
                 return GetErrorResult(result);
@@ -261,9 +274,9 @@ namespace smart_booking.Controllers
             if (hasRegistered)
             {
                 Authentication.SignOut(DefaultAuthenticationTypes.ExternalCookie);
-                
-                 ClaimsIdentity oAuthIdentity = await user.GenerateUserIdentityAsync(UserManager,
-                    OAuthDefaults.AuthenticationType);
+
+                ClaimsIdentity oAuthIdentity = await user.GenerateUserIdentityAsync(UserManager,
+                   OAuthDefaults.AuthenticationType);
                 ClaimsIdentity cookieIdentity = await user.GenerateUserIdentityAsync(UserManager,
                     CookieAuthenticationDefaults.AuthenticationType);
 
@@ -337,6 +350,7 @@ namespace smart_booking.Controllers
                 var user = new ApplicationUser() { UserName = model.Email, Email = model.Email, FirstName = model.FirstName };
                 result = await UserManager.CreateAsync(user, model.Password);
 
+
                 if (result.Succeeded)
                 {
                     // генерируем токен для подтверждения регистрации
@@ -353,7 +367,11 @@ namespace smart_booking.Controllers
                     await UserManager.SendEmailAsync(user.Id, "Подтверждение электронной почты",
                                "Для завершения регистрации перейдите по ссылке:: <a href=\""
                                                                + callbackUrl + "\">завершить регистрацию</a>");
-                    
+
+                    UserDTM newUser = new UserDTM();
+                    newUser.Id = user.Id; newUser.FirstName = user.FirstName;
+                    await UserManager.AddToRoleAsync(user.Id, "FreeMember");
+                    TheRepo.UsersDTM.Create(newUser);
                 }
 
             }
@@ -391,7 +409,7 @@ namespace smart_booking.Controllers
             //        IdentityMessage message = new IdentityMessage { Destination = to, Subject = "Account Confirmation", Body = body };
             //        await emailService.SendAsync(message);
             //            //emailService.GenerateEmailHistoryEntry(message, user.Email, client, "Email Confirmation");
-                    
+
             //    }
             //    catch (Exception)
             //    {
@@ -402,9 +420,20 @@ namespace smart_booking.Controllers
             //}
 
 
-                //-----------------------------
-                return Ok();
+            //-----------------------------
+            return Ok();
         }
+
+        // POST api/Account/RemoveUser
+        [AllowAnonymous]
+        [Route("RemoveUser")]
+        public async Task<IHttpActionResult> RemoveUser([FromBody] int id)
+        {
+            string userId = RequestContext.Principal.Identity.GetUserId();
+
+            return Ok();
+        }
+
 
         // POST api/Account/RegisterExternal
         [OverrideAuthentication]
@@ -434,7 +463,7 @@ namespace smart_booking.Controllers
             result = await UserManager.AddLoginAsync(user.Id, info.Login);
             if (!result.Succeeded)
             {
-                return GetErrorResult(result); 
+                return GetErrorResult(result);
             }
             return Ok();
         }
@@ -553,6 +582,25 @@ namespace smart_booking.Controllers
                 _random.GetBytes(data);
                 return HttpServerUtility.UrlTokenEncode(data);
             }
+        }
+        // POST api/Account/SeedAuth
+        [AllowAnonymous]
+        [Route("GetSeedAuth")]
+        public async Task<IHttpActionResult> GetSeedAuth()
+        {
+            var context = new ApplicationDbContext();
+            var roleStore = new RoleStore<IdentityRole>(context);
+            var roleManager = new RoleManager<IdentityRole>(roleStore);
+
+            //await roleManager.CreateAsync(new IdentityRole { Name = "Admin" });
+            //await roleManager.CreateAsync(new IdentityRole { Name = "Moderator" });
+            //await roleManager.CreateAsync(new IdentityRole { Name = "FreeMember" });
+            //await roleManager.CreateAsync(new IdentityRole { Name = "GoldMember" });
+            //await roleManager.CreateAsync(new IdentityRole { Name = "PlatinumMember" });
+
+            //await UserManager.AddToRoleAsync("c6421275-15c4-42d4-9078-06ac50a4e0ba", "Admin");
+            //https://stackoverflow.com/questions/21734345/how-to-create-roles-and-add-users-to-roles-in-asp-net-mvc-web-api
+            return Ok();
         }
 
         #endregion

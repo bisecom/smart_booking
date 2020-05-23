@@ -46,9 +46,9 @@ namespace DAL.Repositories
             return db.Employees;
         }
 
-        public Employee Get(int id)
+        public async Task<Employee> Get(int id)
         {
-            return db.Employees.Find(id);
+            return await db.Employees.FindAsync(id);
         }
 
         public IEnumerable<Employee> GetAll()

@@ -46,9 +46,9 @@ namespace DAL.Repositories
             return db.Time_zones;
         }
 
-        public Time_zone Get(int id)
+        public async Task<Time_zone> Get(int id)
         {
-            return db.Time_zones.Find(id);
+            return await db.Time_zones.FindAsync(id);
         }
 
         public IEnumerable<Time_zone> GetAll()

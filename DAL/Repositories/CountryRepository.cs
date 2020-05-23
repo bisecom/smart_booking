@@ -46,9 +46,9 @@ namespace DAL.Repositories
             return db.Countries;
         }
 
-        public Country Get(int id)
+        public async Task<Country> Get(int id)
         {
-            return db.Countries.Find(id);
+            return await db.Countries.FindAsync(id);
         }
 
         public IEnumerable<Country> GetAll()

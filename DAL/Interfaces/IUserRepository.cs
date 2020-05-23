@@ -10,7 +10,7 @@ namespace DAL.Interfaces
     public interface IUserRepository
     {
         IQueryable<User> GetAll();
-        User Get(string id);
+        Task<User> Get(string id);
         IQueryable<User> Find(Func<User, Boolean> predicate);
         bool Create(User item);
         bool Update(User item);

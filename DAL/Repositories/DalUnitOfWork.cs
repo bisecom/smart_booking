@@ -90,7 +90,7 @@ namespace DAL.Repositories
 
         public void Save()
         {
-            db.SaveChanges();
+            db.SaveChangesAsync();
         }
     }
 }

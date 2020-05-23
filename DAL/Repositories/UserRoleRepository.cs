@@ -46,7 +46,7 @@ namespace DAL.Repositories
             return db.MUserRoles;
         }
 
-        public MUserRole Get(int id)
+        public async Task<MUserRole> Get(int id)
         {
             throw new NotImplementedException();
         }

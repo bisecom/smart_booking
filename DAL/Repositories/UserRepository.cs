@@ -46,9 +46,9 @@ namespace DAL.Repositories
             return db.Users;
         }
 
-        public User Get(string id)
+        public async Task<User> Get(string id)
         {
-            return db.Users.Find(id);
+            return await db.Users.FindAsync(id);
         }
 
         public IQueryable<User> GetAll()
