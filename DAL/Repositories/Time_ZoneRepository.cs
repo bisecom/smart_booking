@@ -56,11 +56,12 @@ namespace DAL.Repositories
             return db.Time_zones;
         }
 
-        public bool Update(Time_zone item)
+        public async Task<bool> Update(Time_zone item)
         {
             try
             {
-                db.Entry(item).State = EntityState.Modified;
+                var initialTz = await Get(item.Id);
+                db.Entry(initialTz).CurrentValues.SetValues(item);
                 return true;
             }
             catch { return false; }

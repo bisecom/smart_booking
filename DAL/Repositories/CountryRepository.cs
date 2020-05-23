@@ -56,11 +56,12 @@ namespace DAL.Repositories
             return db.Countries;
         }
 
-        public bool Update(Country item)
+        public async Task<bool> Update(Country item)
         {
             try
             {
-                db.Entry(item).State = EntityState.Modified;
+                var initialCountry = await Get(item.Id);
+                db.Entry(initialCountry).CurrentValues.SetValues(item);
                 return true;
             }
             catch { return false; }

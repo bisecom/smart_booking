@@ -70,14 +70,14 @@ namespace BLL.Services
             GC.SuppressFinalize(this);
         }
 
-        public bool SaveChanges()
-        {
-            try
-            {
-                Database.Save();
-                return true;
-            }
-            catch { return false; }
-        }
+        //public bool SaveChanges()
+        //{
+        //    try
+        //    {
+        //        Database.Save();
+        //        return true;
+        //    }
+        //    catch { return false; }
+        //}
     }
 }

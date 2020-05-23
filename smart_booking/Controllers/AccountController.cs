@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Configuration;
+using System.Net;
 using System.Net.Http;
 using System.Net.Mail;
 using System.Security.Claims;
@@ -426,12 +427,36 @@ namespace smart_booking.Controllers
 
         // POST api/Account/RemoveUser
         [AllowAnonymous]
-        [Route("RemoveUser")]
-        public async Task<IHttpActionResult> RemoveUser([FromBody] int id)
+        //[Route("RemoveUser")]
+        public async Task<HttpResponseMessage> Delete(string id)
         {
-            string userId = RequestContext.Principal.Identity.GetUserId();
+            try
+            {
+                var userDtm = await TheRepo.UsersDTM.Get(id);
 
-            return Ok();
+                if (userDtm == null)
+                {
+                    return Request.CreateResponse(HttpStatusCode.NotFound);
+                }
+
+                if (TheRepo.UsersDTM.Delete(userDtm.Id) /*&& TheRepo.SaveChanges()*/)
+                {
+                    var userToDelete = await UserManager.FindByIdAsync(id);
+                    if (userToDelete != null)
+                        await UserManager.DeleteAsync(userToDelete);
+
+                    return Request.CreateResponse(HttpStatusCode.OK);
+                }
+                else
+                {
+                    return Request.CreateResponse(HttpStatusCode.BadRequest);
+                }
+
+            }
+            catch (Exception ex)
+            {
+                return Request.CreateErrorResponse(HttpStatusCode.BadRequest, ex.Message);
+            }
         }
 
 

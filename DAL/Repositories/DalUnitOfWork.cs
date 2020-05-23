@@ -88,9 +88,9 @@ namespace DAL.Repositories
             GC.SuppressFinalize(this);
         }
 
-        public void Save()
+        public async void Save()
         {
-            db.SaveChangesAsync();
+            await db.SaveChangesAsync();
         }
     }
 }

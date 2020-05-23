@@ -17,6 +17,6 @@ namespace BLL.Interfaces
         IServiceRepository<Time_zoneDTM> TimezonesDTM { get; }
         //IServiceRepository<UserDTM> UsersDTM { get; }
 
-        bool SaveChanges();
+        //bool SaveChanges();
     }
 }

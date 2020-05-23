@@ -56,11 +56,12 @@ namespace DAL.Repositories
             throw new NotImplementedException();
         }
 
-        public bool Update(Employee item)
+        public async Task<bool> Update(Employee item)
         {
             try
             {
-                db.Entry(item).State = EntityState.Modified;
+                var initialEmpl = await Get(item.Id);
+                db.Entry(initialEmpl).CurrentValues.SetValues(item);
                 return true;
             }
             catch { return false; }

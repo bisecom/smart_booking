@@ -36,7 +36,6 @@ namespace BLL.Services
                     };
 
                 Database.Countries.Create(country);
-                Database.Save();
                 return true;
             }
             catch { return false; }
@@ -52,7 +51,7 @@ namespace BLL.Services
             throw new NotImplementedException();
         }
 
-        public CountryDTM Get(int id)
+        public async Task<CountryDTM> Get(int id)
         {
             throw new NotImplementedException();
         }

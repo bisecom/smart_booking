@@ -56,11 +56,12 @@ namespace DAL.Repositories
             return db.MUserRoles;
         }
 
-        public bool Update(MUserRole item)
+        public async Task<bool> Update(MUserRole item)
         {
             try
             {
-                db.Entry(item).State = EntityState.Modified;
+                var initialUserRole = await Get(item.Id);
+                db.Entry(initialUserRole).CurrentValues.SetValues(item);
                 return true;
             }
             catch { return false; }

@@ -10,10 +10,10 @@ namespace BLL.Interfaces
     public interface IUserServiceRepository
     {
         IQueryable<UserDTM> GetAll();
-        UserDTM Get(string id);
+        Task <UserDTM> Get(string id);
         IQueryable<UserDTM> Find(Func<UserDTM, Boolean> predicate);
         bool Create(UserDTM item);
-        bool Update(UserDTM item);
+        void Update(UserDTM item);
         bool Delete(string id);
     }
 }

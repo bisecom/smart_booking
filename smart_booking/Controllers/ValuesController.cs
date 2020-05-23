@@ -1,11 +1,13 @@
 ﻿using BLL.Interfaces;
 using smart_booking.Models;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using System.Web.Http;
 
 namespace smart_booking.Controllers
 {
-    [Authorize]
+    //[Authorize]
+    [AllowAnonymous]
     public class ValuesController : ApiController
     {
         IUnitOfWorkService db;
@@ -26,7 +28,7 @@ namespace smart_booking.Controllers
         //    return new string[] { "value1", "value2" };
         //}
 
-        public /*IEnumerable<User>*/ /*List<string>*/ string Get()
+        public /*IEnumerable<User>*/ /*List<string>*/ async Task<string> Get()
         {
             //db.UserRoles.Add(new UserRole { Name = "TestRole" });
             //db.Countries.Add(new Country { Name = "USA", PhonePrefix = "011" });
@@ -62,10 +64,18 @@ namespace smart_booking.Controllers
             //    showList.Add(usersList[i].FirstName);
             //    showList.Add(usersList[i].SecondName);
             //}
+            string str = "";
 
-            var user = db.UsersDTM.Get("DfR5DFSV");
-            string str = user.FirstName + " " + user.SecondName;
+            var user = await db.UsersDTM.Get("DfR5DFSV");
 
+            if (user != null)
+            {
+                str = user.FirstName + " " + user.SecondName;
+            }
+            else
+            {
+                str = "Hello World!";
+            }
             //var user = bdAuth.Users.FirstOrDefault();
             //string userData = user.FirstName + " " + user.Email;
 

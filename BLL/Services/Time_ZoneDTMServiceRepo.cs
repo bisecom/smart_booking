@@ -31,7 +31,7 @@ namespace BLL.Services
                 };
 
                 Database.Time_zones.Create(zone);
-                Database.Save();
+                //Database.Save();
                 return true;
             }
             catch { return false; }
@@ -47,7 +47,7 @@ namespace BLL.Services
             throw new NotImplementedException();
         }
 
-        public Time_zoneDTM Get(int id)
+        public async Task<Time_zoneDTM> Get(int id)
         {
             throw new NotImplementedException();
         }

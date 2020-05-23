@@ -14,7 +14,6 @@ namespace DAL.Interfaces
         IRepository<Employee> Employees { get; }
         IRepository<Country> Countries { get; }
         IRepository<Time_zone> Time_zones { get; }
-
-        void Save();
+       
     }
 }

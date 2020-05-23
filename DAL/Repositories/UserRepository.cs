@@ -18,27 +18,31 @@ namespace DAL.Repositories
         {
             this.db = context;
         }
-        public bool Create(User item)
+        public async Task<bool> Create(User item)
         {
             try
             {
                 db.Users.Add(item);
+                await db.SaveChangesAsync();
                 return true;
             }
             catch { return false; }
         }
 
-        public bool Delete(string id)
+        public async Task<bool> Delete(string id)
         {
             try
             {
-                User user = db.Users.Find(id);
+                User user = await db.Users.FindAsync(id);
                 if (user != null)
+                {
                     db.Users.Remove(user);
-                return true;
+                    db.SaveChanges();
+                    return true;
+                }
             }
-            catch { return false; }
-            
+            catch(Exception ex) {  }
+            return false;
         }
 
         public IQueryable<User> Find(Func<User, bool> predicate)//should be deleted
@@ -56,15 +60,41 @@ namespace DAL.Repositories
             return db.Users.AsQueryable();
         }
         
-        public bool Update(User user)
+        public async Task<bool> Update(User user)
         {
             try
             {
-                var initialUser = Get(user.Id);
-                db.Entry(initialUser).CurrentValues.SetValues(user);
-                return true;
+                //var initialUser = await Get(user.Id);
+                //db.Entry(initialUser).CurrentValues.SetValues(user);
+                //db.Users.Add(user);
+                //db.Entry(user).State = EntityState.Modified;
+                //return true;
+                var initialUser = await Get(user.Id);
+                if (initialUser != null)
+                {
+                    initialUser.FirstName = user.FirstName;
+                    initialUser.SecondName = user.SecondName;
+                    initialUser.PhoneMobile = user.PhoneMobile;
+                    initialUser.PhoneOffice = user.PhoneOffice;
+                    initialUser.CountryId = user.CountryId;
+                    initialUser.Time_ZoneId = user.Time_ZoneId;
+                    initialUser.UserPicture = user.UserPicture;
+                    initialUser.Address = user.Address;
+                    initialUser.City = user.City;
+                    initialUser.State = user.State;
+                    initialUser.ZipCode = user.ZipCode;
+                    initialUser.PlanId = user.PlanId;
+                    initialUser.PaymentOverdue = user.PaymentOverdue;
+                    initialUser.IsMale = user.IsMale;
+                    initialUser.Birthdate = user.Birthdate;
+                    initialUser.MUserRoleId = user.MUserRoleId;
+                    db.SaveChanges();
+                    return true;
+                }
             }
-            catch { return false; }
+            catch(Exception ex)
+            { }
+            return false;
         }
     }
 }

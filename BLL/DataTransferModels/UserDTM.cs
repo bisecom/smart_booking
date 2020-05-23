@@ -21,6 +21,6 @@ namespace smart_booking.BLL.DataTransferModels
         public byte? PaymentOverdue { get; set; }
         public bool? IsMale { get; set; }
         public DateTime? Birthdate { get; set; }
-        public int? UserRoleId { get; set; }
+        public int? MUserRoleId { get; set; }
     }
 }
