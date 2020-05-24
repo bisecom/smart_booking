@@ -76,8 +76,10 @@ namespace DAL.Repositories
                     initialUser.SecondName = user.SecondName;
                     initialUser.PhoneMobile = user.PhoneMobile;
                     initialUser.PhoneOffice = user.PhoneOffice;
-                    initialUser.CountryId = user.CountryId;
-                    initialUser.Time_ZoneId = user.Time_ZoneId;
+                    //initialUser.CountryId = user.CountryId;
+                    initialUser.Country = db.Countries.Find(user.CountryId);
+                    //initialUser.Time_ZoneId = user.Time_ZoneId;
+                    initialUser.Time_zone = db.Time_zones.Find(user.Time_ZoneId);
                     initialUser.UserPicture = user.UserPicture;
                     initialUser.Address = user.Address;
                     initialUser.City = user.City;

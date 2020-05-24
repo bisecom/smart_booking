@@ -44,11 +44,15 @@ namespace BLL.Services
             catch { return false; }
         }
 
-        public IQueryable<UserDTM> GetAll()
+        public async Task<List<UserDTM>> GetAll(SearchParams search)
         {
             var config = new MapperConfiguration(cfg => cfg.CreateMap<User, UserDTM>());
             var mapper = new Mapper(config);
-            return mapper.Map<IQueryable<User>, IQueryable<UserDTM>>(Database.Users.GetAll());
+            return await Task.Run( () => (mapper.Map<List<UserDTM>>(
+                 Database.Users.GetAll()
+                .OrderBy(u => u.SecondName)
+                .Skip(search.PageSize * search.Page)
+                .Take(search.PageSize))));
         }
 
         public async Task <UserDTM> Get(string id)
@@ -64,6 +68,14 @@ namespace BLL.Services
             return mapper.Map<UserDTM>(user);
         }
 
+        //public static bool test(UserDTM u)
+        //{
+        //    return true;
+        //}
+
+        //Func<UserDTM, bool> myTest = test;
+
+
         public IQueryable<UserDTM> Find(Func<UserDTM, bool> predicate)
         {
             throw new NotImplementedException();
@@ -71,6 +83,8 @@ namespace BLL.Services
 
         public bool Create(UserDTM userDtm)
         {
+            //Find(myTest);
+
             try
             {
                 User user = new User

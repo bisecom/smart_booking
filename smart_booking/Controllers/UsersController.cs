@@ -20,36 +20,10 @@ namespace smart_booking.Controllers
             : base(repo) { }
 
         // GET: api/Users
-        public IEnumerable<UserDTM> Get(int page = 0, int pageSize = 10)
+        public async Task<List<UserDTM>> Get(SearchParams mSearch)
         {
-            IQueryable<UserDTM> query;
-
-            query = TheRepo.UsersDTM.GetAll().OrderBy(c => c.SecondName);
-
-            var totalCount = query.Count();
-            var totalPages = (int)Math.Ceiling((double)totalCount / pageSize);
-
-            //var urlHelper = new UrlHelper(Request);
-            //var prevLink = page > 0 ? urlHelper.Link("Students", new { page = page - 1, pageSize = pageSize }) : "";
-            //var nextLink = page < totalPages - 1 ? urlHelper.Link("Students", new { page = page + 1, pageSize = pageSize }) : "";
-
-            //var paginationHeader = new
-            //{
-            //    TotalCount = totalCount,
-            //    TotalPages = totalPages,
-            //    PrevPageLink = prevLink,
-            //    NextPageLink = nextLink
-            //};
-
-            //System.Web.HttpContext.Current.Response.Headers.Add("X-Pagination",
-            //                                                    Newtonsoft.Json.JsonConvert.SerializeObject(paginationHeader));
-
-            var results = query
-                        .Skip(pageSize * page)
-                        .Take(pageSize)
-                        .ToList();
-
-            return results;
+            List<UserDTM> query = await TheRepo.UsersDTM.GetAll(mSearch);
+            return query;
         }
 
         // GET: api/Users/string

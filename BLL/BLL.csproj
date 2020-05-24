@@ -95,6 +95,7 @@
     <Compile Include="Services\Time_ZoneDTMServiceRepo.cs" />
     <Compile Include="Services\UserDTMServiceRepo.cs" />
     <Compile Include="Utils\AutofacBllModule.cs" />
+    <Compile Include="Utils\SearchParams.cs" />
     <Compile Include="Utils\ValidationException.cs" />
   </ItemGroup>
   <ItemGroup>

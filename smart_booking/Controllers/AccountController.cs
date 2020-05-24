@@ -371,7 +371,7 @@ namespace smart_booking.Controllers
 
                     UserDTM newUser = new UserDTM();
                     newUser.Id = user.Id; newUser.FirstName = user.FirstName;
-                    await UserManager.AddToRoleAsync(user.Id, "FreeMember");
+                    await UserManager.AddToRoleAsync(user.Id, "Admin"); //FreeMember
                     TheRepo.UsersDTM.Create(newUser);
                 }
 
