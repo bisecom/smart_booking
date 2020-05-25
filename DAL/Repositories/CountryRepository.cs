@@ -19,31 +19,33 @@ namespace DAL.Repositories
             this.db = context;
         }
 
-        public bool Create(Country item)
+        public async Task<bool> Create(Country item)
         {
             try
             {
                 db.Countries.Add(item);
+                await db.SaveChangesAsync();
                 return true;
             }
             catch { return false; }
         }
 
-        public bool Delete(int id)
+        public async Task<bool> Delete(int id)
         {
             try
             {
-                Country country = db.Countries.Find(id);
+                Country country = await db.Countries.FindAsync(id);
                 if (country != null)
                     db.Countries.Remove(country);
+                    db.SaveChanges();
                 return true;
             }
             catch { return false; }
         }
 
-        public IEnumerable<Country> Find(Func<Country, bool> predicate)
+        public IQueryable<Country> Find(Func<Country, bool> predicate)
         {
-            return db.Countries;
+            return db.Countries.AsQueryable();
         }
 
         public async Task<Country> Get(int id)
@@ -51,9 +53,9 @@ namespace DAL.Repositories
             return await db.Countries.FindAsync(id);
         }
 
-        public IEnumerable<Country> GetAll()
+        public IQueryable<Country> GetAll()
         {
-            return db.Countries;
+            return db.Countries.AsQueryable();
         }
 
         public async Task<bool> Update(Country item)
@@ -62,6 +64,7 @@ namespace DAL.Repositories
             {
                 var initialCountry = await Get(item.Id);
                 db.Entry(initialCountry).CurrentValues.SetValues(item);
+                db.SaveChanges();
                 return true;
             }
             catch { return false; }

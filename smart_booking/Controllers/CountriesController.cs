@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
+using System.Threading.Tasks;
 using System.Web.Http;
 
 namespace smart_booking.Controllers
@@ -46,24 +47,17 @@ namespace smart_booking.Controllers
                 return Request.CreateResponse(HttpStatusCode.OK, 1);
         }
         // POST: api/Countries/countryDtm
-        public HttpResponseMessage Post([FromBody] CountryDTM countryDtm)
+        public async Task<HttpResponseMessage> Post([FromBody] CountryDTM countryDtm)
         {
             try
             {
-                if (TheRepo.CountriesDTM.Create(countryDtm))
-                {
-                    return Request.CreateResponse(HttpStatusCode.Created, countryDtm);
-                }
-                else
-                {
-                    return Request.CreateErrorResponse(HttpStatusCode.BadRequest, "Could not save to the database.");
-                }
+                int id = await TheRepo.CountriesDTM.Create(countryDtm);
+                return Request.CreateResponse(HttpStatusCode.Created, id);
             }
             catch (Exception ex)
             {
                 return Request.CreateErrorResponse(HttpStatusCode.BadRequest, ex);
             }
-
         }
     }
 }

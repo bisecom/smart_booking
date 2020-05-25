@@ -31,7 +31,8 @@ namespace BLL.Services
 
                 await Database.Users.Update(user);
             }
-            catch (Exception ex){  }
+            catch (Exception ex){ Console.Out.WriteLine(ex.Message); }
+
         }
 
         public bool Delete(string id)

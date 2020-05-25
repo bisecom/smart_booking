@@ -13,10 +13,13 @@ namespace DAL.Repositories
     {
         private SBContext db;
         private UserRepository userRepository;
+        private BusinessRepository businessRepository;
         private EmployeeRepository employeeRepository;
         private CountryRepository countryRepository;
-        private UserRoleRepository userRoleRepository;
+        //private UserRoleRepository userRoleRepository;
         private Time_ZoneRepository time_zoneRepository;
+        private BookingRepository bookingRepository;
+        private CurrencyRepository currencyRepository;
 
         public DalUnitOfWork()
         { 
@@ -32,16 +35,17 @@ namespace DAL.Repositories
             }
         }
 
-        public IRepository<MUserRole> MUserRoles {
-            get
-            {
-                if (userRoleRepository == null)
-                    userRoleRepository = new UserRoleRepository(db);
-                return userRoleRepository;
-            }
-        }
+        //public IRepository<MUserRole> MUserRoles {
+        //    get
+        //    {
+        //        if (userRoleRepository == null)
+        //            userRoleRepository = new UserRoleRepository(db);
+        //        return userRoleRepository;
+        //    }
+        //}
 
-        public IRepository<Employee> Employees {
+        public IRepository<Employee> Employees
+        {
             get
             {
                 if (employeeRepository == null)
@@ -49,6 +53,37 @@ namespace DAL.Repositories
                 return employeeRepository;
             }
         }
+         
+        public IRepository<Currency> Currencies
+        {
+            get
+            {
+                if (currencyRepository == null)
+                    currencyRepository = new CurrencyRepository(db);
+                return currencyRepository;
+            }
+        }
+
+        public IRepository<Booking> Bookings
+        {
+            get
+            {
+                if (bookingRepository == null)
+                    bookingRepository = new BookingRepository(db);
+                return bookingRepository;
+            }
+        }
+
+        public IRepository<Business> Businesses
+        {
+            get
+            {
+                if (businessRepository == null)
+                    businessRepository = new BusinessRepository(db);
+                return businessRepository;
+            }
+        }
+
 
         public IRepository<Country> Countries {
             get

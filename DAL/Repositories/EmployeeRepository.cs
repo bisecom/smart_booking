@@ -19,31 +19,33 @@ namespace DAL.Repositories
             this.db = context;
         }
 
-        public bool Create(Employee item)
+        public async Task<bool> Create(Employee item)
         {
             try
             {
                 db.Employees.Add(item);
+                await db.SaveChangesAsync();
                 return true;
             }
             catch { return false; }
         }
 
-        public bool Delete(int id)
+        public async Task<bool> Delete(int id)
         {
             try
             {
-                Employee empl = db.Employees.Find(id);
+                Employee empl = await db.Employees.FindAsync(id);
                 if (empl != null)
                     db.Employees.Remove(empl);
+                    db.SaveChanges();
                 return true;
             }
             catch { return false; }
         }
 
-        public IEnumerable<Employee> Find(Func<Employee, bool> predicate)
+        public IQueryable<Employee> Find(Func<Employee, bool> predicate)
         {
-            return db.Employees;
+            return db.Employees.AsQueryable();
         }
 
         public async Task<Employee> Get(int id)
@@ -51,9 +53,9 @@ namespace DAL.Repositories
             return await db.Employees.FindAsync(id);
         }
 
-        public IEnumerable<Employee> GetAll()
+        public IQueryable<Employee> GetAll()
         {
-            throw new NotImplementedException();
+            return db.Employees.AsQueryable();
         }
 
         public async Task<bool> Update(Employee item)
@@ -62,6 +64,7 @@ namespace DAL.Repositories
             {
                 var initialEmpl = await Get(item.Id);
                 db.Entry(initialEmpl).CurrentValues.SetValues(item);
+                db.SaveChanges();
                 return true;
             }
             catch { return false; }

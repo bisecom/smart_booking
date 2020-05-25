@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace DAL.Repositories
 {
-    public class UserRoleRepository : IRepository<MUserRole>
+    public class UserRoleRepository /*: IRepository<MUserRole>*/
     {
         private SBContext db;
 

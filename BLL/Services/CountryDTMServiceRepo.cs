@@ -1,4 +1,6 @@
-﻿using BLL.Interfaces;
+﻿using AutoMapper;
+using BLL.Interfaces;
+using BLL.Utils;
 using DAL.Interfaces;
 using smart_booking.BLL.DataTransferModels;
 using smart_booking.DAL.Entities;
@@ -19,7 +21,7 @@ namespace BLL.Services
             Database = uow;
         }
 
-        public bool Create(CountryDTM item)
+        public async Task<int> Create(CountryDTM item)
         {
             try
             {
@@ -35,35 +37,74 @@ namespace BLL.Services
                     EmojiU = item.EmojiU
                     };
 
-                Database.Countries.Create(country);
+                await Database.Countries.Create(country);
+                return country.Id;
+            }
+            catch { return 0; }
+        }
+
+        public bool Delete(int id)
+        {
+            try
+            {
+                Database.Countries.Delete(id);
                 return true;
             }
             catch { return false; }
         }
 
-        public bool Delete(int id)
-        {
-            throw new NotImplementedException();
-        }
-
-        public IEnumerable<CountryDTM> Find(Func<CountryDTM, bool> predicate)
+        public IQueryable<CountryDTM> Find(Func<CountryDTM, bool> predicate)
         {
             throw new NotImplementedException();
         }
 
         public async Task<CountryDTM> Get(int id)
         {
-            throw new NotImplementedException();
+            int firstCountryId = 1; int lastCountryId = 250;
+            if (id < firstCountryId || id > lastCountryId)
+                throw new ValidationException("Country id is not specified correctly", "");
+            var country = await Database.Countries.Get(id);
+            if (country == null)
+                throw new ValidationException("Country is not found", "");
+
+            var config = new MapperConfiguration(cfg => cfg.CreateMap<Country, CountryDTM>());
+            var mapper = new Mapper(config);
+            return mapper.Map<CountryDTM>(country);
         }
 
-        public IEnumerable<CountryDTM> GetAll()
+        public async Task<List<CountryDTM>> GetAll(SearchParams search)
         {
-            throw new NotImplementedException();
+            var config = new MapperConfiguration(cfg => cfg.CreateMap<Country, CountryDTM>());
+            var mapper = new Mapper(config);
+            return await Task.Run(() => (mapper.Map<List<CountryDTM>>(
+                Database.Countries.GetAll()
+               .OrderBy(u => u.Name)
+               .Skip(search.PageSize * search.Page)
+               .Take(search.PageSize))));
         }
 
-        public bool Update(CountryDTM item)
+        public async Task<bool> Update(CountryDTM item)
         {
-            throw new NotImplementedException();
+            try
+            {
+                var config = new MapperConfiguration(cfg => cfg.CreateMap<CountryDTM, Country>());
+                var mapper = new Mapper(config);
+                Country country = mapper.Map<Country>(item);
+
+                await Database.Countries.Update(country);
+                return true;
+            }
+            catch (Exception ex) { return false; }
         }
+
+        //public async Task<Country> GetToUpdateParent(int id)
+        //{
+        //    return await Database.Countries.Get(id);
+        //}
+        public void Dispose()
+        {
+            Database.Dispose();
+        }
+
     }
 }
