@@ -116,35 +116,40 @@ namespace BLL.Services
             bDtm.ZipCode = business.ZipCode;
             bDtm.RegistrationNumber = business.RegistrationNumber;
 
-            bDtm.CountryId = business.Country.Id;
-            bDtm.CurrencyId = business.Currency.Id;
-            bDtm.Time_zoneId = business.Time_zone.Id;
-
-            CountryDTM country = new CountryDTM();
-            country.Id = business.Country.Id;
-            country.Code = business.Country.Code;
-            country.Name = business.Country.Name;
-            country.Native = business.Country.Native;
-            country.PhonePrefix = business.Country.PhonePrefix;
-            country.Capital = business.Country.Capital;
-            country.Currency_ = business.Country.Currency_;
-            country.Emoji = business.Country.Emoji;
-            country.EmojiU = business.Country.EmojiU;
-            bDtm.Country = country;
-
-            CurrencyDTM currency = new CurrencyDTM();
-            currency.Id = business.Currency.Id;
-            currency.Name = business.Currency.Name;
-            bDtm.Currency = currency;
-
-            Time_zoneDTM tz = new Time_zoneDTM();
-            tz.Id = business.Time_zone.Id;
-            tz.Zone = business.Time_zone.Zone;
-            tz.CountryCode = business.Time_zone.CountryCode;
-            tz.UTC_Jan_1_2020 = business.Time_zone.UTC_Jan_1_2020;
-            tz.DST_Jul_1_2020 = business.Time_zone.DST_Jul_1_2020;
-            bDtm.Time_zone = tz;
-
+            if (business.Country != null)
+            {
+                CountryDTM country = new CountryDTM();
+                country.Id = business.Country.Id;
+                country.Code = business.Country.Code;
+                country.Name = business.Country.Name;
+                country.Native = business.Country.Native;
+                country.PhonePrefix = business.Country.PhonePrefix;
+                country.Capital = business.Country.Capital;
+                country.Currency_ = business.Country.Currency_;
+                country.Emoji = business.Country.Emoji;
+                country.EmojiU = business.Country.EmojiU;
+                bDtm.Country = country;
+                bDtm.CountryId = business.Country.Id;
+            }
+            if (business.Currency != null)
+            {
+                CurrencyDTM currency = new CurrencyDTM();
+                currency.Id = business.Currency.Id;
+                currency.Name = business.Currency.Name;
+                bDtm.Currency = currency;
+                bDtm.CurrencyId = business.Currency.Id;
+            }
+            if (business.Time_zone != null)
+            {
+                Time_zoneDTM tz = new Time_zoneDTM();
+                tz.Id = business.Time_zone.Id;
+                tz.Zone = business.Time_zone.Zone;
+                tz.CountryCode = business.Time_zone.CountryCode;
+                tz.UTC_Jan_1_2020 = business.Time_zone.UTC_Jan_1_2020;
+                tz.DST_Jul_1_2020 = business.Time_zone.DST_Jul_1_2020;
+                bDtm.Time_zone = tz;
+                bDtm.Time_zoneId = business.Time_zone.Id;
+            }
             //var config = new MapperConfiguration(cfg => cfg.CreateMap<Business, BusinessDTM>());
             //var mapper = new Mapper(config);
             //return mapper.Map<BusinessDTM>(business);
@@ -160,25 +165,34 @@ namespace BLL.Services
         {
             try
             {
-                Business business = new Business
+                Business business = new Business();
+                if (businessDtm.Country == null)
                 {
-                    Name = businessDtm.Name,
-                    Phone = businessDtm.Phone,
-                    Logo = businessDtm.Logo,
-                    Webpage = businessDtm.Webpage,
-                    Address = businessDtm.Address,
-                    City = businessDtm.City,
-                    State = businessDtm.State,
-                    ZipCode = businessDtm.ZipCode,
-                    RegistrationNumber = businessDtm.RegistrationNumber,
-                    Country = await Database.Countries.Get(businessDtm.Country.Id),
-                    Currency = await Database.Currencies.Get(businessDtm.Currency.Id),
-                    Time_zone = await Database.Time_zones.Get(businessDtm.Time_zone.Id),
-                    Booking = businessDtm.Booking == null ? null : await Database.Bookings.Get(businessDtm.Booking.BusinessId),
-                    Services = businessDtm.Services,
-                    Clients = businessDtm.Clients,
-                    Employees = businessDtm.Employees
-                };
+                    business.Name = businessDtm.Name;
+                    business.Logo = null;
+                    business.Country = null;
+                    business.Currency = null;
+                    business.Time_zone = null;
+                    business.Booking = null;
+                }
+                else { 
+                    business.Name = businessDtm.Name;
+                    business.Phone = businessDtm.Phone;
+                    business.Logo = businessDtm.Logo;
+                    business.Webpage = businessDtm.Webpage;
+                    business.Address = businessDtm.Address;
+                    business.City = businessDtm.City;
+                    business.State = businessDtm.State;
+                    business.ZipCode = businessDtm.ZipCode;
+                    business.RegistrationNumber = businessDtm.RegistrationNumber;
+                    business.Country = await Database.Countries.Get(businessDtm.Country.Id);
+                    business.Currency = await Database.Currencies.Get(businessDtm.Currency.Id);
+                    business.Time_zone = await Database.Time_zones.Get(businessDtm.Time_zone.Id);
+                    business.Booking = businessDtm.Booking == null ? null : await Database.Bookings.Get(businessDtm.Booking.BusinessId);
+                    business.Services = null;
+                    business.Clients = null;
+                    business.Employees = null;
+                }
                 await Database.Businesses.Create(business);
                 return business.Id;
             }
@@ -204,9 +218,9 @@ namespace BLL.Services
                 business.Currency = await Database.Currencies.Get(item.Currency.Id);
                 business.Time_zone = await Database.Time_zones.Get(item.Time_zone.Id);
                 business.Booking = item.Booking == null ? null : await Database.Bookings.Get(item.Booking.BusinessId);
-                business.Services = item.Services;
-                business.Clients = item.Clients;
-                business.Employees = item.Employees;
+                //business.Services = item.Services;
+                //business.Clients = item.Clients;
+                //business.Employees = item.Employees;
 
                 return await Database.Businesses.Update(business) ? true : false;
             }

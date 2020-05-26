@@ -26,14 +26,14 @@ namespace smart_booking.BLL.DataTransferModels
         public string RegistrationNumber { get; set; }
         
         public virtual BookingDTM Booking { get; set; }
-        public virtual ICollection<Service> Services { get; set; }
-        public virtual ICollection<Client> Clients { get; set; }
-        public virtual ICollection<Employee> Employees { get; set; }
+        public virtual ICollection<ServiceDTM> Services { get; set; }
+        public virtual ICollection<ClientDTM> Clients { get; set; }
+        public virtual ICollection<EmployeeDTM> Employees { get; set; }
         public BusinessDTM()
         {
-            Services = new List<Service>();
-            Clients = new List<Client>();
-            Employees = new List<Employee>();
+            Services = new List<ServiceDTM>();
+            Clients = new List<ClientDTM>();
+            Employees = new List<EmployeeDTM>();
         }
     }
 }

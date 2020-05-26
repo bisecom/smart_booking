@@ -17,6 +17,8 @@ namespace BLL.Services
         private CountryDTMServiceRepo CountriesDtmRepo;
         private Time_ZoneDTMServiceRepo Time_ZoneDtmRepo;
         private BookingDTMServiceRepo BookingDtmRepo;
+        private CurrencyDTMServiceRepo CurrencyDtmRepo;
+        private EmployeeDTMServiceRepo EmployeeDtmRepo;
         public BllUnitOfWork(IUnitOfWork db)
         {
             Database = db;
@@ -29,6 +31,26 @@ namespace BLL.Services
                 if (UsersDtmRepo == null)
                     UsersDtmRepo = new UserDTMServiceRepo(Database);
                 return UsersDtmRepo;
+            }
+        }
+
+        public IServiceRepository<EmployeeDTM> EmployeesDTM
+        {
+            get
+            {
+                if (EmployeeDtmRepo == null)
+                    EmployeeDtmRepo = new EmployeeDTMServiceRepo(Database);
+                return EmployeeDtmRepo;
+            }
+        }
+
+        public IServiceRepository<CurrencyDTM> CurrenciesDTM
+        {
+            get
+            {
+                if (CurrencyDtmRepo == null)
+                    CurrencyDtmRepo = new CurrencyDTMServiceRepo(Database);
+                return CurrencyDtmRepo;
             }
         }
 

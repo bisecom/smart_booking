@@ -373,6 +373,14 @@ namespace smart_booking.Controllers
                     newUser.Id = user.Id; newUser.FirstName = user.FirstName;
                     await UserManager.AddToRoleAsync(user.Id, "Admin"); //FreeMember
                     TheRepo.UsersDTM.Create(newUser);
+                    BusinessDTM busines = new BusinessDTM();
+                    busines.Name = model.BusinessName;
+                    int businessId = await TheRepo.BusinessesDTM.Create(busines);
+                    EmployeeDTM emplBoss = new EmployeeDTM();
+                    emplBoss.Business = await TheRepo.BusinessesDTM.Get(businessId);
+                    emplBoss.User = await TheRepo.UsersDTM.Get(newUser.Id);
+                    emplBoss.IsOwner = true;
+                    await TheRepo.EmployeesDTM.Create(emplBoss);
                 }
 
             }
@@ -617,11 +625,11 @@ namespace smart_booking.Controllers
             var roleStore = new RoleStore<IdentityRole>(context);
             var roleManager = new RoleManager<IdentityRole>(roleStore);
 
-            //await roleManager.CreateAsync(new IdentityRole { Name = "Admin" });
-            //await roleManager.CreateAsync(new IdentityRole { Name = "Moderator" });
-            //await roleManager.CreateAsync(new IdentityRole { Name = "FreeMember" });
-            //await roleManager.CreateAsync(new IdentityRole { Name = "GoldMember" });
-            //await roleManager.CreateAsync(new IdentityRole { Name = "PlatinumMember" });
+            await roleManager.CreateAsync(new IdentityRole { Name = "Admin" });
+            await roleManager.CreateAsync(new IdentityRole { Name = "Moderator" });
+            await roleManager.CreateAsync(new IdentityRole { Name = "FreeMember" });
+            await roleManager.CreateAsync(new IdentityRole { Name = "GoldMember" });
+            await roleManager.CreateAsync(new IdentityRole { Name = "PlatinumMember" });
 
             //await UserManager.AddToRoleAsync("c6421275-15c4-42d4-9078-06ac50a4e0ba", "Admin");
             //https://stackoverflow.com/questions/21734345/how-to-create-roles-and-add-users-to-roles-in-asp-net-mvc-web-api

@@ -24,10 +24,10 @@ namespace DAL.Repositories
             try
             {
                 db.Countries.Add(item);
-                await db.SaveChangesAsync();
+                db.SaveChanges();
                 return true;
             }
-            catch { return false; }
+            catch (Exception ex){ Console.Out.WriteLine(ex.Message); return false; }
         }
 
         public async Task<bool> Delete(int id)

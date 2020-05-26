@@ -6,6 +6,7 @@ namespace smart_booking.BLL.DataTransferModels
     {
         public int Id { get; set; }
         public int? BusinessId { get; set; }
+        public virtual BusinessDTM Business { get; set; }
         public string FirstName { get; set; }
         public string SecondName { get; set; }
         public string ClientCompanyName { get; set; }

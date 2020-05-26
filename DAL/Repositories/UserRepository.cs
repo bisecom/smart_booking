@@ -87,7 +87,6 @@ namespace DAL.Repositories
                     initialUser.PaymentOverdue = user.PaymentOverdue;
                     initialUser.IsMale = user.IsMale;
                     initialUser.Birthdate = user.Birthdate;
-                    initialUser.MUserRoleId = user.MUserRoleId;
                     db.SaveChanges();
                     return true;
                 }

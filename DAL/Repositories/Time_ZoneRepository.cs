@@ -24,7 +24,7 @@ namespace DAL.Repositories
             try
             {
                 db.Time_zones.Add(item);
-                await db.SaveChangesAsync();
+                db.SaveChanges();
                 return true;
             }
             catch { return false; }

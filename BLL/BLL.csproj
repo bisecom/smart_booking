@@ -83,7 +83,6 @@
     <Compile Include="DataTransferModels\TeamNotificationDTM.cs" />
     <Compile Include="DataTransferModels\Time_zoneDTM.cs" />
     <Compile Include="DataTransferModels\UserDTM.cs" />
-    <Compile Include="DataTransferModels\UserRoleDTM.cs" />
     <Compile Include="DataTransferModels\WorkingBreakDTM.cs" />
     <Compile Include="DataTransferModels\WorkingHourDTM.cs" />
     <Compile Include="Interfaces\IServiceRepository.cs" />
@@ -94,6 +93,8 @@
     <Compile Include="Services\BookingDTMServiceRepo.cs" />
     <Compile Include="Services\BusinessDTMServiceRepo.cs" />
     <Compile Include="Services\CountryDTMServiceRepo.cs" />
+    <Compile Include="Services\CurrencyDTMServiceRepo.cs" />
+    <Compile Include="Services\EmployeeDTMServiceRepo.cs" />
     <Compile Include="Services\Time_ZoneDTMServiceRepo.cs" />
     <Compile Include="Services\UserDTMServiceRepo.cs" />
     <Compile Include="Utils\AutofacBllModule.cs" />

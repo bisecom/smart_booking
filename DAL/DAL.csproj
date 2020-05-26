@@ -69,17 +69,11 @@
     <Compile Include="Entities\TeamNotification.cs" />
     <Compile Include="Entities\Time_zone.cs" />
     <Compile Include="Entities\User.cs" />
-    <Compile Include="Entities\MUserRole.cs" />
     <Compile Include="Entities\WorkingBreak.cs" />
     <Compile Include="Entities\WorkingHour.cs" />
     <Compile Include="Interfaces\IUnitOfWork.cs" />
     <Compile Include="Interfaces\IRepository.cs" />
     <Compile Include="Interfaces\IUserRepository.cs" />
-    <Compile Include="Migrations\202005211940417_DataSbMigration.cs" />
-    <Compile Include="Migrations\202005211940417_DataSbMigration.Designer.cs">
-      <DependentUpon>202005211940417_DataSbMigration.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repositories\BookingRepository.cs" />
     <Compile Include="Repositories\BusinessRepository.cs" />
@@ -89,12 +83,6 @@
     <Compile Include="Repositories\EmployeeRepository.cs" />
     <Compile Include="Repositories\Time_ZoneRepository.cs" />
     <Compile Include="Repositories\UserRepository.cs" />
-    <Compile Include="Repositories\UserRoleRepository.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="Migrations\202005211940417_DataSbMigration.resx">
-      <DependentUpon>202005211940417_DataSbMigration.cs</DependentUpon>
-    </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

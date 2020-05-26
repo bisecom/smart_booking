@@ -8,5 +8,6 @@ namespace smart_booking.BLL.DataTransferModels
         public bool AfterBooked { get; set; }
         public bool AfterRescheduled { get; set; }
         public bool AfterCancelled { get; set; }
+        public virtual EmployeeDTM Employee { get; set; }
     }
 }

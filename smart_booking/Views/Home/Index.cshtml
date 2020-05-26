@@ -14,6 +14,10 @@
             <input type='text' name="firstName" id="txtFirstName" class="form-control">
         </div>
         <div class="form-group">
+            <label for="txtBusName">Business Name </label>
+            <input type='text' name="businessName" id="txtBusName" class="form-control">
+        </div>
+        <div class="form-group">
             <label for="txtEmail">Email address </label>
             <input type='email' name="email" id="txtEmail" class="form-control">
         </div>
@@ -28,8 +32,8 @@
     </div>
     <button id="register" class="btn btn-default">Submit</button>
 </div>
-<h4>Login </h4>
 
+<h4>Login </h4>
 <div id="loginDiv" style="width:50%">
     <div class="form-group">
         <label for="txtEmail">Email address </label>
@@ -47,7 +51,7 @@
 <script>
     $(document).ready(function () {
         $("#register").on('click', function () {
-            var data = { FirstName: $("#txtFirstName").val().trim(), Email: $("#txtEmail").val().trim(), Password: $("#textPwd").val().trim(), ConfirmPassword: $("#txtConfirmPwd").val().trim() };
+            var data = { FirstName: $("#txtFirstName").val().trim(), BusinessName: $("#txtBusName").val().trim(), Email: $("#txtEmail").val().trim(), Password: $("#textPwd").val().trim(), ConfirmPassword: $("#txtConfirmPwd").val().trim() };
             $.ajax({
                 url: "/api/Account/Register",
                 type: 'POST',

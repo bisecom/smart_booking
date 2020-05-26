@@ -24,7 +24,7 @@ namespace DAL.Repositories
             try
             {
                 db.Employees.Add(item);
-                await db.SaveChangesAsync();
+                db.SaveChanges();
                 return true;
             }
             catch { return false; }
@@ -60,14 +60,7 @@ namespace DAL.Repositories
 
         public async Task<bool> Update(Employee item)
         {
-            try
-            {
-                var initialEmpl = await Get(item.Id);
-                db.Entry(initialEmpl).CurrentValues.SetValues(item);
-                db.SaveChanges();
-                return true;
-            }
-            catch { return false; }
+            throw new NotImplementedException();
         }
     }
 }

@@ -97,7 +97,6 @@ namespace BLL.Services
                     Time_ZoneId = userDtm.Time_ZoneId,
                     Birthdate = userDtm.Birthdate,
                     PlanId = userDtm.PlanId,
-                    MUserRoleId = userDtm.MUserRoleId,
                     City = userDtm.City
 
                 };

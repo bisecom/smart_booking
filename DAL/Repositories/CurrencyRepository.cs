@@ -18,9 +18,15 @@ namespace DAL.Repositories
             this.db = context;
         }
 
-        public Task<bool> Create(Currency item)
+        public async Task<bool> Create(Currency item)
         {
-            throw new NotImplementedException();
+            try
+            {
+                db.Currencies.Add(item);
+                db.SaveChanges();
+                return true;
+            }
+            catch { return false; }
         }
 
         public Task<bool> Delete(int id)
