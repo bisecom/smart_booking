@@ -227,11 +227,6 @@ namespace BLL.Services
             catch (Exception ex) { Console.Out.WriteLine(ex.Message); return false; }
         }
 
-        public void HelloWorld()
-        {
-
-        }
-
         public bool Delete(int id)
         {
             try

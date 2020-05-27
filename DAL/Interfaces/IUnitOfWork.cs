@@ -17,5 +17,7 @@ namespace DAL.Interfaces
         IRepository<Time_zone> Time_zones { get; }
         IRepository<Currency> Currencies { get; }
         IRepository<Booking> Bookings { get; }
+        IRepository<PageLanguage> PageLanguages { get; }
+        IRepository<Slot> Slotes { get; }
     }
 }

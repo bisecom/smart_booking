@@ -81,6 +81,7 @@
     <Compile Include="Repositories\CurrencyRepository.cs" />
     <Compile Include="Repositories\DalUnitOfWork.cs" />
     <Compile Include="Repositories\EmployeeRepository.cs" />
+    <Compile Include="Repositories\PageLangRepository.cs" />
     <Compile Include="Repositories\Time_ZoneRepository.cs" />
     <Compile Include="Repositories\UserRepository.cs" />
   </ItemGroup>

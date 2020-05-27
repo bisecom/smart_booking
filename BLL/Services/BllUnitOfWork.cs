@@ -19,6 +19,7 @@ namespace BLL.Services
         private BookingDTMServiceRepo BookingDtmRepo;
         private CurrencyDTMServiceRepo CurrencyDtmRepo;
         private EmployeeDTMServiceRepo EmployeeDtmRepo;
+        private PageLangDTMServiceRepo PageLangDtmRepo;
         public BllUnitOfWork(IUnitOfWork db)
         {
             Database = db;
@@ -31,6 +32,16 @@ namespace BLL.Services
                 if (UsersDtmRepo == null)
                     UsersDtmRepo = new UserDTMServiceRepo(Database);
                 return UsersDtmRepo;
+            }
+        }
+
+        public IServiceRepository<PageLanguageDTM> PageLanguagesDTM
+        {
+            get
+            {
+                if (PageLangDtmRepo == null)
+                    PageLangDtmRepo = new PageLangDTMServiceRepo(Database);
+                return PageLangDtmRepo;
             }
         }
 

@@ -33,7 +33,7 @@ namespace DAL.Repositories
         {
             try
             {
-                Business business = await db.Businesses.FindAsync(id);
+                Business business = db.Businesses.Find(id);
                 if (business != null)
                 {
                     db.Businesses.Remove(business);

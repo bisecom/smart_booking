@@ -95,6 +95,7 @@
     <Compile Include="Services\CountryDTMServiceRepo.cs" />
     <Compile Include="Services\CurrencyDTMServiceRepo.cs" />
     <Compile Include="Services\EmployeeDTMServiceRepo.cs" />
+    <Compile Include="Services\PageLangDTMServiceRepo.cs" />
     <Compile Include="Services\Time_ZoneDTMServiceRepo.cs" />
     <Compile Include="Services\UserDTMServiceRepo.cs" />
     <Compile Include="Utils\AutofacBllModule.cs" />

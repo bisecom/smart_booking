@@ -18,34 +18,81 @@ namespace DAL.Repositories
             this.db = context;
         }
 
-        public Task<bool> Create(Booking item)
+        public async Task<bool> Create(Booking item)
         {
-            throw new NotImplementedException();
+            try
+            {
+                db.Bookings.Add(item);
+                db.SaveChanges();
+                return true;
+            }
+            catch (Exception ex) { Console.Out.WriteLine(ex.Message); return false; }
         }
 
-        public Task<bool> Delete(int id)
+        public async Task<bool> Delete(int id)
         {
-            throw new NotImplementedException();
+            try
+            {
+                Booking booking = await db.Bookings.FindAsync(id);
+                if (booking != null)
+                {
+                    db.Bookings.Remove(booking);
+                    db.SaveChanges();
+                    return true;
+                }
+            }
+            catch (Exception ex) { Console.Out.WriteLine(ex.Message); }
+            return false;
         }
 
         public IQueryable<Booking> Find(Func<Booking, bool> predicate)
         {
-            throw new NotImplementedException();
+            return db.Bookings.AsQueryable();
         }
 
-        public Task<Booking> Get(int id)
+        public async Task<Booking> Get(int id)
         {
-            throw new NotImplementedException();
+            return await db.Bookings.FindAsync(id);
         }
 
         public IQueryable<Booking> GetAll()
         {
-            throw new NotImplementedException();
+            return db.Bookings.AsQueryable();
         }
 
-        public Task<bool> Update(Booking item)
+        public async Task<bool> Update(Booking booking)
         {
-            throw new NotImplementedException();
+            try
+            {
+                var initialBooking = await db.Bookings.FindAsync(booking.BusinessId);
+                if (initialBooking != null)
+                {
+                    initialBooking.WebpageLink = booking.WebpageLink;
+                    initialBooking.IsEntityLogoRemoved = booking.IsEntityLogoRemoved;
+                    initialBooking.IsMemberSelecting = booking.IsMemberSelecting;
+                    initialBooking.SlotDuration = booking.SlotDuration;
+                    initialBooking.PageLanguageId = booking.PageLanguageId;
+                    initialBooking.BannerPicture = booking.BannerPicture;
+                    initialBooking.SklypeLink = booking.SklypeLink;
+                    initialBooking.FacebookLink = booking.FacebookLink;
+                    initialBooking.TwitterLink = booking.TwitterLink;
+                    initialBooking.InstagramkLink = booking.InstagramkLink;
+                    initialBooking.YoutubeLink = booking.YoutubeLink;
+                    initialBooking.PageOverview = booking.PageOverview;
+                    initialBooking.IsContactsAvailable = booking.IsContactsAvailable;
+                    initialBooking.IsServicesAvailable = booking.IsServicesAvailable;
+                    initialBooking.IsPriceAvailable = booking.IsPriceAvailable;
+                    initialBooking.IsDurationAvailable = booking.IsDurationAvailable;
+                    initialBooking.IsDescriptionAvailable = booking.IsDescriptionAvailable;
+                    initialBooking.Business = booking.Business;
+
+                    db.SaveChanges();
+                    return true;
+                }
+            }
+            catch (Exception ex)
+            { Console.Out.WriteLine(ex.Message); }
+            return false;
         }
     }
 }

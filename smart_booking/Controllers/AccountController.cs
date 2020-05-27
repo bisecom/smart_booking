@@ -371,7 +371,7 @@ namespace smart_booking.Controllers
 
                     UserDTM newUser = new UserDTM();
                     newUser.Id = user.Id; newUser.FirstName = user.FirstName;
-                    await UserManager.AddToRoleAsync(user.Id, "Admin"); //FreeMember
+                    await UserManager.AddToRoleAsync(user.Id, "FreeMember"); //FreeMember
                     TheRepo.UsersDTM.Create(newUser);
                     BusinessDTM busines = new BusinessDTM();
                     busines.Name = model.BusinessName;
@@ -381,6 +381,9 @@ namespace smart_booking.Controllers
                     emplBoss.User = await TheRepo.UsersDTM.Get(newUser.Id);
                     emplBoss.IsOwner = true;
                     await TheRepo.EmployeesDTM.Create(emplBoss);
+                    BookingDTM bookingDtm = new BookingDTM();
+                    bookingDtm.BusinessId = businessId;
+                    await TheRepo.BookingsDTM.Create(bookingDtm);
                 }
 
             }

@@ -20,7 +20,7 @@ namespace DAL.Repositories
         private Time_ZoneRepository time_zoneRepository;
         private BookingRepository bookingRepository;
         private CurrencyRepository currencyRepository;
-
+        private PageLangRepository pageLangRepository;
         public DalUnitOfWork()
         { 
             db = new SBContext("SBContext");
@@ -53,7 +53,17 @@ namespace DAL.Repositories
                 return employeeRepository;
             }
         }
-         
+
+        public IRepository<PageLanguage> PageLanguages
+        {
+            get
+            {
+                if (pageLangRepository == null)
+                    pageLangRepository = new PageLangRepository(db);
+                return pageLangRepository;
+            }
+        }
+
         public IRepository<Currency> Currencies
         {
             get
