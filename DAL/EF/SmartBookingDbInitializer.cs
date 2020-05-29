@@ -11,10 +11,6 @@ namespace smart_booking.DAL.EF
     {
         protected override void Seed(SBContext db)
         {
-            db.MUserRoles.Add(new MUserRole { Name = "TestRole" });
-            //db.Countries.Add(new Country { Name = "USA", FlagImage = null, PhonePrefix = "011" });
-            db.Time_zones.Add(new Time_zone { Zone = "TestZone" });
-
             db.Users.Add(new User
             {
                 Id = "DfR5DFSV",
@@ -32,8 +28,7 @@ namespace smart_booking.DAL.EF
                 PaymentOverdue = 0,
                 IsMale = true,
                 Birthdate = new DateTime(1998, 04, 30),
-                Time_ZoneId = 1,
-                MUserRoleId = 1
+                Time_ZoneId = 1
             });
 
             db.Users.Add(new User
@@ -53,8 +48,7 @@ namespace smart_booking.DAL.EF
                 PaymentOverdue = 0,
                 IsMale = true,
                 Birthdate = new DateTime(1995, 10, 30),
-                Time_ZoneId = 2,
-                MUserRoleId = 1
+                Time_ZoneId = 2
             });
 
             base.Seed(db);

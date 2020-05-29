@@ -21,30 +21,18 @@ namespace BLL.Services
             Database = uow;
         }
        
-        public bool Update(UserDTM userDtm)
+        public async void Update(UserDTM userDtm)
         {
             try
             {
-                User user = new User
-                {
-                    Id = userDtm.Id,
-                    FirstName = userDtm.FirstName,
-                    SecondName = userDtm.SecondName,
-                    CountryId = userDtm.CountryId,
-                    Time_ZoneId = userDtm.Time_ZoneId,
-                    Birthdate = userDtm.Birthdate,
-                    PlanId = userDtm.PlanId,
-                    MUserRoleId = userDtm.UserRoleId,
-                    City = userDtm.City
-                };
-                if (Database.Users.Update(user))
-                {
-                    Database.Save();
-                    return true;
-                }
-                return false;
+                var config = new MapperConfiguration(cfg => cfg.CreateMap<UserDTM, User>());
+                var mapper = new Mapper(config);
+                User user = mapper.Map<User>(userDtm);
+
+                await Database.Users.Update(user);
             }
-            catch { return false; }
+            catch (Exception ex){ Console.Out.WriteLine(ex.Message); }
+
         }
 
         public bool Delete(string id)
@@ -52,40 +40,42 @@ namespace BLL.Services
             try
             {
                 Database.Users.Delete(id);
-                Database.Save();
                 return true;
             }
             catch { return false; }
         }
 
-        public IQueryable<UserDTM> GetAll()
+        public async Task<List<UserDTM>> GetAll(SearchParams search)
         {
             var config = new MapperConfiguration(cfg => cfg.CreateMap<User, UserDTM>());
             var mapper = new Mapper(config);
-            return mapper.Map<IQueryable<User>, IQueryable<UserDTM>>(Database.Users.GetAll());
+            return await Task.Run( () => (mapper.Map<List<UserDTM>>(
+                 Database.Users.GetAll()
+                .OrderBy(u => u.SecondName)
+                .Skip(search.PageSize * search.Page)
+                .Take(search.PageSize))));
         }
 
-        public UserDTM Get(string id)
+        public async Task <UserDTM> Get(string id)
         {
             if (id == null)
-                throw new ValidationException("Не установлено id ", "");
-            var user = Database.Users.Get(id);
+                throw new ValidationException("User id is not specified", "");
+            var user = await Database.Users.Get(id);
             if (user == null)
-                throw new ValidationException("User не найден", "");
+                throw new ValidationException("User is not found", "");
 
-            return new UserDTM
-            {
-                Id = user.Id,
-                FirstName = user.FirstName,
-                SecondName = user.SecondName,
-                CountryId = user.CountryId,
-                Time_ZoneId = user.Time_ZoneId,
-                Birthdate = user.Birthdate,
-                PlanId = user.PlanId,
-                UserRoleId = user.MUserRoleId,
-                City = user.City
-            };
+            var config = new MapperConfiguration(cfg => cfg.CreateMap<User, UserDTM>());
+            var mapper = new Mapper(config);
+            return mapper.Map<UserDTM>(user);
         }
+
+        //public static bool test(UserDTM u)
+        //{
+        //    return true;
+        //}
+
+        //Func<UserDTM, bool> myTest = test;
+
 
         public IQueryable<UserDTM> Find(Func<UserDTM, bool> predicate)
         {
@@ -94,6 +84,8 @@ namespace BLL.Services
 
         public bool Create(UserDTM userDtm)
         {
+            //Find(myTest);
+
             try
             {
                 User user = new User
@@ -105,12 +97,10 @@ namespace BLL.Services
                     Time_ZoneId = userDtm.Time_ZoneId,
                     Birthdate = userDtm.Birthdate,
                     PlanId = userDtm.PlanId,
-                    MUserRoleId = userDtm.UserRoleId,
                     City = userDtm.City
 
                 };
                 Database.Users.Create(user);
-                Database.Save();
                 return true;
             }
             catch { return false; }

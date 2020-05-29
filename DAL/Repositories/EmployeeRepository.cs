@@ -19,51 +19,52 @@ namespace DAL.Repositories
             this.db = context;
         }
 
-        public bool Create(Employee item)
+        public async Task<bool> Create(Employee item)
         {
             try
             {
                 db.Employees.Add(item);
+                db.SaveChanges();
                 return true;
             }
             catch { return false; }
         }
 
-        public bool Delete(int id)
+        public async Task<bool> Delete(int id)
         {
             try
             {
-                Employee empl = db.Employees.Find(id);
+                Employee empl = await db.Employees.FindAsync(id);
                 if (empl != null)
                     db.Employees.Remove(empl);
+                    db.SaveChanges();
                 return true;
             }
             catch { return false; }
         }
 
-        public IEnumerable<Employee> Find(Func<Employee, bool> predicate)
+        public IQueryable<Employee> Find(Func<Employee, bool> predicate)
         {
-            return db.Employees;
+            return db.Employees.AsQueryable();
         }
 
         public async Task<Employee> Get(int id)
         {
-            return await db.Employees.FindAsync(id);
+            //return await db.Employees.FindAsync(id);
+            return await db.Employees
+                .Include("User")
+                .Include("Business")
+                .SingleOrDefaultAsync(e => e.Id == id);
         }
 
-        public IEnumerable<Employee> GetAll()
+        public IQueryable<Employee> GetAll()
+        {
+            return db.Employees.AsQueryable();
+        }
+
+        public async Task<bool> Update(Employee item)
         {
             throw new NotImplementedException();
-        }
-
-        public bool Update(Employee item)
-        {
-            try
-            {
-                db.Entry(item).State = EntityState.Modified;
-                return true;
-            }
-            catch { return false; }
         }
     }
 }

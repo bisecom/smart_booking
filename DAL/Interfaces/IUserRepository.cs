@@ -12,8 +12,8 @@ namespace DAL.Interfaces
         IQueryable<User> GetAll();
         Task<User> Get(string id);
         IQueryable<User> Find(Func<User, Boolean> predicate);
-        bool Create(User item);
-        bool Update(User item);
-        bool Delete(string id);
+        Task<bool> Create(User item);
+        Task<bool> Update(User item);
+        Task<bool> Delete(string id);
     }
 }

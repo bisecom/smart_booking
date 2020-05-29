@@ -1,4 +1,5 @@
-﻿using smart_booking.BLL.DataTransferModels;
+﻿using BLL.Utils;
+using smart_booking.BLL.DataTransferModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,11 +10,11 @@ namespace BLL.Interfaces
 {
     public interface IUserServiceRepository
     {
-        IQueryable<UserDTM> GetAll();
-        UserDTM Get(string id);
+        Task<List<UserDTM>> GetAll(SearchParams search);
+        Task <UserDTM> Get(string id);
         IQueryable<UserDTM> Find(Func<UserDTM, Boolean> predicate);
         bool Create(UserDTM item);
-        bool Update(UserDTM item);
+        void Update(UserDTM item);
         bool Delete(string id);
     }
 }

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace smart_booking.BLL.DataTransferModels
 {
@@ -11,7 +12,9 @@ namespace smart_booking.BLL.DataTransferModels
         public string PhoneMobile { get; set; }
         public string PhoneOffice { get; set; }
         public int? CountryId { get; set; }
+        public virtual CountryDTM Country { get; set; }
         public int? Time_ZoneId { get; set; }
+        public virtual Time_zoneDTM Time_zone { get; set; }
         public byte[] UserPicture { get; set; }
         public string Address { get; set; }
         public string City { get; set; }
@@ -21,6 +24,10 @@ namespace smart_booking.BLL.DataTransferModels
         public byte? PaymentOverdue { get; set; }
         public bool? IsMale { get; set; }
         public DateTime? Birthdate { get; set; }
-        public int? UserRoleId { get; set; }
+        public virtual ICollection<EmployeeDTM> Employees { get; set; }
+        public UserDTM()
+        {
+            Employees = new List<EmployeeDTM>();
+        }
     }
 }

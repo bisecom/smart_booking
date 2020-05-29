@@ -83,18 +83,27 @@
     <Compile Include="DataTransferModels\TeamNotificationDTM.cs" />
     <Compile Include="DataTransferModels\Time_zoneDTM.cs" />
     <Compile Include="DataTransferModels\UserDTM.cs" />
-    <Compile Include="DataTransferModels\UserRoleDTM.cs" />
     <Compile Include="DataTransferModels\WorkingBreakDTM.cs" />
     <Compile Include="DataTransferModels\WorkingHourDTM.cs" />
     <Compile Include="Interfaces\IServiceRepository.cs" />
+    <Compile Include="Interfaces\ISlotServiceRepository.cs" />
     <Compile Include="Interfaces\IUserServiceRepository.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Interfaces\IUnitOfWorkService.cs" />
     <Compile Include="Services\BllUnitOfWork.cs" />
+    <Compile Include="Services\BookingDTMServiceRepo.cs" />
+    <Compile Include="Services\BusinessDTMServiceRepo.cs" />
     <Compile Include="Services\CountryDTMServiceRepo.cs" />
+    <Compile Include="Services\CurrencyDTMServiceRepo.cs" />
+    <Compile Include="Services\EmployeeDTMServiceRepo.cs" />
+    <Compile Include="Services\PageLangDTMServiceRepo.cs" />
+    <Compile Include="Services\ServiceCategoryDTMServiceRepo.cs" />
+    <Compile Include="Services\ServiceDTMServiceRepo.cs" />
+    <Compile Include="Services\SlotDTMServiceRepo.cs" />
     <Compile Include="Services\Time_ZoneDTMServiceRepo.cs" />
     <Compile Include="Services\UserDTMServiceRepo.cs" />
     <Compile Include="Utils\AutofacBllModule.cs" />
+    <Compile Include="Utils\SearchParams.cs" />
     <Compile Include="Utils\ValidationException.cs" />
   </ItemGroup>
   <ItemGroup>

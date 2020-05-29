@@ -10,5 +10,6 @@ namespace smart_booking.BLL.DataTransferModels
         public bool Collegue { get; set; }
         public bool CollegueAndOwner { get; set; }
         public bool Owner { get; set; }
+        public virtual EmployeeDTM Employee { get; set; }
     }
 }

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using smart_booking.DAL.Entities;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -25,5 +26,6 @@ namespace smart_booking.BLL.DataTransferModels
         public bool IsPriceAvailable { get; set; }
         public bool IsDurationAvailable { get; set; }
         public bool IsDescriptionAvailable { get; set; }
+        public virtual BusinessDTM Business { get; set; }
     }
 }

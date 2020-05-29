@@ -19,31 +19,33 @@ namespace DAL.Repositories
             this.db = context;
         }
 
-        public bool Create(Time_zone item)
+        public async Task<bool> Create(Time_zone item)
         {
             try
             {
                 db.Time_zones.Add(item);
+                db.SaveChanges();
                 return true;
             }
             catch { return false; }
         }
 
-        public bool Delete(int id)
+        public async Task<bool> Delete(int id)
         {
             try
             {
-                Time_zone tz = db.Time_zones.Find(id);
+                Time_zone tz = await db.Time_zones.FindAsync(id);
                 if (tz != null)
                     db.Time_zones.Remove(tz);
+                    db.SaveChanges();
                 return true;
             }
             catch { return false; }
         }
 
-        public IEnumerable<Time_zone> Find(Func<Time_zone, bool> predicate)
+        public IQueryable<Time_zone> Find(Func<Time_zone, bool> predicate)
         {
-            return db.Time_zones;
+            return db.Time_zones.AsQueryable();
         }
 
         public async Task<Time_zone> Get(int id)
@@ -51,16 +53,18 @@ namespace DAL.Repositories
             return await db.Time_zones.FindAsync(id);
         }
 
-        public IEnumerable<Time_zone> GetAll()
+        public IQueryable<Time_zone> GetAll()
         {
-            return db.Time_zones;
+            return db.Time_zones.AsQueryable();
         }
 
-        public bool Update(Time_zone item)
+        public async Task<bool> Update(Time_zone item)
         {
             try
             {
-                db.Entry(item).State = EntityState.Modified;
+                var initialTz = await Get(item.Id);
+                db.Entry(initialTz).CurrentValues.SetValues(item);
+                db.SaveChanges();
                 return true;
             }
             catch { return false; }

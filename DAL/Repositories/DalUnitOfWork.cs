@@ -13,11 +13,17 @@ namespace DAL.Repositories
     {
         private SBContext db;
         private UserRepository userRepository;
+        private BllServiceRepository bllServiceRepository;
+        private BusinessRepository businessRepository;
         private EmployeeRepository employeeRepository;
         private CountryRepository countryRepository;
-        private UserRoleRepository userRoleRepository;
         private Time_ZoneRepository time_zoneRepository;
-
+        private BookingRepository bookingRepository;
+        private CurrencyRepository currencyRepository;
+        private PageLangRepository pageLangRepository;
+        private SlotRepository slotRepository;
+        private ServiceRepository serviceRepository;
+        private ServiceCategoryRepository serviceCategoryRepository;
         public DalUnitOfWork()
         { 
             db = new SBContext("SBContext");
@@ -31,17 +37,48 @@ namespace DAL.Repositories
                 return userRepository;
             }
         }
-
-        public IRepository<MUserRole> MUserRoles {
+        public IBllServicesUtils BllServices
+        {
             get
             {
-                if (userRoleRepository == null)
-                    userRoleRepository = new UserRoleRepository(db);
-                return userRoleRepository;
+                if (bllServiceRepository == null)
+                    bllServiceRepository = new BllServiceRepository(db);
+                return bllServiceRepository;
             }
         }
 
-        public IRepository<Employee> Employees {
+        public IRepository<ServiceCategory> ServiceCategories
+        {
+            get
+            {
+                if (serviceCategoryRepository == null)
+                    serviceCategoryRepository = new ServiceCategoryRepository(db);
+                return serviceCategoryRepository;
+            }
+        }
+
+        public IRepository<Service> Services
+        {
+            get
+            {
+                if (serviceRepository == null)
+                    serviceRepository = new ServiceRepository(db);
+                return serviceRepository;
+            }
+        }
+
+        public IRepository<Slot> Slotes
+        {
+            get
+            {
+                if (slotRepository == null)
+                    slotRepository = new SlotRepository(db);
+                return slotRepository;
+            }
+        }
+
+        public IRepository<Employee> Employees
+        {
             get
             {
                 if (employeeRepository == null)
@@ -49,6 +86,47 @@ namespace DAL.Repositories
                 return employeeRepository;
             }
         }
+
+        public IRepository<PageLanguage> PageLanguages
+        {
+            get
+            {
+                if (pageLangRepository == null)
+                    pageLangRepository = new PageLangRepository(db);
+                return pageLangRepository;
+            }
+        }
+
+        public IRepository<Currency> Currencies
+        {
+            get
+            {
+                if (currencyRepository == null)
+                    currencyRepository = new CurrencyRepository(db);
+                return currencyRepository;
+            }
+        }
+
+        public IRepository<Booking> Bookings
+        {
+            get
+            {
+                if (bookingRepository == null)
+                    bookingRepository = new BookingRepository(db);
+                return bookingRepository;
+            }
+        }
+
+        public IRepository<Business> Businesses
+        {
+            get
+            {
+                if (businessRepository == null)
+                    businessRepository = new BusinessRepository(db);
+                return businessRepository;
+            }
+        }
+
 
         public IRepository<Country> Countries {
             get
@@ -88,9 +166,9 @@ namespace DAL.Repositories
             GC.SuppressFinalize(this);
         }
 
-        public void Save()
+        public async void Save()
         {
-            db.SaveChangesAsync();
+            await db.SaveChangesAsync();
         }
     }
 }

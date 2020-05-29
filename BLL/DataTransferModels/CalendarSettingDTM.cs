@@ -9,5 +9,6 @@ namespace smart_booking.BLL.DataTransferModels
         public DateTime? FirstHour { get; set; }
         public int WorkingDayDuration { get; set; }
         public int SlotDuration { get; set; }
+        public virtual EmployeeDTM Employee { get; set; }
     }
 }

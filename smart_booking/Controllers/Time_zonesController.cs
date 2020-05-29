@@ -34,12 +34,7 @@ namespace smart_booking.Controllers
                 return Request.CreateErrorResponse(HttpStatusCode.BadRequest, ex);
             }
 
-            //SeedDbUponRequest seed = new SeedDbUponRequest();
-
-            //foreach (var zone in seed.ZonesListDtm)
-            //{
-            //    TheRepo.TimezonesDTM.Create(zone);
-            //}
+            
 
         }
     }

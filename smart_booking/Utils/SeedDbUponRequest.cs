@@ -34,10 +34,12 @@ namespace smart_booking.Utils
     {
         public List<CountryDTM> CountriesListDtm;
         public List<Time_zoneDTM> ZonesListDtm;
+        public List<CurrencyDTM> CurrenciesLidtDtm;
         public SeedDbUponRequest()
         {
             CountriesListDtm = new List<CountryDTM>();
             ZonesListDtm = new List<Time_zoneDTM>();
+            CurrenciesLidtDtm = new List<CurrencyDTM>();
             WriteCountryData();
         }
         public void WriteCountryData()
@@ -75,6 +77,20 @@ namespace smart_booking.Utils
                 t.DST_Jul_1_2020 = zonesList[i].DST_Jul_1_2020;
 
                 ZonesListDtm.Add(t);
+            }
+
+            //Currencies
+            List<string> tempList = new List<string>();
+            foreach (CountryDTM c in CountriesListDtm)
+            {
+                if (!tempList.Contains(c.Currency_) && c.Currency_ != "")
+                    tempList.Add(c.Currency_);
+            }
+            foreach (var curLine in tempList)
+            {
+                CurrencyDTM cur = new CurrencyDTM();
+                cur.Name = curLine;
+                CurrenciesLidtDtm.Add(cur);
             }
 
         }

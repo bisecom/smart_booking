@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
+using System.Threading.Tasks;
 using System.Web.Http;
 
 namespace smart_booking.Controllers
@@ -36,34 +37,49 @@ namespace smart_booking.Controllers
             //    return Request.CreateErrorResponse(HttpStatusCode.BadRequest, ex);
             //}
 
-            SeedDbUponRequest seed = new SeedDbUponRequest();
             
-            //foreach(var country in seed.ZonesListDtm)
-            //{
-            //    TheRepo.z.Create(country);
-            //}
-                           
-                return Request.CreateResponse(HttpStatusCode.OK, 1);
+
+            return Request.CreateResponse(HttpStatusCode.OK, 1);
         }
         // POST: api/Countries/countryDtm
-        public HttpResponseMessage Post([FromBody] CountryDTM countryDtm)
+        public async Task<HttpResponseMessage> Post([FromBody] CountryDTM countryDtm)
         {
             try
             {
-                if (TheRepo.CountriesDTM.Create(countryDtm))
-                {
-                    return Request.CreateResponse(HttpStatusCode.Created, countryDtm);
-                }
-                else
-                {
-                    return Request.CreateErrorResponse(HttpStatusCode.BadRequest, "Could not save to the database.");
-                }
+                int id = await TheRepo.CountriesDTM.Create(countryDtm);
+                return Request.CreateResponse(HttpStatusCode.Created, id);
             }
             catch (Exception ex)
             {
                 return Request.CreateErrorResponse(HttpStatusCode.BadRequest, ex);
             }
-
         }
+
+        [AllowAnonymous]
+        public IHttpActionResult Get()
+        {
+            SeedDbUponRequest seed = new SeedDbUponRequest();
+            try
+            {
+
+                foreach (var country in seed.CountriesListDtm)
+                {
+                    TheRepo.CountriesDTM.Create(country);
+                }
+
+                foreach (var zone in seed.ZonesListDtm)
+                {
+                    TheRepo.TimezonesDTM.Create(zone);
+                }
+
+                foreach (var currency in seed.CurrenciesLidtDtm)
+                {
+                    TheRepo.CurrenciesDTM.Create(currency);
+                }
+            }
+            catch (Exception ex) { Console.WriteLine(ex.Message); }
+            return Ok();
+        }
+
     }
 }

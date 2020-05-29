@@ -1,4 +1,6 @@
-﻿using BLL.Interfaces;
+﻿using AutoMapper;
+using BLL.Interfaces;
+using BLL.Utils;
 using DAL.Interfaces;
 using smart_booking.BLL.DataTransferModels;
 using smart_booking.DAL.Entities;
@@ -18,7 +20,7 @@ namespace BLL.Services
         {
             Database = uow;
         }
-        public bool Create(Time_zoneDTM item)
+        public async Task<int> Create(Time_zoneDTM item)
         {
             try
             {
@@ -29,37 +31,68 @@ namespace BLL.Services
                     UTC_Jan_1_2020 = item.UTC_Jan_1_2020,
                     DST_Jul_1_2020 = item.DST_Jul_1_2020
                 };
+                await Database.Time_zones.Create(zone);
 
-                Database.Time_zones.Create(zone);
-                Database.Save();
+                return zone.Id;
+            }
+            catch { return 0; }
+        }
+
+        public bool Delete(int id)
+        {
+            try
+            {
+                Database.Time_zones.Delete(id);
                 return true;
             }
             catch { return false; }
         }
 
-        public bool Delete(int id)
+        public IQueryable<Time_zoneDTM> Find(Func<Time_zoneDTM, bool> predicate)
         {
             throw new NotImplementedException();
         }
 
-        public IEnumerable<Time_zoneDTM> Find(Func<Time_zoneDTM, bool> predicate)
+        public async Task<Time_zoneDTM> Get(int id)
         {
-            throw new NotImplementedException();
+            int firstTzId = 2; int lastTzId = 426;
+            if (id < firstTzId || id > lastTzId)
+                throw new ValidationException("TZ id is not specified correctly", "");
+            var tz = await Database.Time_zones.Get(id);
+            if (tz == null)
+                throw new ValidationException("TZ is not found", "");
+
+            var config = new MapperConfiguration(cfg => cfg.CreateMap<Time_zone, Time_zoneDTM>());
+            var mapper = new Mapper(config);
+            return mapper.Map<Time_zoneDTM>(tz);
         }
 
-        public Time_zoneDTM Get(int id)
+        public async Task<List<Time_zoneDTM>> GetAll(SearchParams search)
         {
-            throw new NotImplementedException();
+            var config = new MapperConfiguration(cfg => cfg.CreateMap<Time_zone, Time_zoneDTM>());
+            var mapper = new Mapper(config);
+            return await Task.Run(() => (mapper.Map<List<Time_zoneDTM>>(
+                Database.Time_zones.GetAll()
+               .OrderBy(u => u.CountryCode)
+               .Skip(search.PageSize * search.Page)
+               .Take(search.PageSize))));
         }
 
-        public IEnumerable<Time_zoneDTM> GetAll()
+        public async Task<bool> Update(Time_zoneDTM item)
         {
-            throw new NotImplementedException();
+            try
+            {
+                var config = new MapperConfiguration(cfg => cfg.CreateMap<Time_zoneDTM, Time_zone>());
+                var mapper = new Mapper(config);
+                Time_zone tz = mapper.Map<Time_zone>(item);
+                await Database.Time_zones.Update(tz);
+                return true;
+            }
+            catch (Exception ex) { return false; }
         }
-
-        public bool Update(Time_zoneDTM item)
+        public void Dispose()
         {
-            throw new NotImplementedException();
+            Database.Dispose();
         }
     }
 }

@@ -11,7 +11,7 @@ namespace smart_booking.DAL.Entities
         public int Id { get; set; }
         public int? BusinessId { get; set; }
         public virtual Business Business { get; set; }
-        public int? UserId { get; set; }
+        public string UserId { get; set; }
         public virtual User User { get; set; }
         public bool IsOwner { get; set; }
         
@@ -21,11 +21,14 @@ namespace smart_booking.DAL.Entities
         public virtual Permission Permission { get; set; }
         public virtual WorkingHour WorkingHour { get; set; }
         public virtual Slot Slot { get; set; }
-        public virtual ICollection<Slot> Slots { get; set; }
+        public virtual ICollection<Slot> SlotsOwners { get; set; }
+        public virtual ICollection<Slot> Responsibles { get; set; }
 
         public Employee()
         {
-            Slots = new List<Slot>();
+            SlotsOwners = new List<Slot>();
+            Responsibles = new List<Slot>();
+
         }
 
     }

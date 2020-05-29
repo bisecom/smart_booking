@@ -8,11 +8,11 @@ namespace DAL.Interfaces
 {
     public interface IRepository<T> where T : class
     {
-        IEnumerable<T> GetAll();
+        IQueryable<T> GetAll();
         Task<T> Get(int id);
-        IEnumerable<T> Find(Func<T, Boolean> predicate);
-        bool Create(T item);
-        bool Update(T item);
-        bool Delete(int id);
+        IQueryable<T> Find(Func<T, Boolean> predicate);
+        Task<bool> Create(T item);
+        Task<bool> Update(T item);
+        Task<bool> Delete(int id);
     }
 }

@@ -43,6 +43,10 @@ namespace smart_booking.Models
         public string FirstName { get; set; }
 
         [Required]
+        [Display(Name = "Business name")]
+        public string BusinessName { get; set; }
+
+        [Required]
         //[StringLength(100, ErrorMessage = "Значение {0} должно содержать не менее {2} символов.", MinimumLength = 6)]
         [StringLength(100, ErrorMessage = "Значение {0} должно содержать не менее {2} символов.", MinimumLength = 3)]
         [DataType(DataType.Password)]

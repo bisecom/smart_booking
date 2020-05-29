@@ -13,8 +13,16 @@ namespace BLL.Services
     {
         IUnitOfWork Database { get; set; }
         private UserDTMServiceRepo UsersDtmRepo;
+        private BusinessDTMServiceRepo BusinessesDtmRepo;
         private CountryDTMServiceRepo CountriesDtmRepo;
         private Time_ZoneDTMServiceRepo Time_ZoneDtmRepo;
+        private BookingDTMServiceRepo BookingDtmRepo;
+        private CurrencyDTMServiceRepo CurrencyDtmRepo;
+        private EmployeeDTMServiceRepo EmployeeDtmRepo;
+        private PageLangDTMServiceRepo PageLangDtmRepo;
+        private SlotDTMServiceRepo SlotDtmRepo;
+        private ServiceDTMServiceRepo ServiceDtmRepo;
+        private ServiceCategoryDTMServiceRepo ServiceCategoryDtmRepo;
         public BllUnitOfWork(IUnitOfWork db)
         {
             Database = db;
@@ -27,6 +35,85 @@ namespace BLL.Services
                 if (UsersDtmRepo == null)
                     UsersDtmRepo = new UserDTMServiceRepo(Database);
                 return UsersDtmRepo;
+            }
+        }
+
+        public IServiceRepository<ServiceCategoryDTM> ServiceCategoriesDTM
+        {
+            get
+            {
+                if (ServiceCategoryDtmRepo == null)
+                    ServiceCategoryDtmRepo = new ServiceCategoryDTMServiceRepo(Database);
+                return ServiceCategoryDtmRepo;
+            }
+        }
+
+        public IServiceRepository<ServiceDTM> ServicesDTM
+        {
+            get
+            {
+                if (ServiceDtmRepo == null)
+                    ServiceDtmRepo = new ServiceDTMServiceRepo(Database);
+                return ServiceDtmRepo;
+            }
+        }
+
+        public IServiceRepository<PageLanguageDTM> PageLanguagesDTM
+        {
+            get
+            {
+                if (PageLangDtmRepo == null)
+                    PageLangDtmRepo = new PageLangDTMServiceRepo(Database);
+                return PageLangDtmRepo;
+            }
+        }
+
+        public ISlotServiceRepository SlotesDTM
+        {
+            get
+            {
+                if (SlotDtmRepo == null)
+                    SlotDtmRepo = new SlotDTMServiceRepo(Database);
+                return SlotDtmRepo;
+            }
+        }
+
+        public IServiceRepository<EmployeeDTM> EmployeesDTM
+        {
+            get
+            {
+                if (EmployeeDtmRepo == null)
+                    EmployeeDtmRepo = new EmployeeDTMServiceRepo(Database);
+                return EmployeeDtmRepo;
+            }
+        }
+
+        public IServiceRepository<CurrencyDTM> CurrenciesDTM
+        {
+            get
+            {
+                if (CurrencyDtmRepo == null)
+                    CurrencyDtmRepo = new CurrencyDTMServiceRepo(Database);
+                return CurrencyDtmRepo;
+            }
+        }
+
+        public IServiceRepository<BookingDTM> BookingsDTM
+        {
+            get
+            {
+                if (BookingDtmRepo == null)
+                    BookingDtmRepo = new BookingDTMServiceRepo(Database);
+                return BookingDtmRepo;
+            }
+        }
+        public IServiceRepository<BusinessDTM> BusinessesDTM
+        {
+            get
+            {
+                if (BusinessesDtmRepo == null)
+                    BusinessesDtmRepo = new BusinessDTMServiceRepo(Database);
+                return BusinessesDtmRepo;
             }
         }
 
@@ -70,14 +157,14 @@ namespace BLL.Services
             GC.SuppressFinalize(this);
         }
 
-        public bool SaveChanges()
-        {
-            try
-            {
-                Database.Save();
-                return true;
-            }
-            catch { return false; }
-        }
+        //public bool SaveChanges()
+        //{
+        //    try
+        //    {
+        //        Database.Save();
+        //        return true;
+        //    }
+        //    catch { return false; }
+        //}
     }
 }

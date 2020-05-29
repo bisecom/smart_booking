@@ -10,5 +10,6 @@ namespace smart_booking.BLL.DataTransferModels
         public bool IsClients { get; set; }
         public bool IsServices { get; set; }
         public bool IsReports { get; set; }
+        public virtual EmployeeDTM Employee { get; set; }
     }
 }
