@@ -97,6 +97,8 @@
     <Compile Include="Services\CurrencyDTMServiceRepo.cs" />
     <Compile Include="Services\EmployeeDTMServiceRepo.cs" />
     <Compile Include="Services\PageLangDTMServiceRepo.cs" />
+    <Compile Include="Services\ServiceCategoryDTMServiceRepo.cs" />
+    <Compile Include="Services\ServiceDTMServiceRepo.cs" />
     <Compile Include="Services\SlotDTMServiceRepo.cs" />
     <Compile Include="Services\Time_ZoneDTMServiceRepo.cs" />
     <Compile Include="Services\UserDTMServiceRepo.cs" />

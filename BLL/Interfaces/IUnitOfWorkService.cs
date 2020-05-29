@@ -20,7 +20,8 @@ namespace BLL.Interfaces
         IServiceRepository<BookingDTM> BookingsDTM { get; }
         IServiceRepository<EmployeeDTM> EmployeesDTM { get; }
         IServiceRepository<PageLanguageDTM> PageLanguagesDTM { get; }
-        
+        IServiceRepository<ServiceDTM> ServicesDTM { get; }
+        IServiceRepository<ServiceCategoryDTM> ServiceCategoriesDTM { get; }
         //bool SaveChanges();
     }
 }

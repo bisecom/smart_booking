@@ -24,7 +24,7 @@ namespace DAL.Repositories
             try
             {
                 db.Slots.Add(item);
-                db.SaveChanges();
+                await db.SaveChangesAsync();
                 return true;
             }
             catch (Exception ex) { Console.Out.WriteLine(ex.Message); return false; }
@@ -53,7 +53,12 @@ namespace DAL.Repositories
 
         public async Task<Slot> Get(int id)
         {
-            return await db.Slots.FindAsync(id);
+            return await db.Slots
+               .Include("Employee")
+               .Include("Country")
+               .Include("Responsible")
+               .Include("Service")
+               .SingleOrDefaultAsync(e => e.Id == id);
         }
 
         public IQueryable<Slot> GetAll()
@@ -82,14 +87,16 @@ namespace DAL.Repositories
 
                     if (initialSlot.Employee.Id != slot.Employee.Id)
                     {
-                        db.Entry(initialSlot.Employee).State = EntityState.Deleted;
-                        initialSlot.Employee = db.Employees.Find(slot.Employee.Id);
+                        var employee = db.Employees.Include("SlotsOwners").Single(s => s.Id == initialSlot.Employee.Id);
+                        var slotToDelete = employee.SlotsOwners.FirstOrDefault(ol => ol.Id == initialSlot.Id);
+                        if (slotToDelete != null)
+                            employee.SlotsOwners.Remove(slotToDelete);
+                        initialSlot.Employee = slot.Employee;
+
                     }
 
                     if (initialSlot.Country.Id != slot.Country.Id)
                     {
-                        //db.Entry(initialSlot.Country).State = EntityState.Deleted;
-                        //initialSlot.Country = db.Countries.Find(slot.Country.Id);
                         var country = db.Countries.Include("Slots").Single(s => s.Id == initialSlot.Country.Id);
                         var slotToDelete = country.Slots.FirstOrDefault(ol => ol.Id == initialSlot.Id);
                         if (slotToDelete != null)
@@ -99,14 +106,20 @@ namespace DAL.Repositories
                     
                     if (initialSlot.Responsible.Id != slot.Responsible.Id)
                     {
-                        db.Entry(initialSlot.Responsible).State = EntityState.Deleted;
-                        initialSlot.Responsible = db.Employees.Find(slot.Responsible.Id);
+                        var employeeR = db.Employees.Include("Responsibles").Single(s => s.Id == initialSlot.Responsible.Id);
+                        var slotToDelete = employeeR.Responsibles.FirstOrDefault(ol => ol.Id == initialSlot.Id);
+                        if (slotToDelete != null)
+                            employeeR.Responsibles.Remove(slotToDelete);
+                        initialSlot.Responsible = slot.Responsible;
                     }
 
                     if (initialSlot.Service.Id != slot.Service.Id)
                     {
-                        db.Entry(initialSlot.Service).State = EntityState.Deleted;
-                        initialSlot.Service = db.Services.Find(slot.Service.Id);
+                        var service = db.Services.Include("Slots").Single(s => s.Id == initialSlot.Service.Id);
+                        var slotToDelete = service.Slots.FirstOrDefault(ol => ol.Id == initialSlot.Id);
+                        if (slotToDelete != null)
+                            service.Slots.Remove(slotToDelete);
+                        initialSlot.Service = slot.Service;
                     }
 
                     db.SaveChanges();

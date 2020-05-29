@@ -19,6 +19,8 @@ namespace DAL.Interfaces
         IRepository<Booking> Bookings { get; }
         IRepository<PageLanguage> PageLanguages { get; }
         IRepository<Slot> Slotes { get; }
-        
+        IRepository<Service> Services { get; }
+        IRepository<ServiceCategory> ServiceCategories { get; }
+
     }
 }

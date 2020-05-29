@@ -21,6 +21,8 @@ namespace BLL.Services
         private EmployeeDTMServiceRepo EmployeeDtmRepo;
         private PageLangDTMServiceRepo PageLangDtmRepo;
         private SlotDTMServiceRepo SlotDtmRepo;
+        private ServiceDTMServiceRepo ServiceDtmRepo;
+        private ServiceCategoryDTMServiceRepo ServiceCategoryDtmRepo;
         public BllUnitOfWork(IUnitOfWork db)
         {
             Database = db;
@@ -33,6 +35,26 @@ namespace BLL.Services
                 if (UsersDtmRepo == null)
                     UsersDtmRepo = new UserDTMServiceRepo(Database);
                 return UsersDtmRepo;
+            }
+        }
+
+        public IServiceRepository<ServiceCategoryDTM> ServiceCategoriesDTM
+        {
+            get
+            {
+                if (ServiceCategoryDtmRepo == null)
+                    ServiceCategoryDtmRepo = new ServiceCategoryDTMServiceRepo(Database);
+                return ServiceCategoryDtmRepo;
+            }
+        }
+
+        public IServiceRepository<ServiceDTM> ServicesDTM
+        {
+            get
+            {
+                if (ServiceDtmRepo == null)
+                    ServiceDtmRepo = new ServiceDTMServiceRepo(Database);
+                return ServiceDtmRepo;
             }
         }
 

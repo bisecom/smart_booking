@@ -107,7 +107,7 @@ namespace BLL.Services
 
                 foreach (var slot in sList)
                 {
-                    sDtmList.Add(await SlotToSlotDtmMap(slot));
+                    sDtmList.Add(SlotToSlotDtmMap(slot));
                 }
 
                 return sDtmList;
@@ -211,7 +211,7 @@ namespace BLL.Services
             Database.Dispose();
         }
 
-        public async Task<SlotDTM> SlotToSlotDtmMap(Slot slot)
+        public SlotDTM SlotToSlotDtmMap(Slot slot)
         {
             SlotDTM slotDtm = new SlotDTM();
             slotDtm.Id = slot.Id;

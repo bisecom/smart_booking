@@ -22,6 +22,8 @@ namespace DAL.Repositories
         private CurrencyRepository currencyRepository;
         private PageLangRepository pageLangRepository;
         private SlotRepository slotRepository;
+        private ServiceRepository serviceRepository;
+        private ServiceCategoryRepository serviceCategoryRepository;
         public DalUnitOfWork()
         { 
             db = new SBContext("SBContext");
@@ -42,6 +44,26 @@ namespace DAL.Repositories
                 if (bllServiceRepository == null)
                     bllServiceRepository = new BllServiceRepository(db);
                 return bllServiceRepository;
+            }
+        }
+
+        public IRepository<ServiceCategory> ServiceCategories
+        {
+            get
+            {
+                if (serviceCategoryRepository == null)
+                    serviceCategoryRepository = new ServiceCategoryRepository(db);
+                return serviceCategoryRepository;
+            }
+        }
+
+        public IRepository<Service> Services
+        {
+            get
+            {
+                if (serviceRepository == null)
+                    serviceRepository = new ServiceRepository(db);
+                return serviceRepository;
             }
         }
 

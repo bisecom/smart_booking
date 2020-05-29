@@ -84,6 +84,8 @@
     <Compile Include="Repositories\DalUnitOfWork.cs" />
     <Compile Include="Repositories\EmployeeRepository.cs" />
     <Compile Include="Repositories\PageLangRepository.cs" />
+    <Compile Include="Repositories\ServiceCategoryRepository.cs" />
+    <Compile Include="Repositories\ServiceRepository.cs" />
     <Compile Include="Repositories\SlotRepository.cs" />
     <Compile Include="Repositories\Time_ZoneRepository.cs" />
     <Compile Include="Repositories\UserRepository.cs" />

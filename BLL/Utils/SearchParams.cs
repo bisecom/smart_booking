@@ -16,5 +16,6 @@ namespace BLL.Utils
         public DateTime firstDateToShowSlots { get; set; }
         public DateTime lastDateToShowSlots { get; set; }
         public int[] employeesIdsArray { get; set; }
+        public int BusinessId { get; set; }
     }
 }
