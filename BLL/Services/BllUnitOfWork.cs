@@ -20,6 +20,7 @@ namespace BLL.Services
         private CurrencyDTMServiceRepo CurrencyDtmRepo;
         private EmployeeDTMServiceRepo EmployeeDtmRepo;
         private PageLangDTMServiceRepo PageLangDtmRepo;
+        private SlotDTMServiceRepo SlotDtmRepo;
         public BllUnitOfWork(IUnitOfWork db)
         {
             Database = db;
@@ -42,6 +43,16 @@ namespace BLL.Services
                 if (PageLangDtmRepo == null)
                     PageLangDtmRepo = new PageLangDTMServiceRepo(Database);
                 return PageLangDtmRepo;
+            }
+        }
+
+        public ISlotServiceRepository SlotesDTM
+        {
+            get
+            {
+                if (SlotDtmRepo == null)
+                    SlotDtmRepo = new SlotDTMServiceRepo(Database);
+                return SlotDtmRepo;
             }
         }
 

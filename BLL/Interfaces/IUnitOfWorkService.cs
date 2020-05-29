@@ -11,8 +11,8 @@ namespace BLL.Interfaces
 {
     public interface IUnitOfWorkService : IDisposable
     {
-        //UserDTMServiceRepo UsersDTM { get; }
         IUserServiceRepository UsersDTM { get; }
+        ISlotServiceRepository SlotesDTM { get; }
         IServiceRepository<CountryDTM> CountriesDTM { get; }
         IServiceRepository<Time_zoneDTM> TimezonesDTM { get; }
         IServiceRepository<CurrencyDTM> CurrenciesDTM { get; }
@@ -20,6 +20,7 @@ namespace BLL.Interfaces
         IServiceRepository<BookingDTM> BookingsDTM { get; }
         IServiceRepository<EmployeeDTM> EmployeesDTM { get; }
         IServiceRepository<PageLanguageDTM> PageLanguagesDTM { get; }
+        
         //bool SaveChanges();
     }
 }

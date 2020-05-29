@@ -10,7 +10,7 @@ namespace DAL.Interfaces
     public interface IUnitOfWork : IDisposable
     {
         IUserRepository Users { get; }
-        //IRepository<MUserRole> MUserRoles { get; }
+        IBllServicesUtils BllServices { get; }
         IRepository<Employee> Employees { get; }
         IRepository<Business> Businesses { get; }
         IRepository<Country> Countries { get; }
@@ -19,5 +19,6 @@ namespace DAL.Interfaces
         IRepository<Booking> Bookings { get; }
         IRepository<PageLanguage> PageLanguages { get; }
         IRepository<Slot> Slotes { get; }
+        
     }
 }

@@ -50,7 +50,11 @@ namespace DAL.Repositories
 
         public async Task<Employee> Get(int id)
         {
-            return await db.Employees.FindAsync(id);
+            //return await db.Employees.FindAsync(id);
+            return await db.Employees
+                .Include("User")
+                .Include("Business")
+                .SingleOrDefaultAsync(e => e.Id == id);
         }
 
         public IQueryable<Employee> GetAll()

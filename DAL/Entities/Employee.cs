@@ -21,11 +21,14 @@ namespace smart_booking.DAL.Entities
         public virtual Permission Permission { get; set; }
         public virtual WorkingHour WorkingHour { get; set; }
         public virtual Slot Slot { get; set; }
-        public virtual ICollection<Slot> Slots { get; set; }
+        public virtual ICollection<Slot> SlotsOwners { get; set; }
+        public virtual ICollection<Slot> Responsibles { get; set; }
 
         public Employee()
         {
-            Slots = new List<Slot>();
+            SlotsOwners = new List<Slot>();
+            Responsibles = new List<Slot>();
+
         }
 
     }

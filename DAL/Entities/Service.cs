@@ -10,8 +10,10 @@ namespace smart_booking.DAL.Entities
     {
         public int Id { get; set; }
         public int? BusinessId { get; set; }
+        //[ForeignKey("Business")]
         public virtual Business Business { get; set; }
-        public int? CategoryId { get; set; }
+        public int? ServiceCategoryId { get; set; }
+        //[ForeignKey("ServiceCategory")]
         public virtual ServiceCategory ServiceCategory { get; set; }
         public string Name { get; set; }
         public string Description { get; set; }
@@ -20,7 +22,11 @@ namespace smart_booking.DAL.Entities
         public int PaddingAfter { get; set; }
         public byte[] Picture { get; set; }
 
-        public virtual Slot Slot { get; set; }
+        public virtual ICollection<Slot> Slots { get; set; }
+        public Service()
+        {
+            Slots = new List<Slot>();
+        }
 
     }
 }

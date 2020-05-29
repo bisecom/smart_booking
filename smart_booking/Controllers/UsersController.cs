@@ -52,24 +52,24 @@ namespace smart_booking.Controllers
         // POST: api/Users/userDTM
         public HttpResponseMessage Post([FromBody] UserDTM userDtm)
         {
-            //try
-            //{
-            //    if (TheRepo.UsersDTM.Create(userDtm))
-            //    {
-            //        return Request.CreateResponse(HttpStatusCode.Created, userDtm);
-            //    }
-            //    else
-            //    {
-            //        return Request.CreateErrorResponse(HttpStatusCode.BadRequest, "Could not save to the database.");
-            //    }
-            //}
-            //catch (Exception ex)
-            //{
-            //    return Request.CreateErrorResponse(HttpStatusCode.BadRequest, ex);
-            //}
+            try
+            {
+                if (TheRepo.UsersDTM.Create(userDtm))
+                {
+                    return Request.CreateResponse(HttpStatusCode.Created, userDtm);
+                }
+                else
+                {
+                    return Request.CreateErrorResponse(HttpStatusCode.BadRequest, "Could not save to the database.");
+                }
+            }
+            catch (Exception ex)
+            {
+                return Request.CreateErrorResponse(HttpStatusCode.BadRequest, ex);
+            }
 
             // create account via POST api/Account/Register 
-            return Request.CreateErrorResponse(HttpStatusCode.BadRequest, "Could not save to the database.");
+            //return Request.CreateErrorResponse(HttpStatusCode.BadRequest, "Could not save to the database.");
         }
 
         // PUT: api/Users/userDTM

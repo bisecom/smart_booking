@@ -13,14 +13,15 @@ namespace DAL.Repositories
     {
         private SBContext db;
         private UserRepository userRepository;
+        private BllServiceRepository bllServiceRepository;
         private BusinessRepository businessRepository;
         private EmployeeRepository employeeRepository;
         private CountryRepository countryRepository;
-        //private UserRoleRepository userRoleRepository;
         private Time_ZoneRepository time_zoneRepository;
         private BookingRepository bookingRepository;
         private CurrencyRepository currencyRepository;
         private PageLangRepository pageLangRepository;
+        private SlotRepository slotRepository;
         public DalUnitOfWork()
         { 
             db = new SBContext("SBContext");
@@ -34,15 +35,25 @@ namespace DAL.Repositories
                 return userRepository;
             }
         }
+        public IBllServicesUtils BllServices
+        {
+            get
+            {
+                if (bllServiceRepository == null)
+                    bllServiceRepository = new BllServiceRepository(db);
+                return bllServiceRepository;
+            }
+        }
 
-        //public IRepository<MUserRole> MUserRoles {
-        //    get
-        //    {
-        //        if (userRoleRepository == null)
-        //            userRoleRepository = new UserRoleRepository(db);
-        //        return userRoleRepository;
-        //    }
-        //}
+        public IRepository<Slot> Slotes
+        {
+            get
+            {
+                if (slotRepository == null)
+                    slotRepository = new SlotRepository(db);
+                return slotRepository;
+            }
+        }
 
         public IRepository<Employee> Employees
         {

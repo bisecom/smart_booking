@@ -20,11 +20,13 @@ namespace smart_booking.DAL.Entities
         public virtual ICollection<Business> Businesses { get; set; }
         public virtual ICollection<User> Users { get; set; }
         public virtual ICollection<Time_zone> Time_zones { get; set; }
+        public virtual ICollection<Slot> Slots { get; set; }
         public Country()
         {
             Businesses = new List<Business>();
             Users = new List<User>();
             Time_zones = new List<Time_zone>();
+            Slots = new List<Slot>();
         }
     }
 }
