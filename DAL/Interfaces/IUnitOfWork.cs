@@ -21,6 +21,6 @@ namespace DAL.Interfaces
         IRepository<Slot> Slotes { get; }
         IRepository<Service> Services { get; }
         IRepository<ServiceCategory> ServiceCategories { get; }
-
+        IRepository<Permission> Permissions { get; }
     }
 }

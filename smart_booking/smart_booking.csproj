@@ -240,6 +240,9 @@
     <Compile Include="Controllers\BusinessesController.cs" />
     <Compile Include="Controllers\CountriesController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\PermissionsController.cs" />
+    <Compile Include="Controllers\ServiceCategoriesController.cs" />
+    <Compile Include="Controllers\ServicesController.cs" />
     <Compile Include="Controllers\SlotsController.cs" />
     <Compile Include="Controllers\Time_zonesController.cs" />
     <Compile Include="Controllers\UsersController.cs" />

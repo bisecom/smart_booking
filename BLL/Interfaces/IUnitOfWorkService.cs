@@ -22,6 +22,8 @@ namespace BLL.Interfaces
         IServiceRepository<PageLanguageDTM> PageLanguagesDTM { get; }
         IServiceRepository<ServiceDTM> ServicesDTM { get; }
         IServiceRepository<ServiceCategoryDTM> ServiceCategoriesDTM { get; }
+        IServiceRepository<PermissionDTM> PermissionsDTM { get; }
+
         //bool SaveChanges();
     }
 }

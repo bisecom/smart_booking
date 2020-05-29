@@ -74,8 +74,6 @@ namespace BLL.Services
                 return service.Id;
             }
             catch { return 0; }
-
-
         }
 
         public async Task<bool> Update(ServiceDTM serviceDtm)
@@ -83,6 +81,7 @@ namespace BLL.Services
             try
             {
                 Service service = new Service();
+                service.Id = serviceDtm.Id;
                 service.Name = serviceDtm.Name;
                 service.Description = serviceDtm.Description;
                 service.Price = serviceDtm.Price;

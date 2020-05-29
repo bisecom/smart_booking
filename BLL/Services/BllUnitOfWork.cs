@@ -23,6 +23,7 @@ namespace BLL.Services
         private SlotDTMServiceRepo SlotDtmRepo;
         private ServiceDTMServiceRepo ServiceDtmRepo;
         private ServiceCategoryDTMServiceRepo ServiceCategoryDtmRepo;
+        private PermissionDTMServiceRepo PermissionDtmRepo;
         public BllUnitOfWork(IUnitOfWork db)
         {
             Database = db;
@@ -35,6 +36,16 @@ namespace BLL.Services
                 if (UsersDtmRepo == null)
                     UsersDtmRepo = new UserDTMServiceRepo(Database);
                 return UsersDtmRepo;
+            }
+        }
+
+        public IServiceRepository<PermissionDTM> PermissionsDTM
+        {
+            get
+            {
+                if (PermissionDtmRepo == null)
+                    PermissionDtmRepo = new PermissionDTMServiceRepo(Database);
+                return PermissionDtmRepo;
             }
         }
 

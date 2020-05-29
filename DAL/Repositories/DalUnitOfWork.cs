@@ -24,6 +24,7 @@ namespace DAL.Repositories
         private SlotRepository slotRepository;
         private ServiceRepository serviceRepository;
         private ServiceCategoryRepository serviceCategoryRepository;
+        private PermissionRepository permissionRepository;
         public DalUnitOfWork()
         { 
             db = new SBContext("SBContext");
@@ -44,6 +45,16 @@ namespace DAL.Repositories
                 if (bllServiceRepository == null)
                     bllServiceRepository = new BllServiceRepository(db);
                 return bllServiceRepository;
+            }
+        }
+
+        public IRepository<Permission> Permissions
+        {
+            get
+            {
+                if (permissionRepository == null)
+                    permissionRepository = new PermissionRepository(db);
+                return permissionRepository;
             }
         }
 
