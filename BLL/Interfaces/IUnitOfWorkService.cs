@@ -26,6 +26,9 @@ namespace BLL.Interfaces
         IServiceRepository<CalendarSettingDTM> CalendarSettingsDTM { get; }
         IServiceRepository<CustomerNotificationDTM> CustomerNotificationsDTM { get; }
         IServiceRepository<TeamNotificationDTM> TeamNotificationsDTM { get; }
+        IServiceRepository<WorkingHourDTM> WorkingHoursDTM { get; }
+        IServiceRepository<WorkingBreakDTM> WorkingBreaksDTM { get; }
+        IServiceRepository<ClientDTM> ClientsDTM { get; }
 
         //bool SaveChanges();
     }

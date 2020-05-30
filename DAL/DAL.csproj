@@ -80,6 +80,7 @@
     <Compile Include="Repositories\BookingRepository.cs" />
     <Compile Include="Repositories\BusinessRepository.cs" />
     <Compile Include="Repositories\CalendarSettingRepository.cs" />
+    <Compile Include="Repositories\ClientRepository.cs" />
     <Compile Include="Repositories\CountryRepository.cs" />
     <Compile Include="Repositories\CurrencyRepository.cs" />
     <Compile Include="Repositories\CustomerNotificationRepository.cs" />
@@ -93,6 +94,8 @@
     <Compile Include="Repositories\TeamNotificationRepository.cs" />
     <Compile Include="Repositories\Time_ZoneRepository.cs" />
     <Compile Include="Repositories\UserRepository.cs" />
+    <Compile Include="Repositories\WorkingBreakRepository.cs" />
+    <Compile Include="Repositories\WorkingHourRepository.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

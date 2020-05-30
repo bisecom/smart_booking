@@ -373,17 +373,41 @@ namespace smart_booking.Controllers
                     newUser.Id = user.Id; newUser.FirstName = user.FirstName;
                     await UserManager.AddToRoleAsync(user.Id, "FreeMember"); //FreeMember
                     TheRepo.UsersDTM.Create(newUser);
+
                     BusinessDTM busines = new BusinessDTM();
                     busines.Name = model.BusinessName;
                     int businessId = await TheRepo.BusinessesDTM.Create(busines);
+
                     EmployeeDTM emplBoss = new EmployeeDTM();
                     emplBoss.Business = await TheRepo.BusinessesDTM.Get(businessId);
                     emplBoss.User = await TheRepo.UsersDTM.Get(newUser.Id);
                     emplBoss.IsOwner = true;
                     await TheRepo.EmployeesDTM.Create(emplBoss);
+
                     BookingDTM bookingDtm = new BookingDTM();
                     bookingDtm.BusinessId = businessId;
                     await TheRepo.BookingsDTM.Create(bookingDtm);
+
+                    WorkingHourDTM wHourDtm = new WorkingHourDTM();
+                    var bossFromDb = await TheRepo.EmployeesDTM.Get(emplBoss.Id);
+                    wHourDtm.Employee = bossFromDb;
+                    await TheRepo.WorkingHoursDTM.Create(wHourDtm);
+
+                    PermissionDTM perm = new PermissionDTM();
+                    perm.Employee = bossFromDb;
+                    await TheRepo.PermissionsDTM.Create(perm);
+
+                    CalendarSettingDTM cSetting = new CalendarSettingDTM();
+                    cSetting.Employee = bossFromDb;
+                    await TheRepo.CalendarSettingsDTM.Create(cSetting);
+
+                    CustomerNotificationDTM cNotif = new CustomerNotificationDTM();
+                    cNotif.Employee = bossFromDb;
+                    await TheRepo.CustomerNotificationsDTM.Create(cNotif);
+
+                    TeamNotificationDTM tNotif = new TeamNotificationDTM();
+                    tNotif.Employee = bossFromDb;
+                    await TheRepo.TeamNotificationsDTM.Create(tNotif);
                 }
 
             }

@@ -110,5 +110,16 @@ namespace DAL.Repositories
         {
             return db.ServiceCategories.Find(id);
         }
+
+
+        public void changeFromDTM()
+        {
+
+        }
+
+        public void cchangeToDTM()
+        {
+
+        }
     }
 }

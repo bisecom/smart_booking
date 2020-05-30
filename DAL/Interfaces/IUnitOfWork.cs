@@ -25,5 +25,8 @@ namespace DAL.Interfaces
         IRepository<CalendarSetting> CalendarSettings { get; }
         IRepository<CustomerNotification> CustomerNotifications { get; }
         IRepository<TeamNotification> TeamNotifications { get; }
+        IRepository<WorkingHour> WorkingHours { get; }
+        IRepository<WorkingBreak> WorkingBreaks { get; }
+        IRepository<Client> Clients { get; }
     }
 }

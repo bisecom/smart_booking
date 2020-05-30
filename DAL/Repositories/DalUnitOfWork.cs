@@ -28,6 +28,9 @@ namespace DAL.Repositories
         private CalendarSettingRepository pcalendarSettingRepository;
         private CustomerNotificationRepository cNotificationRepository;
         private TeamNotificationRepository tNotificationRepository;
+        private WorkingHourRepository wHourRepository;
+        private WorkingBreakRepository wBreakRepository;
+        private ClientRepository clientRepository;
         public DalUnitOfWork()
         { 
             db = new SBContext("SBContext");
@@ -48,6 +51,35 @@ namespace DAL.Repositories
                 if (bllServiceRepository == null)
                     bllServiceRepository = new BllServiceRepository(db);
                 return bllServiceRepository;
+            }
+        }
+
+        public IRepository<Client> Clients
+        {
+            get
+            {
+                if (clientRepository == null)
+                    clientRepository = new ClientRepository(db);
+                return clientRepository;
+            }
+        }
+
+        public IRepository<WorkingBreak> WorkingBreaks
+        {
+            get
+            {
+                if (wBreakRepository == null)
+                    wBreakRepository = new WorkingBreakRepository(db);
+                return wBreakRepository;
+            }
+        }
+        public IRepository<WorkingHour> WorkingHours
+        {
+            get
+            {
+                if (wHourRepository == null)
+                    wHourRepository = new WorkingHourRepository(db);
+                return wHourRepository;
             }
         }
 

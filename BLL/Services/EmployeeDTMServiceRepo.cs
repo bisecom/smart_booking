@@ -20,14 +20,34 @@ namespace BLL.Services
             Database = uow;
         }
 
-        public Task<List<EmployeeDTM>> GetAll(SearchParams search)
+        public async Task<List<EmployeeDTM>> GetAll(SearchParams search)
         {
-            throw new NotImplementedException();
+            IQueryable<Employee> employeeQuery = Database.Employees.GetAll();
+            List<Employee> temp = employeeQuery
+            .Where(t => t.BusinessId == search.BusinessId)
+            .ToList();
+            List<EmployeeDTM> tempList = new List<EmployeeDTM>();
+
+            if (temp != null)
+                foreach (var e in temp)
+                {
+                    tempList.Add(ModelFactory.changeToDTM(e));
+                }
+
+            return tempList;
         }
 
-        public Task<EmployeeDTM> Get(int id)
+        public async Task<EmployeeDTM> Get(int id)
         {
-            throw new NotImplementedException();
+            int firstEmployeeId = 1;
+            if (id < firstEmployeeId)
+                throw new ValidationException("Employee id is not specified correctly", "");
+            var employee = await Database.Employees.Get(id);
+            if (employee == null)
+                throw new ValidationException("Employee is not found", "");
+
+            EmployeeDTM employeeDTM = ModelFactory.changeToDTM(employee);
+            return employeeDTM;
         }
 
         public IQueryable<EmployeeDTM> Find(Func<EmployeeDTM, bool> predicate)
@@ -59,9 +79,48 @@ namespace BLL.Services
             catch { return 0; }
         }
 
-        public Task<bool> Update(EmployeeDTM item)
+        public async Task<bool> Update(EmployeeDTM employeeDtm)
         {
-            throw new NotImplementedException();
+            //try
+            //{
+            //    Employee employee = new Employee();
+            //    if (employeeDtm.User != null)
+            //    {
+            //        employee.User = changeToDTM(employee.User);
+            //        employee.UserId = employee.User.Id;
+            //    }
+            //    employee.IsOwner = employeeDtm.IsOwner;
+
+            //    if (employeeDtm.CalendarSetting != null)
+            //    {
+            //        employee.CalendarSetting = changeToDTM(employee.CalendarSetting);
+            //    }
+
+            //    if (employeeDtm.CustomerNotification != null)
+            //    {
+            //        employee.CustomerNotification = changeToDTM(employee.CustomerNotification);
+            //    }
+            //    if (employeeDtm.TeamNotification != null)
+            //    {
+            //        employee.TeamNotification = changeToDTM(employee.TeamNotification);
+            //    }
+            //    if (employeeDtm.Permission != null)
+            //    {
+            //        employee.Permission = changeToDTM(employee.Permission);
+            //    }
+            //    if (employeeDtm.WorkingHour != null)
+            //    {
+            //        employee.WorkingHour = changeToDTM(employee.WorkingHour);
+            //    }
+            //    if (employeeDtm.Slot != null)
+            //    {
+            //        employee.Slot = changeToDTM(employee.Slot);
+            //    }
+
+            //    return await Database.Employees.Update(employee) ? true : false;
+            //}
+            //catch (Exception ex) { Console.Out.WriteLine(ex.Message); return false; }
+            return false;
         }
 
         public bool Delete(int id)
@@ -72,6 +131,11 @@ namespace BLL.Services
                 return true;
             }
             catch { return false; }
+        }
+
+        public void Dispose()
+        {
+            Database.Dispose();
         }
     }
 }

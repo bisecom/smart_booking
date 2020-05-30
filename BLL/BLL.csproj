@@ -94,6 +94,7 @@
     <Compile Include="Services\BookingDTMServiceRepo.cs" />
     <Compile Include="Services\BusinessDTMServiceRepo.cs" />
     <Compile Include="Services\CalendarSettingDTMServiceRepo.cs" />
+    <Compile Include="Services\ClientDTMServiceRepo.cs" />
     <Compile Include="Services\CountryDTMServiceRepo.cs" />
     <Compile Include="Services\CurrencyDTMServiceRepo.cs" />
     <Compile Include="Services\CustomerNotificationDTMServiceRepo.cs" />
@@ -106,7 +107,10 @@
     <Compile Include="Services\TeamNotificationDTMServiceRepo.cs" />
     <Compile Include="Services\Time_ZoneDTMServiceRepo.cs" />
     <Compile Include="Services\UserDTMServiceRepo.cs" />
+    <Compile Include="Services\WorkingBreakDTMServiceRepo.cs" />
+    <Compile Include="Services\WorkingHourDTMServiceRepo.cs" />
     <Compile Include="Utils\AutofacBllModule.cs" />
+    <Compile Include="Utils\ModelFactory.cs" />
     <Compile Include="Utils\SearchParams.cs" />
     <Compile Include="Utils\ValidationException.cs" />
   </ItemGroup>

@@ -54,12 +54,17 @@ namespace DAL.Repositories
             return await db.Employees
                 .Include("User")
                 .Include("Business")
+                .Include("CalendarSetting")
+                .Include("CustomerNotification")
+                .Include("TeamNotification")
+                .Include("Permission")
+                .Include("WorkingHour")
                 .SingleOrDefaultAsync(e => e.Id == id);
         }
 
         public IQueryable<Employee> GetAll()
         {
-            return db.Employees.AsQueryable();
+            return db.Employees.Include("User").AsQueryable();
         }
 
         public async Task<bool> Update(Employee item)

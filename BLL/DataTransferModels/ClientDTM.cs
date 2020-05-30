@@ -17,7 +17,7 @@ namespace smart_booking.BLL.DataTransferModels
         public string City { get; set; }
         public string State { get; set; }
         public string Zip_Code { get; set; }
-        public DateTime? BirthDay { get; set; }
+        public DateTime BirthDay { get; set; }
         public byte[] Image { get; set; }
         public bool IsMale { get; set; }
         public string Note { get; set; }
