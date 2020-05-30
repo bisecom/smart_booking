@@ -22,5 +22,8 @@ namespace DAL.Interfaces
         IRepository<Service> Services { get; }
         IRepository<ServiceCategory> ServiceCategories { get; }
         IRepository<Permission> Permissions { get; }
+        IRepository<CalendarSetting> CalendarSettings { get; }
+        IRepository<CustomerNotification> CustomerNotifications { get; }
+        IRepository<TeamNotification> TeamNotifications { get; }
     }
 }

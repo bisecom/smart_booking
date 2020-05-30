@@ -93,14 +93,17 @@
     <Compile Include="Services\BllUnitOfWork.cs" />
     <Compile Include="Services\BookingDTMServiceRepo.cs" />
     <Compile Include="Services\BusinessDTMServiceRepo.cs" />
+    <Compile Include="Services\CalendarSettingDTMServiceRepo.cs" />
     <Compile Include="Services\CountryDTMServiceRepo.cs" />
     <Compile Include="Services\CurrencyDTMServiceRepo.cs" />
+    <Compile Include="Services\CustomerNotificationDTMServiceRepo.cs" />
     <Compile Include="Services\EmployeeDTMServiceRepo.cs" />
     <Compile Include="Services\PageLangDTMServiceRepo.cs" />
     <Compile Include="Services\PermissionDTMServiceRepo.cs" />
     <Compile Include="Services\ServiceCategoryDTMServiceRepo.cs" />
     <Compile Include="Services\ServiceDTMServiceRepo.cs" />
     <Compile Include="Services\SlotDTMServiceRepo.cs" />
+    <Compile Include="Services\TeamNotificationDTMServiceRepo.cs" />
     <Compile Include="Services\Time_ZoneDTMServiceRepo.cs" />
     <Compile Include="Services\UserDTMServiceRepo.cs" />
     <Compile Include="Utils\AutofacBllModule.cs" />

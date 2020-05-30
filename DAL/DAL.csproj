@@ -79,8 +79,10 @@
     <Compile Include="Repositories\BllServiceRepository.cs" />
     <Compile Include="Repositories\BookingRepository.cs" />
     <Compile Include="Repositories\BusinessRepository.cs" />
+    <Compile Include="Repositories\CalendarSettingRepository.cs" />
     <Compile Include="Repositories\CountryRepository.cs" />
     <Compile Include="Repositories\CurrencyRepository.cs" />
+    <Compile Include="Repositories\CustomerNotificationRepository.cs" />
     <Compile Include="Repositories\DalUnitOfWork.cs" />
     <Compile Include="Repositories\EmployeeRepository.cs" />
     <Compile Include="Repositories\PageLangRepository.cs" />
@@ -88,6 +90,7 @@
     <Compile Include="Repositories\ServiceCategoryRepository.cs" />
     <Compile Include="Repositories\ServiceRepository.cs" />
     <Compile Include="Repositories\SlotRepository.cs" />
+    <Compile Include="Repositories\TeamNotificationRepository.cs" />
     <Compile Include="Repositories\Time_ZoneRepository.cs" />
     <Compile Include="Repositories\UserRepository.cs" />
   </ItemGroup>

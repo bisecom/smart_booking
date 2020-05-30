@@ -24,6 +24,9 @@ namespace BLL.Services
         private ServiceDTMServiceRepo ServiceDtmRepo;
         private ServiceCategoryDTMServiceRepo ServiceCategoryDtmRepo;
         private PermissionDTMServiceRepo PermissionDtmRepo;
+        private CalendarSettingDTMServiceRepo CalendarSettingDtmRepo;
+        private CustomerNotificationDTMServiceRepo CustomerNotificationDtmRepo;
+        private TeamNotificationDTMServiceRepo TeamNotificationDtmRepo;
         public BllUnitOfWork(IUnitOfWork db)
         {
             Database = db;
@@ -36,6 +39,36 @@ namespace BLL.Services
                 if (UsersDtmRepo == null)
                     UsersDtmRepo = new UserDTMServiceRepo(Database);
                 return UsersDtmRepo;
+            }
+        }
+
+        public IServiceRepository<TeamNotificationDTM> TeamNotificationsDTM
+        {
+            get
+            {
+                if (TeamNotificationDtmRepo == null)
+                    TeamNotificationDtmRepo = new TeamNotificationDTMServiceRepo(Database);
+                return TeamNotificationDtmRepo;
+            }
+        }
+
+        public IServiceRepository<CustomerNotificationDTM> CustomerNotificationsDTM
+        {
+            get
+            {
+                if (CustomerNotificationDtmRepo == null)
+                    CustomerNotificationDtmRepo = new CustomerNotificationDTMServiceRepo(Database);
+                return CustomerNotificationDtmRepo;
+            }
+        }
+
+        public IServiceRepository<CalendarSettingDTM> CalendarSettingsDTM
+        {
+            get
+            {
+                if (CalendarSettingDtmRepo == null)
+                    CalendarSettingDtmRepo = new CalendarSettingDTMServiceRepo(Database);
+                return CalendarSettingDtmRepo;
             }
         }
 

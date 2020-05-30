@@ -100,7 +100,6 @@ namespace BLL.Services
             permissionDtm.IsClients = permission.IsClients;
             permissionDtm.IsServices = permission.IsServices;
             permissionDtm.IsReports = permission.IsReports;
-            permissionDtm.EmployeeId = permission.EmployeeId;
             return permissionDtm;
         }
         public void Dispose()

@@ -25,6 +25,9 @@ namespace DAL.Repositories
         private ServiceRepository serviceRepository;
         private ServiceCategoryRepository serviceCategoryRepository;
         private PermissionRepository permissionRepository;
+        private CalendarSettingRepository pcalendarSettingRepository;
+        private CustomerNotificationRepository cNotificationRepository;
+        private TeamNotificationRepository tNotificationRepository;
         public DalUnitOfWork()
         { 
             db = new SBContext("SBContext");
@@ -45,6 +48,36 @@ namespace DAL.Repositories
                 if (bllServiceRepository == null)
                     bllServiceRepository = new BllServiceRepository(db);
                 return bllServiceRepository;
+            }
+        }
+
+        public IRepository<CalendarSetting> CalendarSettings
+        {
+            get
+            {
+                if (pcalendarSettingRepository == null)
+                    pcalendarSettingRepository = new CalendarSettingRepository(db);
+                return pcalendarSettingRepository;
+            }
+        }
+
+        public IRepository<CustomerNotification> CustomerNotifications
+        {
+            get
+            {
+                if (cNotificationRepository == null)
+                    cNotificationRepository = new CustomerNotificationRepository(db);
+                return cNotificationRepository;
+            }
+        }
+
+        public IRepository<TeamNotification> TeamNotifications
+        {
+            get
+            {
+                if (tNotificationRepository == null)
+                    tNotificationRepository = new TeamNotificationRepository(db);
+                return tNotificationRepository;
             }
         }
 
