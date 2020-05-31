@@ -154,7 +154,7 @@ namespace BLL.Services
             }
         }
 
-        public IServiceRepository<EmployeeDTM> EmployeesDTM
+        public IEmployeeServiceRepository EmployeesDTM
         {
             get
             {

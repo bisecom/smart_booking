@@ -11,12 +11,277 @@ namespace BLL.Utils
     public static class ModelFactory
     {
 
-        public static CalendarSetting changeFromDTM(CalendarSettingDTM settingDtm)
+        public static WorkingHour changeFromDTM(WorkingHourDTM workingHourDtm)
         {
+            WorkingHour workingHour = new WorkingHour();
+            workingHour.MondayStart = workingHourDtm.MondayStart;
+            workingHour.MondayStop = workingHourDtm.MondayStop;
+            workingHour.TuesdayStart = workingHourDtm.TuesdayStart;
+            workingHour.TuesdayStop = workingHourDtm.TuesdayStop;
+            workingHour.WednesdayStart = workingHourDtm.WednesdayStart;
+            workingHour.WednesdayStop = workingHourDtm.WednesdayStop;
+            workingHour.ThursdayStart = workingHourDtm.ThursdayStart;
+            workingHour.ThursdayStop = workingHourDtm.ThursdayStop;
+            workingHour.FridayStart = workingHourDtm.FridayStart;
+            workingHour.FridayStop = workingHourDtm.FridayStop;
+            workingHour.SaturdayStart = workingHourDtm.SaturdayStart;
+            workingHour.SaturdayStop = workingHourDtm.SaturdayStop;
+            workingHour.SundayStart = workingHourDtm.SundayStart;
+            workingHour.SundayStop = workingHourDtm.SundayStop;
 
-            return null;
+            workingHour.Employee = changeFromDTM(workingHourDtm.Employee);
+            return workingHour;
         }
 
+        public static Employee changeFromDTM(EmployeeDTM employeeDtm)
+        {
+            Employee employee = new Employee();
+            employee.Id = employeeDtm.Id;
+            employee.Business = changeFromDTM(employeeDtm.Business);
+            employee.BusinessId = employeeDtm.Business.Id;
+            employee.User = changeFromDTM(employeeDtm.User);
+            employee.UserId = employeeDtm.User.Id;
+            employee.IsOwner = employeeDtm.IsOwner;
+
+            if(employeeDtm.CalendarSetting != null)
+            {
+                CalendarSetting cset = new CalendarSetting();
+                cset = changeFromDTM(employeeDtm.CalendarSetting);
+                employee.CalendarSetting = cset;
+            }
+            if(employeeDtm.CustomerNotification != null)
+            {
+                CustomerNotification cNotice = new CustomerNotification();
+                cNotice = changeFromDTM(employeeDtm.CustomerNotification);
+                employee.CustomerNotification = cNotice;
+            }
+            if(employeeDtm.TeamNotification != null)
+            {
+                TeamNotification tNotice = new TeamNotification();
+                tNotice = changeFromDTM(employeeDtm.TeamNotification);
+                employee.TeamNotification = tNotice;
+            }
+            if(employeeDtm.Permission != null)
+            {
+                Permission permission = new Permission();
+                permission = changeFromDTM(employeeDtm.Permission);
+                employee.Permission = permission;
+            }
+            if(employeeDtm.WorkingHour != null)
+            {
+                WorkingHour wHour = new WorkingHour();
+                wHour = changeFromDTM(employeeDtm.WorkingHour);
+                employee.WorkingHour = wHour;
+            }
+            
+            return employee;
+        }
+
+        public static Business changeFromDTM(BusinessDTM businessDtm)
+        {
+            Business business = new Business();
+            business.Id = businessDtm.Id;
+            business.Name = businessDtm.Name;
+            business.Phone = businessDtm.Phone;
+            business.Logo = businessDtm.Logo;
+            business.Webpage = businessDtm.Webpage;
+            business.Address = businessDtm.Address;
+            business.City = businessDtm.City;
+            business.State = businessDtm.State;
+            business.ZipCode = businessDtm.ZipCode;
+            business.RegistrationNumber = businessDtm.RegistrationNumber;
+            business.Country = changeFromDTM(businessDtm.Country);
+            business.Currency = changeFromDTM(businessDtm.Currency);
+            business.Time_zone = changeFromDTM(businessDtm.Time_zone);
+            business.Booking = businessDtm.Booking == null ? null : changeFromDTM(businessDtm.Booking);
+            return business;
+        }
+
+        public static Country changeFromDTM(CountryDTM countryDtm)
+        {
+            Country country = new Country
+            {
+                Id = countryDtm.Id,
+                Code = countryDtm.Code,
+                Name = countryDtm.Name,
+                Native = countryDtm.Native,
+                PhonePrefix = countryDtm.PhonePrefix,
+                Capital = countryDtm.Capital,
+                Currency_ = countryDtm.Currency_,
+                Emoji = countryDtm.Emoji,
+                EmojiU = countryDtm.EmojiU
+            };
+            return country;
+        }
+        public static Currency changeFromDTM(CurrencyDTM currencyDtm)
+        {
+            Currency currency = new Currency();
+            currency.Id = currencyDtm.Id;
+            currency.Name = currencyDtm.Name;
+            return currency;
+        }
+
+        public static Time_zone changeFromDTM(Time_zoneDTM time_zoneDtm)
+        {
+            Time_zone zone = new Time_zone
+            {
+                Id = time_zoneDtm.Id,
+                Zone = time_zoneDtm.Zone,
+                CountryCode = time_zoneDtm.CountryCode,
+                UTC_Jan_1_2020 = time_zoneDtm.UTC_Jan_1_2020,
+                DST_Jul_1_2020 = time_zoneDtm.DST_Jul_1_2020
+            };
+            return zone;
+        }
+
+        public static Booking changeFromDTM(BookingDTM bookingDtm)
+        {
+            Booking booking = new Booking();
+            booking.BusinessId = bookingDtm.BusinessId;
+            booking.WebpageLink = bookingDtm.WebpageLink;
+            booking.IsEntityLogoRemoved = bookingDtm.IsEntityLogoRemoved;
+            booking.IsMemberSelecting = bookingDtm.IsMemberSelecting;
+            booking.SlotDuration = bookingDtm.SlotDuration;
+            booking.PageLanguageId = bookingDtm.PageLanguageId;
+            booking.BannerPicture = bookingDtm.BannerPicture;
+            booking.SklypeLink = bookingDtm.SklypeLink;
+            booking.FacebookLink = bookingDtm.FacebookLink;
+            booking.TwitterLink = bookingDtm.TwitterLink;
+            booking.InstagramkLink = bookingDtm.InstagramkLink;
+            booking.YoutubeLink = bookingDtm.YoutubeLink;
+            booking.PageOverview = bookingDtm.PageOverview;
+            booking.IsContactsAvailable = bookingDtm.IsContactsAvailable;
+            booking.IsServicesAvailable = bookingDtm.IsServicesAvailable;
+            booking.IsPriceAvailable = bookingDtm.IsPriceAvailable;
+            booking.IsDurationAvailable = bookingDtm.IsDurationAvailable;
+            booking.IsDescriptionAvailable = bookingDtm.IsDescriptionAvailable;
+
+            if (bookingDtm.Business != null)
+            {
+                Business business = new Business();
+                business.Id = bookingDtm.Business.Id;
+                business.Name = bookingDtm.Business.Name;
+                business.Phone = bookingDtm.Business.Phone;
+                business.Logo = bookingDtm.Business.Logo;
+                business.Webpage = bookingDtm.Business.Webpage;
+                business.Address = bookingDtm.Business.Address;
+                business.City = bookingDtm.Business.City;
+                business.State = bookingDtm.Business.State;
+                business.ZipCode = bookingDtm.Business.ZipCode;
+                business.RegistrationNumber = bookingDtm.Business.RegistrationNumber;
+                business.Country = null;
+                business.Currency = null;
+                business.Time_zone = null;
+                business.Booking = null;
+            }
+                return booking;
+        }
+
+        public static User changeFromDTM(UserDTM userDtm)
+        {
+            User user = new User();
+            user.Id = userDtm.Id;
+            user.Email = userDtm.Email;
+            user.FirstName = userDtm.FirstName;
+            user.SecondName = userDtm.SecondName;
+            user.PhoneMobile = userDtm.PhoneMobile;
+            user.PhoneOffice = userDtm.PhoneOffice;
+            user.UserPicture = userDtm.UserPicture;
+            user.Address = userDtm.Address;
+            user.City = userDtm.City;
+            user.State = userDtm.State;
+            user.ZipCode = userDtm.ZipCode;
+            user.PlanId = userDtm.PlanId;
+            user.IsPaymentOverdue = userDtm.IsPaymentOverdue;
+            user.IsMale = userDtm.IsMale;
+            user.Birthdate = userDtm.Birthdate;
+
+            if (userDtm.Country != null)
+            {
+                Country country = new Country();
+                country.Id = userDtm.Country.Id;
+                country.Code = userDtm.Country.Code;
+                country.Name = userDtm.Country.Name;
+                country.Native = userDtm.Country.Native;
+                country.PhonePrefix = userDtm.Country.PhonePrefix;
+                country.Capital = userDtm.Country.Capital;
+                country.Currency_ = userDtm.Country.Currency_;
+                country.Emoji = userDtm.Country.Emoji;
+                country.EmojiU = userDtm.Country.EmojiU;
+                user.Country = country;
+            }
+
+            if (userDtm.Time_zone != null)
+            {
+                Time_zone tz = new Time_zone();
+                tz.Id = userDtm.Time_zone.Id;
+                tz.Zone = userDtm.Time_zone.Zone;
+                tz.CountryCode = userDtm.Time_zone.CountryCode;
+                tz.UTC_Jan_1_2020 = userDtm.Time_zone.UTC_Jan_1_2020;
+                tz.DST_Jul_1_2020 = userDtm.Time_zone.DST_Jul_1_2020;
+                user.Time_zone = tz;
+            }
+            return user;
+        }
+
+        public static CalendarSetting changeFromDTM(CalendarSettingDTM cSettingDtm)
+        {
+            CalendarSetting cSetting = new CalendarSetting();
+            cSetting.EmployeeId = cSettingDtm.EmployeeId;
+            cSetting.View = cSettingDtm.View;
+            cSetting.FirstHour = cSettingDtm.FirstHour;
+            cSetting.WorkingDayDuration = cSettingDtm.WorkingDayDuration;
+            cSetting.SlotDuration = cSettingDtm.SlotDuration;
+
+            if (cSettingDtm.Employee != null)
+            cSetting.Employee = changeFromDTM(cSettingDtm.Employee);
+
+            return cSetting;
+        }
+
+        public static CustomerNotification changeFromDTM(CustomerNotificationDTM cNoticeDtm)
+        {
+            CustomerNotification customerNotification = new CustomerNotification();
+            customerNotification.EmployeeId = cNoticeDtm.EmployeeId;
+            customerNotification.AfterBooked = cNoticeDtm.AfterBooked;
+            customerNotification.AfterRescheduled = cNoticeDtm.AfterRescheduled;
+            customerNotification.AfterCancelled = cNoticeDtm.AfterCancelled;
+
+            if (cNoticeDtm.Employee != null)
+            customerNotification.Employee = changeFromDTM(cNoticeDtm.Employee);
+
+            return customerNotification;
+        }
+
+        public static TeamNotification changeFromDTM(TeamNotificationDTM tNoticeDtm)
+        {
+            TeamNotification tNotification = new TeamNotification();
+            tNotification.EmployeeId = tNoticeDtm.EmployeeId;
+            tNotification.AfterBooked = tNoticeDtm.AfterBooked;
+            tNotification.AfterRescheduled = tNoticeDtm.AfterRescheduled;
+            tNotification.Collegue = tNoticeDtm.Collegue;
+            tNotification.CollegueAndOwner = tNoticeDtm.CollegueAndOwner;
+            tNotification.Owner = tNoticeDtm.Owner;
+
+            if (tNoticeDtm.Employee != null)
+                tNotification.Employee = changeFromDTM(tNoticeDtm.Employee);
+            return tNotification;
+        }
+
+        public static Permission changeFromDTM(PermissionDTM permissionDtm)
+        {
+            Permission permission = new Permission();
+            permission.EmployeeId = permissionDtm.EmployeeId;
+            permission.IsSummary = permissionDtm.IsSummary;
+            permission.IsOthersCalendar = permissionDtm.IsOthersCalendar;
+            permission.IsClients = permissionDtm.IsClients;
+            permission.IsServices = permissionDtm.IsServices;
+            permission.IsReports = permissionDtm.IsReports;
+
+            if (permissionDtm.Employee != null)
+                permission.Employee = changeFromDTM(permissionDtm.Employee);
+            return permission;
+        }
         public static CalendarSettingDTM changeToDTM(CalendarSetting setting)
         {
             CalendarSettingDTM cSetting = new CalendarSettingDTM();
@@ -122,6 +387,7 @@ namespace BLL.Utils
         {
             UserDTM userDtm = new UserDTM();
             userDtm.Id = user.Id;
+            userDtm.Email = user.Email;
             userDtm.FirstName = user.FirstName;
             userDtm.SecondName = user.SecondName;
             userDtm.PhoneMobile = user.PhoneMobile;

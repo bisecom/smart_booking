@@ -24,7 +24,7 @@ namespace DAL.Repositories
             try
             {
                 db.Employees.Add(item);
-                db.SaveChanges();
+                await db.SaveChangesAsync();
                 return true;
             }
             catch { return false; }
@@ -35,12 +35,13 @@ namespace DAL.Repositories
             try
             {
                 Employee empl = await db.Employees.FindAsync(id);
+
                 if (empl != null)
                     db.Employees.Remove(empl);
-                    db.SaveChanges();
+                await db.SaveChangesAsync();
                 return true;
             }
-            catch { return false; }
+            catch (Exception ex){ Console.Out.WriteLine(ex.Message); return false; }
         }
 
         public IQueryable<Employee> Find(Func<Employee, bool> predicate)
@@ -50,16 +51,29 @@ namespace DAL.Repositories
 
         public async Task<Employee> Get(int id)
         {
-            //return await db.Employees.FindAsync(id);
-            return await db.Employees
-                .Include("User")
-                .Include("Business")
-                .Include("CalendarSetting")
-                .Include("CustomerNotification")
-                .Include("TeamNotification")
-                .Include("Permission")
-                .Include("WorkingHour")
-                .SingleOrDefaultAsync(e => e.Id == id);
+            try
+            {
+                //Employee empl = await db.Employees
+                //    .Include("User")
+                //    .Include("Business")
+                //    //.Include("CalendarSetting")
+                //    //.Include("CustomerNotification")
+                //    //.Include("TeamNotification")
+                //    //.Include("Permission")
+                //    //.Include("WorkingHour")
+                //    .FirstOrDefaultAsync(e => e.Id == id);
+
+
+                //var empl = db.Employees
+                //    .Where(e => e.Id == id).ToList();
+
+                var empl = await (from e in db.Employees
+                           where e.Id == id
+                           select e ).FirstOrDefaultAsync();
+
+                return empl;
+            }
+            catch(Exception ex) { Console.Out.WriteLine(ex.Message); return null; }
         }
 
         public IQueryable<Employee> GetAll()

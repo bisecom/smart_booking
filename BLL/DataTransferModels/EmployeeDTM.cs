@@ -11,7 +11,7 @@ namespace smart_booking.BLL.DataTransferModels
         public virtual BusinessDTM Business { get; set; }
         public string UserId { get; set; }
         public virtual UserDTM User { get; set; }
-        public bool? IsOwner { get; set; }
+        public bool? IsOwner { get; set; } = false;
 
         public virtual CalendarSettingDTM CalendarSetting { get; set; }
         public virtual CustomerNotificationDTM CustomerNotification { get; set; }

@@ -85,6 +85,7 @@
     <Compile Include="DataTransferModels\UserDTM.cs" />
     <Compile Include="DataTransferModels\WorkingBreakDTM.cs" />
     <Compile Include="DataTransferModels\WorkingHourDTM.cs" />
+    <Compile Include="Interfaces\IEmployeeServiceRepository.cs" />
     <Compile Include="Interfaces\IServiceRepository.cs" />
     <Compile Include="Interfaces\ISlotServiceRepository.cs" />
     <Compile Include="Interfaces\IUserServiceRepository.cs" />

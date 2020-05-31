@@ -18,7 +18,7 @@ namespace BLL.Interfaces
         IServiceRepository<CurrencyDTM> CurrenciesDTM { get; }
         IServiceRepository<BusinessDTM> BusinessesDTM { get; }
         IServiceRepository<BookingDTM> BookingsDTM { get; }
-        IServiceRepository<EmployeeDTM> EmployeesDTM { get; }
+        //IServiceRepository<EmployeeDTM> EmployeesDTM { get; }
         IServiceRepository<PageLanguageDTM> PageLanguagesDTM { get; }
         IServiceRepository<ServiceDTM> ServicesDTM { get; }
         IServiceRepository<ServiceCategoryDTM> ServiceCategoriesDTM { get; }
@@ -29,7 +29,7 @@ namespace BLL.Interfaces
         IServiceRepository<WorkingHourDTM> WorkingHoursDTM { get; }
         IServiceRepository<WorkingBreakDTM> WorkingBreaksDTM { get; }
         IServiceRepository<ClientDTM> ClientsDTM { get; }
-
+        IEmployeeServiceRepository EmployeesDTM { get; }
         //bool SaveChanges();
     }
 }

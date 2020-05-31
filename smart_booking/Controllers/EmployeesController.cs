@@ -96,7 +96,7 @@ namespace smart_booking.Controllers
                 }
                 else
                 {
-                    TheRepo.EmployeesDTM.Delete(id);
+                    await TheRepo.EmployeesDTM.Delete(id);
                     return Request.CreateResponse(HttpStatusCode.OK);
                 }
             }

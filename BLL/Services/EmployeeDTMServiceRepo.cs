@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 
 namespace BLL.Services
 {
-    class EmployeeDTMServiceRepo : IServiceRepository<EmployeeDTM>
+    class EmployeeDTMServiceRepo : IEmployeeServiceRepository
     {
         IUnitOfWork Database { get; set; }
 
@@ -66,14 +66,36 @@ namespace BLL.Services
                 employee.UserId = item.User.Id;
                 employee.IsOwner = item.IsOwner;
 
-                employee.CalendarSetting = null;
-                employee.CustomerNotification = null;
-                employee.TeamNotification = null;
-                employee.Permission = null;
-                employee.WorkingHour = null;
-                //employee.Slot = null;
+                await Database.Employees.Create(employee);
 
-                Database.Employees.Create(employee);
+                if (employee.IsOwner == false)
+                {
+                    WorkingHour wHourDtm = new WorkingHour();
+                    wHourDtm.Employee = employee;
+                    wHourDtm.EmployeeId = employee.Id;
+                    await Database.WorkingHours.Create(wHourDtm);
+
+                    Permission perm = new Permission();
+                    perm.Employee = employee;
+                    perm.EmployeeId = employee.Id;
+                    await Database.Permissions.Create(perm);
+
+                    CalendarSetting cSetting = new CalendarSetting();
+                    cSetting.Employee = employee;
+                    cSetting.EmployeeId = employee.Id;
+                    await Database.CalendarSettings.Create(cSetting);
+
+                    CustomerNotification cNotif = new CustomerNotification();
+                    cNotif.Employee = employee;
+                    cNotif.EmployeeId = employee.Id;
+                    await Database.CustomerNotifications.Create(cNotif);
+
+                    TeamNotification tNotif = new TeamNotification();
+                    tNotif.Employee = employee;
+                    tNotif.EmployeeId = employee.Id;
+                    await Database.TeamNotifications.Create(tNotif);
+                }
+
                 return employee.Id;
             }
             catch { return 0; }
@@ -123,11 +145,17 @@ namespace BLL.Services
             return false;
         }
 
-        public bool Delete(int id)
+        public async Task<bool> Delete(int id)
         {
             try
             {
-                Database.Employees.Delete(id);
+                await Database.CalendarSettings.Delete(id);
+                await Database.CustomerNotifications.Delete(id);
+                await Database.TeamNotifications.Delete(id);
+                await Database.Permissions.Delete(id);
+                await Database.WorkingHours.Delete(id);
+
+                await Database.Employees.Delete(id);
                 return true;
             }
             catch { return false; }
