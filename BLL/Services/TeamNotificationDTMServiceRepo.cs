@@ -54,7 +54,7 @@ namespace BLL.Services
                 tNotification.CollegueAndOwner = tNotificationDtm.CollegueAndOwner;
                 tNotification.Owner = tNotificationDtm.Owner;
 
-                tNotification.Employee = await Database.Employees.Get(tNotificationDtm.Employee.Id);
+                tNotification.Employee = await Database.Employees.Get(tNotificationDtm.EmployeeId);
                 await Database.TeamNotifications.Create(tNotification);
                 return tNotification.EmployeeId;
             }

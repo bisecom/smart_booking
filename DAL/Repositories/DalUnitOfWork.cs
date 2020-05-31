@@ -53,7 +53,7 @@ namespace DAL.Repositories
                 return bllServiceRepository;
             }
         }
-
+        
         public IRepository<Client> Clients
         {
             get

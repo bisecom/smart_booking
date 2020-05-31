@@ -25,7 +25,7 @@ namespace smart_booking.DAL.EF
                 State = "NY",
                 ZipCode = "3453453345",
                 PlanId = 1,
-                PaymentOverdue = 0,
+                IsPaymentOverdue = false,
                 IsMale = true,
                 Birthdate = new DateTime(1998, 04, 30),
                 Time_ZoneId = 1
@@ -45,7 +45,7 @@ namespace smart_booking.DAL.EF
                 State = "NY",
                 ZipCode = "345343332",
                 PlanId = 1,
-                PaymentOverdue = 0,
+                IsPaymentOverdue = false,
                 IsMale = true,
                 Birthdate = new DateTime(1995, 10, 30),
                 Time_ZoneId = 2

@@ -55,7 +55,7 @@ namespace BLL.Services
                 permission.IsReports = permissionDtm.IsReports;
                 permission.EmployeeId = permissionDtm.EmployeeId;
 
-                permission.Employee = await Database.Employees.Get(permissionDtm.Employee.Id);
+                permission.Employee = await Database.Employees.Get(permissionDtm.EmployeeId);
                 await Database.Permissions.Create(permission);
                 return permission.EmployeeId;
             }

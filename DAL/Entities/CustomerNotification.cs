@@ -12,9 +12,9 @@ namespace smart_booking.DAL.Entities
         [Key]
         [ForeignKey("Employee")]
         public int EmployeeId { get; set; }
-        public bool AfterBooked { get; set; }
-        public bool AfterRescheduled { get; set; }
-        public bool AfterCancelled { get; set; }
+        public bool? AfterBooked { get; set; }
+        public bool? AfterRescheduled { get; set; }
+        public bool? AfterCancelled { get; set; }
         public virtual Employee Employee { get; set; }
 
     }

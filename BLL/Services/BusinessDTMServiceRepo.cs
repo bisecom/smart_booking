@@ -166,17 +166,9 @@ namespace BLL.Services
             try
             {
                 Business business = new Business();
-                if (businessDtm.Country == null)
-                {
-                    business.Name = businessDtm.Name;
-                    business.Logo = null;
-                    business.Country = null;
-                    business.Currency = null;
-                    business.Time_zone = null;
-                    business.Booking = null;
-                }
-                else { 
-                    business.Name = businessDtm.Name;
+                business.Name = businessDtm.Name;
+                if (businessDtm.Country != null)
+                { 
                     business.Phone = businessDtm.Phone;
                     business.Logo = businessDtm.Logo;
                     business.Webpage = businessDtm.Webpage;

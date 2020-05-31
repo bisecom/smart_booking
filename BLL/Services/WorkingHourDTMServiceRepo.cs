@@ -63,7 +63,7 @@ namespace BLL.Services
                 iworkingHour.SundayStart = workingHour.SundayStart;
                 iworkingHour.SundayStop = workingHour.SundayStop;
 
-                iworkingHour.Employee = await Database.Employees.Get(workingHour.Employee.Id);
+                iworkingHour.Employee = await Database.Employees.Get(workingHour.EmployeeId);
 
                 await Database.WorkingHours.Create(iworkingHour);
                 return iworkingHour.EmployeeId;

@@ -71,9 +71,9 @@ namespace BLL.Services
                 employee.TeamNotification = null;
                 employee.Permission = null;
                 employee.WorkingHour = null;
-                employee.Slot = null;
+                //employee.Slot = null;
 
-                await Database.Employees.Create(employee);
+                Database.Employees.Create(employee);
                 return employee.Id;
             }
             catch { return 0; }

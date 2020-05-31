@@ -52,7 +52,7 @@ namespace BLL.Services
                 customerNotification.AfterRescheduled = cNotificationDtm.AfterRescheduled;
                 customerNotification.AfterCancelled = cNotificationDtm.AfterCancelled;
 
-                customerNotification.Employee = await Database.Employees.Get(cNotificationDtm.Employee.Id);
+                customerNotification.Employee = await Database.Employees.Get(cNotificationDtm.EmployeeId);
                 await Database.CustomerNotifications.Create(customerNotification);
                 return customerNotification.EmployeeId;
             }

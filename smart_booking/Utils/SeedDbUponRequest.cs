@@ -35,12 +35,16 @@ namespace smart_booking.Utils
         public List<CountryDTM> CountriesListDtm;
         public List<Time_zoneDTM> ZonesListDtm;
         public List<CurrencyDTM> CurrenciesLidtDtm;
+        public PageLanguageDTM PageLanguage;
+        public ServiceCategoryDTM ServCategory;
+        public ServiceDTM Service;
         public SeedDbUponRequest()
         {
             CountriesListDtm = new List<CountryDTM>();
             ZonesListDtm = new List<Time_zoneDTM>();
             CurrenciesLidtDtm = new List<CurrencyDTM>();
             WriteCountryData();
+            SeedServiceLanguageDate();
         }
         public void WriteCountryData()
         {
@@ -92,6 +96,15 @@ namespace smart_booking.Utils
                 cur.Name = curLine;
                 CurrenciesLidtDtm.Add(cur);
             }
+
+        }
+
+        public void SeedServiceLanguageDate()
+        {
+            ServCategory = new ServiceCategoryDTM();
+            ServCategory.Name = "Testing category 1";
+            PageLanguage = new PageLanguageDTM();
+            PageLanguage.Name = "EN";
 
         }
     }

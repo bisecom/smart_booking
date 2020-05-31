@@ -12,9 +12,9 @@ namespace smart_booking.BLL.DataTransferModels
         public virtual ServiceCategoryDTM ServiceCategory { get; set; }
         public string Name { get; set; }
         public string Description { get; set; }
-        public float Price { get; set; }
-        public int Duration { get; set; }
-        public int PaddingAfter { get; set; }
+        public float? Price { get; set; }
+        public int? Duration { get; set; }
+        public int? PaddingAfter { get; set; }
         public byte[] Picture { get; set; }
 
         public virtual ICollection<SlotDTM> Slots { get; set; }

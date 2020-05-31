@@ -17,9 +17,9 @@ namespace smart_booking.DAL.Entities
         public virtual ServiceCategory ServiceCategory { get; set; }
         public string Name { get; set; }
         public string Description { get; set; }
-        public float Price { get; set; }
-        public int Duration { get; set; }
-        public int PaddingAfter { get; set; }
+        public float? Price { get; set; }
+        public int? Duration { get; set; }
+        public int? PaddingAfter { get; set; }
         public byte[] Picture { get; set; }
 
         public virtual ICollection<Slot> Slots { get; set; }

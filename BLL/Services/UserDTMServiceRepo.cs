@@ -82,15 +82,14 @@ namespace BLL.Services
             throw new NotImplementedException();
         }
 
-        public bool Create(UserDTM userDtm)
+        public async Task<bool> Create(UserDTM userDtm)
         {
-            //Find(myTest);
-
             try
             {
                 User user = new User
                 {
                     Id = userDtm.Id,
+                    Email = userDtm.Email,
                     FirstName = userDtm.FirstName,
                     SecondName = userDtm.SecondName,
                     CountryId = userDtm.CountryId,
@@ -100,7 +99,7 @@ namespace BLL.Services
                     City = userDtm.City
 
                 };
-                Database.Users.Create(user);
+                await Database.Users.Create(user);
                 return true;
             }
             catch { return false; }

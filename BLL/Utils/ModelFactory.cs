@@ -132,7 +132,7 @@ namespace BLL.Utils
             userDtm.State = user.State;
             userDtm.ZipCode = user.ZipCode;
             userDtm.PlanId = user.PlanId;
-            userDtm.PaymentOverdue = user.PaymentOverdue;
+            userDtm.IsPaymentOverdue = user.IsPaymentOverdue;
             userDtm.IsMale = user.IsMale;
             userDtm.Birthdate = user.Birthdate;
 
@@ -252,10 +252,10 @@ namespace BLL.Utils
             {
                 employeeDtm.WorkingHour = changeToDTM(employee.WorkingHour);
             }
-            if (employee.Slot != null)
-            {
-                employeeDtm.Slot = changeToDTM(employee.Slot);
-            }
+            //if (employee.Slot != null)
+            //{
+            //    employeeDtm.Slot = changeToDTM(employee.Slot);
+            //}
 
             return employeeDtm;
         }

@@ -12,11 +12,11 @@ namespace smart_booking.DAL.Entities
         [Key]
         [ForeignKey("Employee")]
         public int EmployeeId { get; set; }
-        public bool IsSummary { get; set; }
-        public bool IsOthersCalendar { get; set; }
-        public bool IsClients { get; set; }
-        public bool IsServices { get; set; }
-        public bool IsReports { get; set; }
+        public bool? IsSummary { get; set; }
+        public bool? IsOthersCalendar { get; set; }
+        public bool? IsClients { get; set; }
+        public bool? IsServices { get; set; }
+        public bool? IsReports { get; set; }
         public virtual Employee Employee { get; set; }
     }
 }

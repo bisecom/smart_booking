@@ -53,7 +53,7 @@ namespace BLL.Services
                 cSetting.WorkingDayDuration = cSettingDtm.WorkingDayDuration;
                 cSetting.SlotDuration = cSettingDtm.SlotDuration;
 
-                cSetting.Employee = await Database.Employees.Get(cSettingDtm.Employee.Id);
+                cSetting.Employee = await Database.Employees.Get(cSettingDtm.EmployeeId);
                 await Database.CalendarSettings.Create(cSetting);
                 return cSetting.EmployeeId;
             }

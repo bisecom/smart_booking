@@ -34,6 +34,7 @@ namespace smart_booking.DAL.EF
         public DbSet<CalendarSetting> CalendarSettings { get; set; }
         public DbSet<CustomerNotification> CustomerNotifications { get; set; }
         public DbSet<TeamNotification> TeamNotifications { get; set; }
+        public DbSet<PageLanguage> PageLanguages { get; set; }
 
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)

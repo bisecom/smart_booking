@@ -84,7 +84,7 @@ namespace DAL.Repositories
                     initialUser.State = user.State;
                     initialUser.ZipCode = user.ZipCode;
                     initialUser.PlanId = user.PlanId;
-                    initialUser.PaymentOverdue = user.PaymentOverdue;
+                    initialUser.IsPaymentOverdue = user.IsPaymentOverdue;
                     initialUser.IsMale = user.IsMale;
                     initialUser.Birthdate = user.Birthdate;
                     db.SaveChanges();

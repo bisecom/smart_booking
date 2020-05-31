@@ -23,7 +23,7 @@ namespace DAL.Repositories
             try
             {
                 db.Businesses.Add(item);
-                db.SaveChanges();
+                await db.SaveChangesAsync();
                 return true;
             }
             catch (Exception ex){ Console.Out.WriteLine(ex.Message); return false; }

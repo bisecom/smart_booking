@@ -50,11 +50,11 @@ namespace smart_booking.Controllers
         }
         
         // POST: api/Users/userDTM
-        public HttpResponseMessage Post([FromBody] UserDTM userDtm)
+        public async Task<HttpResponseMessage> Post([FromBody] UserDTM userDtm)
         {
             try
             {
-                if (TheRepo.UsersDTM.Create(userDtm))
+                if (await TheRepo.UsersDTM.Create(userDtm))
                 {
                     return Request.CreateResponse(HttpStatusCode.Created, userDtm);
                 }
