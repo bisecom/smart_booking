@@ -34,7 +34,11 @@ namespace DAL.Repositories
         {
             try
             {
-                WorkingHour wHour = db.WorkingHours.Find(id);
+                //WorkingHour wHour = await db.WorkingHours.FindAsync(id);
+                // WorkingHour wHour = await db.WorkingHours.Where(w => w.EmployeeId == id).FirstOrDefaultAsync();
+                var wHour = db.WorkingHours.Where(w => w.EmployeeId == id).ToList()[0];
+                //WorkingHour wHour = await db.WorkingHours.Where(w => w.EmployeeId == id).FirstOrDefaultAsync();
+                
                 if (wHour != null)
                 {
                     db.WorkingHours.Remove(wHour);

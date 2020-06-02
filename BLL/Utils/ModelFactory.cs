@@ -14,6 +14,7 @@ namespace BLL.Utils
         public static WorkingHour changeFromDTM(WorkingHourDTM workingHourDtm)
         {
             WorkingHour workingHour = new WorkingHour();
+            workingHour.EmployeeId = workingHourDtm.EmployeeId;
             workingHour.MondayStart = workingHourDtm.MondayStart;
             workingHour.MondayStop = workingHourDtm.MondayStop;
             workingHour.TuesdayStart = workingHourDtm.TuesdayStart;
@@ -484,7 +485,7 @@ namespace BLL.Utils
         public static EmployeeDTM changeToDTM(Employee employee)
         {
             EmployeeDTM employeeDtm = new EmployeeDTM();
-
+            employeeDtm.Id = employee.Id;
             if (employee.Business != null)
             {
                 employeeDtm.Business = changeToDTM(employee.Business);
@@ -525,5 +526,125 @@ namespace BLL.Utils
 
             return employeeDtm;
         }
+
+        public static BookingDTM changeToDTM(Booking booking)
+        {
+            BookingDTM bDtm = new BookingDTM();
+            bDtm.BusinessId = booking.BusinessId;
+            bDtm.WebpageLink = booking.WebpageLink;
+            bDtm.IsEntityLogoRemoved = booking.IsEntityLogoRemoved;
+            bDtm.IsMemberSelecting = booking.IsMemberSelecting;
+            bDtm.SlotDuration = booking.SlotDuration;
+            bDtm.PageLanguageId = booking.PageLanguageId;
+            bDtm.BannerPicture = booking.BannerPicture;
+            bDtm.SklypeLink = booking.SklypeLink;
+            bDtm.FacebookLink = booking.FacebookLink;
+            bDtm.TwitterLink = booking.TwitterLink;
+            bDtm.InstagramkLink = booking.InstagramkLink;
+            bDtm.YoutubeLink = booking.YoutubeLink;
+            bDtm.PageOverview = booking.PageOverview;
+            bDtm.IsContactsAvailable = booking.IsContactsAvailable;
+            bDtm.IsServicesAvailable = booking.IsServicesAvailable;
+            bDtm.IsPriceAvailable = booking.IsPriceAvailable;
+            bDtm.IsDurationAvailable = booking.IsDurationAvailable;
+            bDtm.IsDescriptionAvailable = booking.IsDescriptionAvailable;
+
+            if (booking.Business != null)
+            {
+                BusinessDTM businessDtm = new BusinessDTM();
+                businessDtm.Id = booking.Business.Id;
+                businessDtm.Name = booking.Business.Name;
+                businessDtm.Phone = booking.Business.Phone;
+                businessDtm.Logo = booking.Business.Logo;
+                businessDtm.Webpage = booking.Business.Webpage;
+                businessDtm.Address = booking.Business.Address;
+                businessDtm.City = booking.Business.City;
+                businessDtm.State = booking.Business.State;
+                businessDtm.ZipCode = booking.Business.ZipCode;
+                businessDtm.RegistrationNumber = booking.Business.RegistrationNumber;
+                if(booking.Business.Country != null)
+                    businessDtm.Country = changeToDTM(booking.Business.Country);
+                if (booking.Business.Currency != null)
+                    businessDtm.Currency = changeToDTM(booking.Business.Currency);
+                if (booking.Business.Country != null)
+                    businessDtm.Time_zone = changeToDTM(booking.Business.Time_zone);
+                //if (booking.Business.Booking != null)
+                //    businessDtm.Booking = changeToDTM(booking.Business.Booking);
+                
+                bDtm.Business = businessDtm;
+            }
+
+            return bDtm;
+        }
+
+        public static CountryDTM changeToDTM(Country country)
+        {
+            CountryDTM countryDtm = new CountryDTM
+            {
+                Id = country.Id,
+                Code = country.Code,
+                Name = country.Name,
+                Native = country.Native,
+                PhonePrefix = country.PhonePrefix,
+                Capital = country.Capital,
+                Currency_ = country.Currency_,
+                Emoji = country.Emoji,
+                EmojiU = country.EmojiU
+            };
+            return countryDtm;
+        }
+
+        public static CurrencyDTM changeToDTM(Currency currency)
+        {
+            CurrencyDTM currencyDtm = new CurrencyDTM
+            {
+                Id = currency.Id,
+                Name = currency.Name,
+               
+            };
+            return currencyDtm;
+        }
+
+        public static Time_zoneDTM changeToDTM(Time_zone time_zone)
+        {
+            Time_zoneDTM currencyDtm = new Time_zoneDTM
+            {
+                Id = time_zone.Id,
+                Zone = time_zone.Zone,
+                CountryCode = time_zone.CountryCode,
+                UTC_Jan_1_2020 = time_zone.UTC_Jan_1_2020,
+                DST_Jul_1_2020 = time_zone.DST_Jul_1_2020
+            };
+            return currencyDtm;
+        }
+
+        public static ServiceDTM changeToDTM(Service service)
+        {
+            ServiceDTM serviceDtm = new ServiceDTM();
+            serviceDtm.Id = service.Id;
+            serviceDtm.Name = service.Name;
+            serviceDtm.Description = service.Description;
+            serviceDtm.Price = service.Price;
+            serviceDtm.Duration = service.Duration;
+            serviceDtm.PaddingAfter = service.PaddingAfter;
+            serviceDtm.Picture = service.Picture;
+                   
+            serviceDtm.Business = changeToDTM(service.Business);
+            serviceDtm.ServiceCategory = changeToDTM(service.ServiceCategory);
+
+            return serviceDtm;
+        }
+
+        public static ServiceCategoryDTM changeToDTM(ServiceCategory sCategory)
+        {
+            ServiceCategoryDTM sCategoryDtm = new ServiceCategoryDTM();
+            sCategoryDtm.Id = sCategory.Id;
+            sCategoryDtm.Name = sCategory.Name;
+
+            return sCategoryDtm;
+        }
+
+
+
     }
 }

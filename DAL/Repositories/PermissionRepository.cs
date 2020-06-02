@@ -34,7 +34,8 @@ namespace DAL.Repositories
         {
             try
             {
-                Permission permission = await db.Permissions.FindAsync(id);
+                //Permission permission = await db.Permissions.FindAsync(id);
+                var permission = db.Permissions.Where(p => p.EmployeeId == id).ToList()[0];
                 if (permission != null)
                 {
                     db.Permissions.Remove(permission);

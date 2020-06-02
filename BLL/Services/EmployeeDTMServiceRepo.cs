@@ -103,46 +103,34 @@ namespace BLL.Services
 
         public async Task<bool> Update(EmployeeDTM employeeDtm)
         {
-            //try
-            //{
-            //    Employee employee = new Employee();
-            //    if (employeeDtm.User != null)
-            //    {
-            //        employee.User = changeToDTM(employee.User);
-            //        employee.UserId = employee.User.Id;
-            //    }
-            //    employee.IsOwner = employeeDtm.IsOwner;
+            try
+            {
+                Employee employee = new Employee();
+                employee.Id = employeeDtm.Id;
 
-            //    if (employeeDtm.CalendarSetting != null)
-            //    {
-            //        employee.CalendarSetting = changeToDTM(employee.CalendarSetting);
-            //    }
-
-            //    if (employeeDtm.CustomerNotification != null)
-            //    {
-            //        employee.CustomerNotification = changeToDTM(employee.CustomerNotification);
-            //    }
-            //    if (employeeDtm.TeamNotification != null)
-            //    {
-            //        employee.TeamNotification = changeToDTM(employee.TeamNotification);
-            //    }
-            //    if (employeeDtm.Permission != null)
-            //    {
-            //        employee.Permission = changeToDTM(employee.Permission);
-            //    }
-            //    if (employeeDtm.WorkingHour != null)
-            //    {
-            //        employee.WorkingHour = changeToDTM(employee.WorkingHour);
-            //    }
-            //    if (employeeDtm.Slot != null)
-            //    {
-            //        employee.Slot = changeToDTM(employee.Slot);
-            //    }
-
-            //    return await Database.Employees.Update(employee) ? true : false;
-            //}
-            //catch (Exception ex) { Console.Out.WriteLine(ex.Message); return false; }
-            return false;
+                if (employeeDtm.CalendarSetting != null)
+                {
+                    employee.CalendarSetting = ModelFactory.changeFromDTM(employeeDtm.CalendarSetting);
+                }
+                if (employeeDtm.CustomerNotification != null)
+                {
+                    employee.CustomerNotification = ModelFactory.changeFromDTM(employeeDtm.CustomerNotification);
+                }
+                if (employeeDtm.TeamNotification != null)
+                {
+                    employee.TeamNotification = ModelFactory.changeFromDTM(employeeDtm.TeamNotification);
+                }
+                if (employeeDtm.Permission != null)
+                {
+                    employee.Permission = ModelFactory.changeFromDTM(employeeDtm.Permission);
+                }
+                if (employeeDtm.WorkingHour != null)
+                {
+                    employee.WorkingHour = ModelFactory.changeFromDTM(employeeDtm.WorkingHour);
+                }
+                return await Database.Employees.Update(employee) ? true : false;
+            }
+            catch (Exception ex) { Console.Out.WriteLine(ex.Message); return false; }
         }
 
         public async Task<bool> Delete(int id)

@@ -1,6 +1,7 @@
 ﻿using Autofac;
 using DAL.Interfaces;
 using DAL.Repositories;
+using smart_booking.DAL.EF;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,6 +16,8 @@ namespace BLL.Utils
         {
             // Create our Services
             builder.RegisterType<DalUnitOfWork>().As<IUnitOfWork>().InstancePerRequest();
+            //builder.RegisterType<SBContext>().AsSelf().InstancePerDependency();
+            //https://stackoverflow.com/questions/35422549/autofac-dbcontext-has-been-disposed
         }
     }
 }

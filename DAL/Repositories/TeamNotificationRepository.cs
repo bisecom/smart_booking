@@ -34,7 +34,9 @@ namespace DAL.Repositories
         {
             try
             {
-                TeamNotification notification = await db.TeamNotifications.FindAsync(id);
+                //TeamNotification notification = await db.TeamNotifications.FindAsync(id);
+                var notification = db.TeamNotifications.Where(t => t.EmployeeId == id).ToList()[0];
+
                 if (notification != null)
                 {
                     db.TeamNotifications.Remove(notification);

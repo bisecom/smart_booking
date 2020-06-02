@@ -16,7 +16,7 @@ namespace BLL.Interfaces
         IServiceRepository<CountryDTM> CountriesDTM { get; }
         IServiceRepository<Time_zoneDTM> TimezonesDTM { get; }
         IServiceRepository<CurrencyDTM> CurrenciesDTM { get; }
-        IServiceRepository<BusinessDTM> BusinessesDTM { get; }
+        IBusinessServiceRepository BusinessesDTM { get; }
         IServiceRepository<BookingDTM> BookingsDTM { get; }
         //IServiceRepository<EmployeeDTM> EmployeesDTM { get; }
         IServiceRepository<PageLanguageDTM> PageLanguagesDTM { get; }

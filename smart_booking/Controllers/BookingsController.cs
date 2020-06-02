@@ -16,7 +16,7 @@ namespace smart_booking.Controllers
             : base(repo) { }
 
 
-        // GET: api/Bookings/1
+        // GET: Bookings/1
         public async Task<HttpResponseMessage> Get(int id)
         {
             try
@@ -37,7 +37,7 @@ namespace smart_booking.Controllers
             }
         }
 
-        // POST: api/Bookings/bookingDtm
+        // POST: Bookings/bookingDtm
         public async Task<HttpResponseMessage> Post([FromBody] BookingDTM bookingDtm)
         {
             try
@@ -51,7 +51,7 @@ namespace smart_booking.Controllers
             }
         }
 
-        // PUT: api/Bookings/bookingDtm
+        // PUT: Bookings/bookingDtm
         [HttpPatch]
         [HttpPut]
         public async Task<HttpResponseMessage> Put([FromBody]BookingDTM bookingDtm)
@@ -76,7 +76,7 @@ namespace smart_booking.Controllers
             }
         }
 
-        // DELETE: api/Bookings/1
+        // DELETE: Bookings/1
         public async Task<HttpResponseMessage> Delete(int id)
         {
             try

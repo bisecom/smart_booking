@@ -60,7 +60,7 @@ namespace BLL.Services
 
         public async Task<CountryDTM> Get(int id)
         {
-            int firstCountryId = 1; int lastCountryId = 250;
+            int firstCountryId = 1; int lastCountryId = 999;
             if (id < firstCountryId || id > lastCountryId)
                 throw new ValidationException("Country id is not specified correctly", "");
             var country = await Database.Countries.Get(id);

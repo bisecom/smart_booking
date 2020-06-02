@@ -406,41 +406,7 @@ namespace smart_booking.Controllers
                     busines.Name = model.BusinessName;
                     int businessId = await TheRepo.BusinessesDTM.Create(busines);
 
-                    EmployeeDTM emplBoss = new EmployeeDTM();
-                    emplBoss.Business = await TheRepo.BusinessesDTM.Get(businessId);
-                    emplBoss.User = await TheRepo.UsersDTM.Get(newUser.Id);
-                    emplBoss.IsOwner = true;
-                    int emplBossId = await TheRepo.EmployeesDTM.Create(emplBoss);
-
-                    BookingDTM bookingDtm = new BookingDTM();
-                    bookingDtm.BusinessId = businessId;
-                    await TheRepo.BookingsDTM.Create(bookingDtm);
-
-                    WorkingHourDTM wHourDtm = new WorkingHourDTM();
-                    var bossFromDb = await TheRepo.EmployeesDTM.Get(emplBossId);
-                    wHourDtm.Employee = bossFromDb;
-                    wHourDtm.EmployeeId = emplBossId;
-                    await TheRepo.WorkingHoursDTM.Create(wHourDtm);
-
-                    PermissionDTM perm = new PermissionDTM();
-                    perm.Employee = bossFromDb;
-                    perm.EmployeeId = emplBossId;
-                    await TheRepo.PermissionsDTM.Create(perm);
-
-                    CalendarSettingDTM cSetting = new CalendarSettingDTM();
-                    cSetting.Employee = bossFromDb;
-                    cSetting.EmployeeId = emplBossId;
-                    await TheRepo.CalendarSettingsDTM.Create(cSetting);
-
-                    CustomerNotificationDTM cNotif = new CustomerNotificationDTM();
-                    cNotif.Employee = bossFromDb;
-                    cNotif.EmployeeId = emplBossId;
-                    await TheRepo.CustomerNotificationsDTM.Create(cNotif);
-
-                    TeamNotificationDTM tNotif = new TeamNotificationDTM();
-                    tNotif.Employee = bossFromDb;
-                    tNotif.EmployeeId = emplBossId;
-                    await TheRepo.TeamNotificationsDTM.Create(tNotif);
+                    
                 }
 
             }

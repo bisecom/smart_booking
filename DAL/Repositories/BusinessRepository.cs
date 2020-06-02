@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace DAL.Repositories
@@ -80,12 +81,7 @@ namespace DAL.Repositories
                     initialBusiness.ZipCode = business.ZipCode;
                     initialBusiness.RegistrationNumber = business.RegistrationNumber;
 
-                    initialBusiness.Booking = business.Booking;
-                    initialBusiness.Clients = business.Clients;
-                    initialBusiness.Services = business.Services;
-                    initialBusiness.Employees = business.Employees;
-
-                    db.SaveChanges();
+                    await db.SaveChangesAsync();
                     return true;
                 }
             }

@@ -139,7 +139,6 @@
     <Compile Include="Entities\WorkingBreak.cs" />
     <Compile Include="Entities\WorkingHour.cs" />
     <Compile Include="Interfaces\IBllServicesUtils.cs" />
-    <Compile Include="Interfaces\IBusinessTestRepo.cs" />
     <Compile Include="Interfaces\IUnitOfWork.cs" />
     <Compile Include="Interfaces\IRepository.cs" />
     <Compile Include="Interfaces\IUserRepository.cs" />

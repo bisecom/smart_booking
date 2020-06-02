@@ -34,7 +34,9 @@ namespace DAL.Repositories
         {
             try
             {
-                CustomerNotification notification = await db.CustomerNotifications.FindAsync(id);
+                //CustomerNotification notification = await db.CustomerNotifications.FindAsync(id);
+                CustomerNotification notification = db.CustomerNotifications.Where(c => c.EmployeeId == id).ToList()[0];
+                
                 if (notification != null)
                 {
                     db.CustomerNotifications.Remove(notification);

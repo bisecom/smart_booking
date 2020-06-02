@@ -23,7 +23,7 @@ namespace DAL.Repositories
             try
             {
                 db.Bookings.Add(item);
-                db.SaveChanges();
+                await db.SaveChangesAsync();
                 return true;
             }
             catch (Exception ex) { Console.Out.WriteLine(ex.Message); return false; }
@@ -37,7 +37,7 @@ namespace DAL.Repositories
                 if (booking != null)
                 {
                     db.Bookings.Remove(booking);
-                    db.SaveChanges();
+                    await db.SaveChangesAsync();
                     return true;
                 }
             }
@@ -84,9 +84,10 @@ namespace DAL.Repositories
                     initialBooking.IsPriceAvailable = booking.IsPriceAvailable;
                     initialBooking.IsDurationAvailable = booking.IsDurationAvailable;
                     initialBooking.IsDescriptionAvailable = booking.IsDescriptionAvailable;
+                    if(booking.Business != null)
                     initialBooking.Business = booking.Business;
 
-                    db.SaveChanges();
+                    await db.SaveChangesAsync();
                     return true;
                 }
             }
