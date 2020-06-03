@@ -15,6 +15,6 @@ namespace BLL.Interfaces
         IQueryable<UserDTM> Find(Func<UserDTM, Boolean> predicate);
         Task<bool> Create(UserDTM item);
         void Update(UserDTM item);
-        bool Delete(string id);
+        Task<bool> Delete(string id);
     }
 }

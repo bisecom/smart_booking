@@ -58,7 +58,7 @@
             var data = { FirstName: $("#txtFirstName").val().trim(), BusinessName: $("#txtBusName").val().trim(), MemberPlan: $("#txtMemberPlan").val().trim(), Email: $("#txtEmail").val().trim(), Password: $("#textPwd").val().trim(), ConfirmPassword: $("#txtConfirmPwd").val().trim() };
             $.ajax({
                 //url: "/api/Account/Register",
-                url: "/Account/Register",
+                url: "/api/Account/Register",
                 type: 'POST',
                 data: data,
                 success: function (resp) {

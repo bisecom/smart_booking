@@ -53,8 +53,8 @@ namespace BLL.Services
                 tNotification.Collegue = tNotificationDtm.Collegue;
                 tNotification.CollegueAndOwner = tNotificationDtm.CollegueAndOwner;
                 tNotification.Owner = tNotificationDtm.Owner;
-
-                tNotification.Employee = await Database.Employees.Get(tNotificationDtm.EmployeeId);
+                if(tNotificationDtm.Employee != null)
+                tNotification.Employee = ModelFactory.changeFromDTM(tNotificationDtm.Employee);
                 await Database.TeamNotifications.Create(tNotification);
                 return tNotification.EmployeeId;
             }
@@ -80,11 +80,11 @@ namespace BLL.Services
             catch (Exception ex) { Console.Out.WriteLine(ex.Message); return false; }
         }
 
-        public bool Delete(int id)
+        public async Task<bool> Delete(int id)
         {
             try
             {
-                Database.TeamNotifications.Delete(id);
+                await Database.TeamNotifications.Delete(id);
                 return true;
             }
             catch { return false; }

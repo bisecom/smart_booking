@@ -1,4 +1,5 @@
 ﻿using BLL.Interfaces;
+using BLL.Utils;
 using smart_booking.BLL.DataTransferModels;
 using System;
 using System.Collections.Generic;
@@ -15,7 +16,7 @@ namespace smart_booking.Controllers
         public ClientsController(IUnitOfWorkService repo)
             : base(repo) { }
 
-        // GET: api/Clients/1
+        // GET: /Clients/1
         public async Task<HttpResponseMessage> Get(int id)
         {
             try
@@ -36,7 +37,7 @@ namespace smart_booking.Controllers
             }
         }
 
-        // PUT: api/Clients/client
+        // PUT: /Clients/client
         [HttpPatch]
         [HttpPut]
         public async Task<HttpResponseMessage> Put([FromBody]ClientDTM clientDtm)
@@ -61,7 +62,7 @@ namespace smart_booking.Controllers
             }
         }
 
-        // DELETE: api/Clients/1
+        // DELETE: /Clients/1
         public async Task<HttpResponseMessage> Delete(int id)
         {
             try
@@ -73,7 +74,7 @@ namespace smart_booking.Controllers
                 }
                 else
                 {
-                    TheRepo.ClientsDTM.Delete(id);
+                    await TheRepo.ClientsDTM.Delete(id);
                     return Request.CreateResponse(HttpStatusCode.OK);
                 }
             }
@@ -83,7 +84,7 @@ namespace smart_booking.Controllers
             }
         }
 
-        // POST: api/Clients/clientDtm
+        // POST: /Clients/clientDtm
         public async Task<HttpResponseMessage> Post([FromBody] ClientDTM clientDtm)
         {
             try
@@ -95,6 +96,13 @@ namespace smart_booking.Controllers
             {
                 return Request.CreateErrorResponse(HttpStatusCode.BadRequest, ex);
             }
+        }
+
+        // GET: Clients/mSearch
+        public async Task<List<ClientDTM>> GetClients(SearchParams mSearch)
+        {
+            List<ClientDTM> query = await TheRepo.ClientsDTM.GetAll(mSearch);
+            return query;
         }
 
     }

@@ -22,18 +22,20 @@ namespace BLL.Services
 
         public async Task<List<ServiceCategoryDTM>> GetAll(SearchParams search)
         {
-            IQueryable<ServiceCategory> sCategoriesQuery = Database.ServiceCategories.GetAll();
-            List<ServiceCategory> temp = sCategoriesQuery
-            .ToList();
-            List<ServiceCategoryDTM> tempList = new List<ServiceCategoryDTM>();
+            //IQueryable<ServiceCategory> sCategoriesQuery = Database.ServiceCategories.GetAll()
+            //    .Where(s => s.;
+            //List<ServiceCategory> temp = sCategoriesQuery
+            //.ToList();
+            //List<ServiceCategoryDTM> tempList = new List<ServiceCategoryDTM>();
 
-            if (temp != null)
-                foreach (var s in temp)
-                {
-                    tempList.Add(new ServiceCategoryDTM { Id = s.Id, Name = s.Name});
-                }
+            //if (temp != null)
+            //    foreach (var s in temp)
+            //    {
+            //        tempList.Add(new ServiceCategoryDTM { Id = s.Id, Name = s.Name});
+            //    }
 
-            return tempList;
+            //return tempList;
+            return null;
         }
 
         public async Task<ServiceCategoryDTM> Get(int id)
@@ -74,11 +76,11 @@ namespace BLL.Services
             throw new NotImplementedException();
         }
 
-        public bool Delete(int id)
+        public async Task<bool> Delete(int id)
         {
             try
             {
-                Database.ServiceCategories.Delete(id);
+                await Database.ServiceCategories.Delete(id);
                 return true;
             }
             catch { return false; }

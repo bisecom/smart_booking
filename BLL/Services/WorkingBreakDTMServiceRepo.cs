@@ -85,11 +85,11 @@ namespace BLL.Services
             catch (Exception ex) { Console.Out.WriteLine(ex.Message); return false; }
         }
 
-        public bool Delete(int id)
+        public async Task<bool> Delete(int id)
         {
             try
             {
-                Database.WorkingBreaks.Delete(id);
+                await Database.WorkingBreaks.Delete(id);
                 return true;
             }
             catch { return false; }

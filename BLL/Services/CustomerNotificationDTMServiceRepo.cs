@@ -68,19 +68,19 @@ namespace BLL.Services
                 customerNotification.AfterBooked = cNotificationDtm.AfterBooked;
                 customerNotification.AfterRescheduled = cNotificationDtm.AfterRescheduled;
                 customerNotification.AfterCancelled = cNotificationDtm.AfterCancelled;
-
-                customerNotification.Employee = await Database.Employees.Get(cNotificationDtm.Employee.Id);
+                if(cNotificationDtm.Employee != null)
+                customerNotification.Employee = ModelFactory.changeFromDTM(cNotificationDtm.Employee);
 
                 return await Database.CustomerNotifications.Update(customerNotification) ? true : false;
             }
             catch (Exception ex) { Console.Out.WriteLine(ex.Message); return false; }
         }
 
-        public bool Delete(int id)
+        public async Task<bool> Delete(int id)
         {
             try
             {
-                Database.CustomerNotifications.Delete(id);
+                await Database.CustomerNotifications.Delete(id);
                 return true;
             }
             catch { return false; }

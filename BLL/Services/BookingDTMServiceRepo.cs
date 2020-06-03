@@ -64,11 +64,11 @@ namespace BLL.Services
             catch (Exception ex) { Console.Out.WriteLine(ex.Message); return false; }
         }
 
-        public bool Delete(int id)
+        public async Task<bool> Delete(int id)
         {
             try
             {
-                Database.Bookings.Delete(id);
+                await Database.Bookings.Delete(id);
                 return true;
             }
             catch { return false; }

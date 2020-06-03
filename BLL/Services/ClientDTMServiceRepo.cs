@@ -22,7 +22,19 @@ namespace BLL.Services
 
         public async Task<List<ClientDTM>> GetAll(SearchParams search)
         {
-            throw new NotImplementedException();
+            IQueryable<Client> clientQuery = Database.Clients.GetAll();
+            List<Client> temp = clientQuery
+            .Where(t => t.BusinessId == search.BusinessId)
+            .ToList();
+            List<ClientDTM> tempList = new List<ClientDTM>();
+
+            if (temp != null)
+                foreach (var c in temp)
+                {
+                    tempList.Add(ModelFactory.changeToDTM(c));
+                }
+
+            return tempList;
         }
 
         public async Task<ClientDTM> Get(int id)
@@ -34,7 +46,7 @@ namespace BLL.Services
             if (client == null)
                 throw new ValidationException("Client is not found", "");
 
-            ClientDTM clientDTM = ClientToClientDTMMap(client);
+            ClientDTM clientDTM = ModelFactory.changeToDTM(client);
             return clientDTM;
         }
 
@@ -47,24 +59,8 @@ namespace BLL.Services
         {
             try
             {
-                Client client = new Client();
-                client.Id = clientDtm.Id;
-                client.FirstName = clientDtm.FirstName;
-                client.SecondName = clientDtm.SecondName;
-                client.ClientCompanyName = clientDtm.ClientCompanyName;
-                client.Email = clientDtm.Email;
-                client.MobilePhone = clientDtm.MobilePhone;
-                client.OfficePhone = clientDtm.OfficePhone;
-                client.Address = clientDtm.Address;
-                client.City = clientDtm.City;
-                client.State = clientDtm.State;
-                client.Zip_Code = clientDtm.Zip_Code;
-                client.BirthDay = clientDtm.BirthDay;
-                client.Image = clientDtm.Image;
-                client.IsMale = clientDtm.IsMale;
-                client.Note = clientDtm.Note;
+                Client client = ModelFactory.changeFromDTM(clientDtm);
 
-                client.Business = await Database.Businesses.Get(clientDtm.Business.Id);
                 await Database.Clients.Create(client);
                 return client.Id;
             }
@@ -75,63 +71,23 @@ namespace BLL.Services
         {
             try
             {
-                Client client = new Client();
-                client.Id = clientDtm.Id;
-                client.FirstName = clientDtm.FirstName;
-                client.SecondName = clientDtm.SecondName;
-                client.ClientCompanyName = clientDtm.ClientCompanyName;
-                client.Email = clientDtm.Email;
-                client.MobilePhone = clientDtm.MobilePhone;
-                client.OfficePhone = clientDtm.OfficePhone;
-                client.Address = clientDtm.Address;
-                client.City = clientDtm.City;
-                client.State = clientDtm.State;
-                client.Zip_Code = clientDtm.Zip_Code;
-                client.BirthDay = clientDtm.BirthDay;
-                client.Image = clientDtm.Image;
-                client.IsMale = clientDtm.IsMale;
-                client.Note = clientDtm.Note;
-                client.BusinessId = clientDtm.Business.Id;
-
-                client.Business = await Database.Businesses.Get(clientDtm.Business.Id);
+                Client client = ModelFactory.changeFromDTM(clientDtm);
 
                 return await Database.Clients.Update(client) ? true : false;
             }
             catch (Exception ex) { Console.Out.WriteLine(ex.Message); return false; }
         }
 
-        public bool Delete(int id)
+        public async Task<bool> Delete(int id)
         {
             try
             {
-                Database.Clients.Delete(id);
+                await Database.Clients.Delete(id);
                 return true;
             }
             catch { return false; }
         }
-
-        public ClientDTM ClientToClientDTMMap(Client client)
-        {
-            ClientDTM clientDtm = new ClientDTM();
-            clientDtm.Id = client.Id;
-            clientDtm.FirstName = client.FirstName;
-            clientDtm.SecondName = client.SecondName;
-            clientDtm.ClientCompanyName = client.ClientCompanyName;
-            clientDtm.Email = client.Email;
-            clientDtm.MobilePhone = client.MobilePhone;
-            clientDtm.OfficePhone = client.OfficePhone;
-            clientDtm.Address = client.Address;
-            clientDtm.City = client.City;
-            clientDtm.State = client.State;
-            clientDtm.Zip_Code = client.Zip_Code;
-            clientDtm.BirthDay = client.BirthDay;
-            clientDtm.Image = client.Image;
-            clientDtm.IsMale = client.IsMale;
-            clientDtm.Note = client.Note;
-            clientDtm.BusinessId = client.Business.Id;
-
-            return clientDtm;
-        }
+       
         public void Dispose()
         {
             Database.Dispose();

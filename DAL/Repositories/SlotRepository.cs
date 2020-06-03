@@ -38,7 +38,7 @@ namespace DAL.Repositories
                 if (slot != null)
                 {
                     db.Slots.Remove(slot);
-                    db.SaveChanges();
+                    await db.SaveChangesAsync();
                     return true;
                 }
             }

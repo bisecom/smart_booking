@@ -73,19 +73,20 @@ namespace BLL.Services
                 permission.IsClients = permissionDtm.IsClients;
                 permission.IsServices = permissionDtm.IsServices;
                 permission.IsReports = permissionDtm.IsReports;
-
+                if(permissionDtm.Employee != null)
                 permission.Employee = await Database.Employees.Get(permissionDtm.Employee.Id);
 
-                return await Database.Permissions.Update(permission) ? true : false;
+                await Database.Permissions.Update(permission);
+                return true;
             }
             catch (Exception ex) { Console.Out.WriteLine(ex.Message); return false; }
         }
 
-        public bool Delete(int id)
+        public async Task<bool> Delete(int id)
         {
             try
             {
-                Database.Permissions.Delete(id);
+                await Database.Permissions.Delete(id);
                 return true;
             }
             catch { return false; }

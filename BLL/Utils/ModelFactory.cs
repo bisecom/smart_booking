@@ -30,7 +30,7 @@ namespace BLL.Utils
             workingHour.SundayStart = workingHourDtm.SundayStart;
             workingHour.SundayStop = workingHourDtm.SundayStop;
 
-            workingHour.Employee = changeFromDTM(workingHourDtm.Employee);
+            workingHour.Employee = workingHourDtm.Employee == null ? null : changeFromDTM(workingHourDtm.Employee);
             return workingHour;
         }
 
@@ -91,9 +91,9 @@ namespace BLL.Utils
             business.State = businessDtm.State;
             business.ZipCode = businessDtm.ZipCode;
             business.RegistrationNumber = businessDtm.RegistrationNumber;
-            business.Country = changeFromDTM(businessDtm.Country);
-            business.Currency = changeFromDTM(businessDtm.Currency);
-            business.Time_zone = changeFromDTM(businessDtm.Time_zone);
+            business.Country = businessDtm.Country == null ? null : changeFromDTM(businessDtm.Country);
+            business.Currency = businessDtm.Currency == null ? null : changeFromDTM(businessDtm.Currency);
+            business.Time_zone = businessDtm.Time_zone == null ? null : changeFromDTM(businessDtm.Time_zone);
             business.Booking = businessDtm.Booking == null ? null : changeFromDTM(businessDtm.Booking);
             return business;
         }
@@ -629,8 +629,8 @@ namespace BLL.Utils
             serviceDtm.PaddingAfter = service.PaddingAfter;
             serviceDtm.Picture = service.Picture;
                    
-            serviceDtm.Business = changeToDTM(service.Business);
-            serviceDtm.ServiceCategory = changeToDTM(service.ServiceCategory);
+            serviceDtm.Business = service.Business == null ? null : changeToDTM(service.Business);
+            serviceDtm.ServiceCategory = service.ServiceCategory == null ? null : changeToDTM(service.ServiceCategory);
 
             return serviceDtm;
         }
@@ -644,7 +644,66 @@ namespace BLL.Utils
             return sCategoryDtm;
         }
 
+        public static ServiceCategory changeFromDTM(ServiceCategoryDTM sCategoryDtm)
+        {
+            ServiceCategory sCategory = new ServiceCategory();
+            sCategory.Id = sCategoryDtm.Id;
+            sCategory.Name = sCategoryDtm.Name;
 
+            return sCategory;
+        }
+
+        public static ClientDTM changeToDTM(Client client)
+        {
+            ClientDTM clientDtm = new ClientDTM();
+            clientDtm.Id = client.Id;
+            clientDtm.FirstName = client.FirstName;
+            clientDtm.SecondName = client.SecondName;
+            clientDtm.ClientCompanyName = client.ClientCompanyName;
+            clientDtm.Email = client.Email;
+            clientDtm.MobilePhone = client.MobilePhone;
+            clientDtm.OfficePhone = client.OfficePhone;
+            clientDtm.Address = client.Address;
+            clientDtm.City = client.City;
+            clientDtm.State = client.State;
+            clientDtm.Zip_Code = client.Zip_Code;
+            clientDtm.BirthDay = client.BirthDay;
+            clientDtm.Image = client.Image;
+            clientDtm.IsMale = client.IsMale;
+            clientDtm.Note = client.Note;
+            clientDtm.BusinessId = client.BusinessId;
+
+            if (client.Business != null)
+                clientDtm.Business = changeToDTM(client.Business);
+
+            return clientDtm;
+        }
+
+        public static Client changeFromDTM(ClientDTM clientDtm)
+        {
+            Client client = new Client();
+            client.Id = clientDtm.Id;
+            client.FirstName = clientDtm.FirstName;
+            client.SecondName = clientDtm.SecondName;
+            client.ClientCompanyName = clientDtm.ClientCompanyName;
+            client.Email = clientDtm.Email;
+            client.MobilePhone = clientDtm.MobilePhone;
+            client.OfficePhone = clientDtm.OfficePhone;
+            client.Address = clientDtm.Address;
+            client.City = clientDtm.City;
+            client.State = clientDtm.State;
+            client.Zip_Code = clientDtm.Zip_Code;
+            client.BirthDay = clientDtm.BirthDay;
+            client.Image = clientDtm.Image;
+            client.IsMale = clientDtm.IsMale;
+            client.Note = clientDtm.Note;
+            client.BusinessId = clientDtm.BusinessId;
+
+            if (clientDtm.Business != null)
+            client.Business = changeFromDTM(clientDtm.Business);
+
+            return client;
+        }
 
     }
 }

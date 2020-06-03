@@ -34,8 +34,8 @@ namespace DAL.Repositories
         {
             try
             {
-                //CalendarSetting cSetting = await db.CalendarSettings.FindAsync(id);
-                CalendarSetting cSetting = db.CalendarSettings.Where(c => c.EmployeeId == id).ToList()[0];
+                CalendarSetting cSetting = await db.CalendarSettings.FindAsync(id);
+                //CalendarSetting cSetting = db.CalendarSettings.Where(c => c.EmployeeId == id).ToList()[0];
                 
                 if (cSetting != null)
                 {

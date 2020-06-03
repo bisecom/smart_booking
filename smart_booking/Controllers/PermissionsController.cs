@@ -15,7 +15,7 @@ namespace smart_booking.Controllers
         public PermissionsController(IUnitOfWorkService repo)
             : base(repo) { }
 
-        // GET: api/Permissions/1
+        // GET: Permissions/1
         public async Task<HttpResponseMessage> Get(int id)
         {
             try
@@ -36,23 +36,8 @@ namespace smart_booking.Controllers
             }
         }
 
-        // POST: api/Permissions/permissionDtm
-        //Should be created with Employee
 
-        //public async Task<HttpResponseMessage> Post([FromBody] PermissionDTM permissionDtm)
-        //{
-        //    try
-        //    {
-        //        int id = await TheRepo.PermissionsDTM.Create(permissionDtm);
-        //        return Request.CreateResponse(HttpStatusCode.Created, id);
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        return Request.CreateErrorResponse(HttpStatusCode.BadRequest, ex);
-        //    }
-        //}
-
-        // PUT: api/Permissions/permissionDtm
+        // PUT: Permissions/permissionDtm
         [HttpPatch]
         [HttpPut]
         public async Task<HttpResponseMessage> Put([FromBody]PermissionDTM permissionDtm)
@@ -77,7 +62,7 @@ namespace smart_booking.Controllers
             }
         }
 
-        // DELETE: api/Permissions/1
+        // DELETE: Permissions/1
         public async Task<HttpResponseMessage> Delete(int id)
         {
             try

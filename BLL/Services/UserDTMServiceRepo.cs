@@ -35,11 +35,11 @@ namespace BLL.Services
 
         }
 
-        public bool Delete(string id)
+        public async Task<bool> Delete(string id)
         {
             try
             {
-                Database.Users.Delete(id);
+                await Database.Users.Delete(id);
                 return true;
             }
             catch { return false; }

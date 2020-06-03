@@ -473,7 +473,7 @@ namespace smart_booking.Controllers
                     return Request.CreateResponse(HttpStatusCode.NotFound);
                 }
 
-                if (TheRepo.UsersDTM.Delete(userDtm.Id) /*&& TheRepo.SaveChanges()*/)
+                if (await TheRepo.UsersDTM.Delete(userDtm.Id) /*&& TheRepo.SaveChanges()*/)
                 {
                     var userToDelete = await UserManager.FindByIdAsync(id);
                     if (userToDelete != null)

@@ -61,7 +61,7 @@ namespace BLL.Services
             throw new NotImplementedException();
         }
 
-        public bool Delete(int id)
+        public async Task<bool> Delete(int id)
         {
             throw new NotImplementedException();
         }

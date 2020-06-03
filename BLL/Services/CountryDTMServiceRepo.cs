@@ -43,11 +43,11 @@ namespace BLL.Services
             catch { return 0; }
         }
 
-        public bool Delete(int id)
+        public async Task<bool> Delete(int id)
         {
             try
             {
-                Database.Countries.Delete(id);
+                await Database.Countries.Delete(id);
                 return true;
             }
             catch { return false; }

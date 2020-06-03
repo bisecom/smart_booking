@@ -70,7 +70,7 @@ namespace BLL.Services
                 cSetting.FirstHour = setting.FirstHour;
                 cSetting.WorkingDayDuration = setting.WorkingDayDuration;
                 cSetting.SlotDuration = setting.SlotDuration;
-
+                if(setting.Employee != null)
                 cSetting.Employee = await Database.Employees.Get(setting.Employee.Id);
 
                 return await Database.CalendarSettings.Update(cSetting) ? true : false;
@@ -78,11 +78,11 @@ namespace BLL.Services
             catch (Exception ex) { Console.Out.WriteLine(ex.Message); return false; }
         }
 
-        public bool Delete(int id)
+        public async Task<bool> Delete(int id)
         {
             try
             {
-                Database.CalendarSettings.Delete(id);
+                await Database.CalendarSettings.Delete(id);
                 return true;
             }
             catch { return false; }

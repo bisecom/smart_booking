@@ -15,7 +15,7 @@ namespace smart_booking.Controllers
         public CalendarSettingsController(IUnitOfWorkService repo)
             : base(repo) { }
 
-        // GET: api/CalendarSettings/1
+        // GET: CalendarSettings/1
         public async Task<HttpResponseMessage> Get(int id)
         {
             try
@@ -36,7 +36,7 @@ namespace smart_booking.Controllers
             }
         }
 
-        // PUT: api/CalendarSettings/cSettingsDtm
+        // PUT: CalendarSettings/cSettingsDtm
         [HttpPatch]
         [HttpPut]
         public async Task<HttpResponseMessage> Put([FromBody]CalendarSettingDTM cSettingsDtm)
@@ -61,7 +61,7 @@ namespace smart_booking.Controllers
             }
         }
 
-        // DELETE: api/CalendarSettings/1
+        // DELETE: CalendarSettings/1
         public async Task<HttpResponseMessage> Delete(int id)
         {
             try

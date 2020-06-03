@@ -31,7 +31,7 @@ namespace BLL.Services
             if (temp != null)
             foreach (var s in temp)
             {
-                    tempList.Add(SeviceToServiceDtmMap(s));
+                    tempList.Add(ModelFactory.changeToDTM(s));
             }
 
             return tempList;
@@ -46,7 +46,7 @@ namespace BLL.Services
             if (service == null)
                 throw new ValidationException("Service is not found", "");
 
-            ServiceDTM serviceDtm = SeviceToServiceDtmMap(service);
+            ServiceDTM serviceDtm = ModelFactory.changeToDTM(service);
             return serviceDtm;
         }
 
@@ -67,8 +67,8 @@ namespace BLL.Services
                 service.PaddingAfter = serviceDtm.PaddingAfter;
                 service.Picture = serviceDtm.Picture;
 
-                service.Business = await Database.BllServices.GetBusiness(serviceDtm.Business.Id);
-                service.ServiceCategory = await Database.BllServices.ServiceCategory(serviceDtm.ServiceCategory.Id);
+                service.Business = await Database.BllServices.GetBusiness(serviceDtm.BusinessId);
+                service.ServiceCategory = await Database.BllServices.ServiceCategory(serviceDtm.ServiceCategoryId);
 
                 await Database.Services.Create(service);
                 return service.Id;
@@ -88,40 +88,24 @@ namespace BLL.Services
                 service.Duration = serviceDtm.Duration;
                 service.PaddingAfter = serviceDtm.PaddingAfter;
                 service.Picture = serviceDtm.Picture;
-
-                service.Business = await Database.BllServices.GetBusiness(serviceDtm.Business.Id);
-                service.ServiceCategory = await Database.BllServices.ServiceCategory(serviceDtm.ServiceCategory.Id);
+                if(serviceDtm.Business != null)
+                    service.Business = ModelFactory.changeFromDTM(serviceDtm.Business);
+                if (serviceDtm.ServiceCategory != null)
+                    service.ServiceCategory = ModelFactory.changeFromDTM(serviceDtm.ServiceCategory);
 
                 return await Database.Services.Update(service) ? true : false;
             }
             catch (Exception ex) { Console.Out.WriteLine(ex.Message); return false; }
         }
 
-        public bool Delete(int id)
+        public async Task<bool> Delete(int id)
         {
             try
             {
-                Database.Services.Delete(id);
+                await Database.Services.Delete(id);
                 return true;
             }
             catch { return false; }
-        }
-
-        public ServiceDTM SeviceToServiceDtmMap(Service service)
-        {
-            ServiceDTM serviceDtm = new ServiceDTM();
-            serviceDtm.Id = service.Id;
-            serviceDtm.Name = service.Name;
-            serviceDtm.Description = service.Description;
-            serviceDtm.Price = service.Price;
-            serviceDtm.Duration = service.Duration;
-            serviceDtm.PaddingAfter = service.PaddingAfter;
-            serviceDtm.Picture = service.Picture;
-
-            serviceDtm.BusinessId = service.BusinessId;
-            serviceDtm.ServiceCategoryId = service.ServiceCategoryId;
-
-            return serviceDtm;
         }
 
         public void Dispose()

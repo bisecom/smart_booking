@@ -1,4 +1,5 @@
 ﻿using BLL.Interfaces;
+using BLL.Utils;
 using smart_booking.BLL.DataTransferModels;
 using System;
 using System.Collections.Generic;
@@ -15,7 +16,7 @@ namespace smart_booking.Controllers
         public ServiceCategoriesController(IUnitOfWorkService repo)
             : base(repo) { }
 
-        // GET: api/ServiceCategories/1
+        // GET: /ServiceCategories/1
         public async Task<HttpResponseMessage> Get(int id)
         {
             try
@@ -36,7 +37,7 @@ namespace smart_booking.Controllers
             }
         }
 
-        // POST: api/ServiceCategories/sCategoryDtm
+        // POST: /ServiceCategories/sCategoryDtm
         public async Task<HttpResponseMessage> Post([FromBody] ServiceCategoryDTM sCategoryDtm)
         {
             try
@@ -50,7 +51,7 @@ namespace smart_booking.Controllers
             }
         }
 
-        // DELETE: api/ServiceCategories/1
+        // DELETE: /ServiceCategories/1
         public async Task<HttpResponseMessage> Delete(int id)
         {
             try
@@ -72,6 +73,12 @@ namespace smart_booking.Controllers
             }
 
 
+        }
+
+        // GET: /ServiceCategories/
+        public async Task<List<ServiceCategoryDTM>> GetCategories([FromBody]SearchParams mSearch)
+        {
+            return await TheRepo.ServiceCategoriesDTM.GetAll(mSearch);
         }
     }
 }
