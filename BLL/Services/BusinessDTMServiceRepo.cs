@@ -8,11 +8,12 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace BLL.Services
 {
-    public class BusinessDTMServiceRepo : IServiceRepository<BusinessDTM>
+    public class BusinessDTMServiceRepo : IBusinessServiceRepository
     {
         IUnitOfWork Database { get; set; }
 
@@ -166,17 +167,9 @@ namespace BLL.Services
             try
             {
                 Business business = new Business();
-                if (businessDtm.Country == null)
-                {
-                    business.Name = businessDtm.Name;
-                    business.Logo = null;
-                    business.Country = null;
-                    business.Currency = null;
-                    business.Time_zone = null;
-                    business.Booking = null;
-                }
-                else { 
-                    business.Name = businessDtm.Name;
+                business.Name = businessDtm.Name;
+                if (businessDtm.Country != null)
+                { 
                     business.Phone = businessDtm.Phone;
                     business.Logo = businessDtm.Logo;
                     business.Webpage = businessDtm.Webpage;
@@ -194,6 +187,43 @@ namespace BLL.Services
                     business.Employees = null;
                 }
                 await Database.Businesses.Create(business);
+                User user = await Database.BllServices.GetUser(businessDtm.UserId);
+
+                Booking booking = new Booking();
+                booking.BusinessId = business.Id;
+                await Database.Bookings.Create(booking);
+
+                Employee employeeBoss = new Employee();
+                employeeBoss.IsOwner = true;
+                employeeBoss.Business = business;
+                employeeBoss.User = user;
+                await Database.Employees.Create(employeeBoss);
+
+                WorkingHour wHourDtm = new WorkingHour();
+                wHourDtm.Employee = employeeBoss;
+                wHourDtm.EmployeeId = employeeBoss.Id;
+                await Database.WorkingHours.Create(wHourDtm);
+
+                Permission perm = new Permission();
+                perm.Employee = employeeBoss;
+                perm.EmployeeId = employeeBoss.Id;
+                await Database.Permissions.Create(perm);
+
+                CalendarSetting cSetting = new CalendarSetting();
+                cSetting.Employee = employeeBoss;
+                cSetting.EmployeeId = employeeBoss.Id;
+                await Database.CalendarSettings.Create(cSetting);
+
+                CustomerNotification cNotif = new CustomerNotification();
+                cNotif.Employee = employeeBoss;
+                cNotif.EmployeeId = employeeBoss.Id;
+                await Database.CustomerNotifications.Create(cNotif);
+
+                TeamNotification tNotif = new TeamNotification();
+                tNotif.Employee = employeeBoss;
+                tNotif.EmployeeId = employeeBoss.Id;
+                await Database.TeamNotifications.Create(tNotif);
+
                 return business.Id;
             }
             catch { return 0; }
@@ -214,24 +244,49 @@ namespace BLL.Services
                 business.State = item.State;
                 business.ZipCode = item.ZipCode;
                 business.RegistrationNumber = item.RegistrationNumber;
-                business.Country = await Database.Countries.Get(item.Country.Id);
-                business.Currency = await Database.Currencies.Get(item.Currency.Id);
-                business.Time_zone = await Database.Time_zones.Get(item.Time_zone.Id);
-                business.Booking = item.Booking == null ? null : await Database.Bookings.Get(item.Booking.BusinessId);
+                business.Country = await Database.BllServices.GetCountry(item.Country.Id);
+                business.Currency = await Database.BllServices.GetCurrency(item.Currency.Id);
+                business.Time_zone = await Database.BllServices.GetTime_zone(item.Time_zone.Id);
+                //business.Booking.BusinessId = item.Booking.BusinessId;
                 //business.Services = item.Services;
                 //business.Clients = item.Clients;
                 //business.Employees = item.Employees;
-
-                return await Database.Businesses.Update(business) ? true : false;
+                await Database.Businesses.Update(business);
+                return true;
             }
             catch (Exception ex) { Console.Out.WriteLine(ex.Message); return false; }
         }
 
-        public bool Delete(int id)
+        public async Task<bool> Delete(int id)
         {
             try
             {
-                Database.Businesses.Delete(id);
+                //var  employeesList = Database.Employees.GetAll()
+                //    .Where(e => e.BusinessId == id);
+
+                var employeesList = Database.Employees.GetAll()
+                    .Where(e => e.BusinessId == id).ToList();
+
+                if (employeesList == null)
+                    return false;
+
+                foreach (var e in employeesList)
+                {
+                    await Database.WorkingHours.Delete(e.Id);
+                    await Database.Permissions.Delete(e.Id);
+                    await Database.CalendarSettings.Delete(e.Id);
+                    await Database.CustomerNotifications.Delete(e.Id);
+                    await Database.TeamNotifications.Delete(e.Id);
+                }
+
+                await Database.Bookings.Delete(id);
+
+                foreach (var e in employeesList)
+                {
+                    await Database.Employees.Delete(e.Id);
+                }
+                
+                await Database.Businesses.Delete(id);
                 return true;
             }
             catch { return false; }

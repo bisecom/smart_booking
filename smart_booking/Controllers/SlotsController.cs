@@ -16,7 +16,7 @@ namespace smart_booking.Controllers
         public SlotsController(IUnitOfWorkService repo)
             : base(repo) { }
 
-        // POST: api/Slots/slotDTM
+        // POST: /Slots/slotDTM
         public async Task<HttpResponseMessage> Post([FromBody] SlotDTM slotDtm)
         {
             try
@@ -30,7 +30,7 @@ namespace smart_booking.Controllers
             }
         }
 
-        // PUT: api/Slots/slotDTM
+        // PUT: /Slots/slotDTM
         [HttpPatch]
         [HttpPut]
         public HttpResponseMessage Put([FromBody]SlotDTM slotDtm)
@@ -54,7 +54,7 @@ namespace smart_booking.Controllers
             }
         }
 
-        // DELETE: api/Slots/1
+        // DELETE: /Slots/1
         public async Task<HttpResponseMessage> Delete(int id)
         {
             try
@@ -76,7 +76,7 @@ namespace smart_booking.Controllers
             }
         }
 
-        // GET: api/Slots/1
+        // GET: /Slots/1
         public async Task<HttpResponseMessage> Get(int id)
         {
             try
@@ -99,7 +99,7 @@ namespace smart_booking.Controllers
 
         }
 
-        // GET: api/Slots
+        // GET: /Slots/mSearch
         public async Task<List<SlotDTM>> Get([FromBody]SearchParams mSearch)
         {
             List<SlotDTM> query = await TheRepo.SlotesDTM.GetAll(mSearch);

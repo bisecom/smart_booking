@@ -6,9 +6,9 @@ namespace smart_booking.BLL.DataTransferModels
     public class UserDTM
     {
         public string Id { get; set; }
+        public string Email { get; set; }
         public string FirstName { get; set; }
         public string SecondName { get; set; }
-      
         public string PhoneMobile { get; set; }
         public string PhoneOffice { get; set; }
         public int? CountryId { get; set; }
@@ -20,8 +20,8 @@ namespace smart_booking.BLL.DataTransferModels
         public string City { get; set; }
         public string State { get; set; }
         public string ZipCode { get; set; }
-        public int PlanId { get; set; }
-        public byte? PaymentOverdue { get; set; }
+        public int? PlanId { get; set; }
+        public bool? IsPaymentOverdue { get; set; } = false;
         public bool? IsMale { get; set; }
         public DateTime? Birthdate { get; set; }
         public virtual ICollection<EmployeeDTM> Employees { get; set; }

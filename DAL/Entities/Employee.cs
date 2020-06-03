@@ -13,14 +13,13 @@ namespace smart_booking.DAL.Entities
         public virtual Business Business { get; set; }
         public string UserId { get; set; }
         public virtual User User { get; set; }
-        public bool IsOwner { get; set; }
+        public bool? IsOwner { get; set; }
         
         public virtual CalendarSetting CalendarSetting { get; set; }
         public virtual CustomerNotification CustomerNotification { get; set; }
         public virtual TeamNotification TeamNotification { get; set; }
         public virtual Permission Permission { get; set; }
         public virtual WorkingHour WorkingHour { get; set; }
-        public virtual Slot Slot { get; set; }
         public virtual ICollection<Slot> SlotsOwners { get; set; }
         public virtual ICollection<Slot> Responsibles { get; set; }
 

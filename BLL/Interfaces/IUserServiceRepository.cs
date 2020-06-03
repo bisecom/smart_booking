@@ -13,8 +13,8 @@ namespace BLL.Interfaces
         Task<List<UserDTM>> GetAll(SearchParams search);
         Task <UserDTM> Get(string id);
         IQueryable<UserDTM> Find(Func<UserDTM, Boolean> predicate);
-        bool Create(UserDTM item);
+        Task<bool> Create(UserDTM item);
         void Update(UserDTM item);
-        bool Delete(string id);
+        Task<bool> Delete(string id);
     }
 }

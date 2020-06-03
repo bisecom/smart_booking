@@ -76,6 +76,8 @@ namespace smart_booking.Controllers
                 {
                     TheRepo.CurrenciesDTM.Create(currency);
                 }
+                TheRepo.PageLanguagesDTM.Create(seed.PageLanguage);
+                TheRepo.ServiceCategoriesDTM.Create(seed.ServCategory);
             }
             catch (Exception ex) { Console.WriteLine(ex.Message); }
             return Ok();

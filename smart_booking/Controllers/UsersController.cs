@@ -19,14 +19,14 @@ namespace smart_booking.Controllers
         public UsersController(IUnitOfWorkService repo)
             : base(repo) { }
 
-        // GET: api/Users
+        // GET: /Users
         public async Task<List<UserDTM>> Get(SearchParams mSearch)
         {
             List<UserDTM> query = await TheRepo.UsersDTM.GetAll(mSearch);
             return query;
         }
 
-        // GET: api/Users/string
+        // GET: /Users/string
         public async Task<HttpResponseMessage> Get(string id)
         {
             try
@@ -48,31 +48,8 @@ namespace smart_booking.Controllers
             }
             
         }
-        
-        // POST: api/Users/userDTM
-        public HttpResponseMessage Post([FromBody] UserDTM userDtm)
-        {
-            try
-            {
-                if (TheRepo.UsersDTM.Create(userDtm))
-                {
-                    return Request.CreateResponse(HttpStatusCode.Created, userDtm);
-                }
-                else
-                {
-                    return Request.CreateErrorResponse(HttpStatusCode.BadRequest, "Could not save to the database.");
-                }
-            }
-            catch (Exception ex)
-            {
-                return Request.CreateErrorResponse(HttpStatusCode.BadRequest, ex);
-            }
 
-            // create account via POST api/Account/Register 
-            //return Request.CreateErrorResponse(HttpStatusCode.BadRequest, "Could not save to the database.");
-        }
-
-        // PUT: api/Users/userDTM
+        // PUT: /Users/userDTM
         [HttpPatch]
         [HttpPut]
         public HttpResponseMessage Put([FromBody]UserDTM userDTM)
@@ -97,7 +74,7 @@ namespace smart_booking.Controllers
             }
         }
 
-        // DELETE: api/Users/sdfsds
+        // DELETE: /Users/sdfsds
         public async Task<HttpResponseMessage> Delete(string id)
         {
             // deleting via api/account/sdfsds

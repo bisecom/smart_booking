@@ -20,10 +20,15 @@ namespace smart_booking
 
             // Маршруты Web API
             config.MapHttpAttributeRoutes();
-
+            //default commented
+            //config.Routes.MapHttpRoute(
+            //    name: "DefaultApi",
+            //    routeTemplate: "api/{controller}/{id}",
+            //    defaults: new { id = RouteParameter.Optional }
+            //);
             config.Routes.MapHttpRoute(
                 name: "DefaultApi",
-                routeTemplate: "api/{controller}/{id}",
+                routeTemplate: "{controller}/{id}",
                 defaults: new { id = RouteParameter.Optional }
             );
             //http://dotnetmentors.com/web-api/rest-based-crud-operations-with-asp-net-web-api.aspx

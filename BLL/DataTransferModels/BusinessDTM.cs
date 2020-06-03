@@ -9,13 +9,14 @@ namespace smart_booking.BLL.DataTransferModels
     public class BusinessDTM
     {
         public int Id { get; set; }
+        public string UserId { get; set; }
         public string Name { get; set; }
         public string Phone { get; set; }
-        public int CountryId { get; set; }
+        public int? CountryId { get; set; }
         public virtual CountryDTM Country { get; set; }
-        public int CurrencyId { get; set; }
+        public int? CurrencyId { get; set; }
         public virtual CurrencyDTM Currency { get; set; }
-        public int Time_zoneId { get; set; }
+        public int? Time_zoneId { get; set; }
         public virtual Time_zoneDTM Time_zone { get; set; }
         public byte[] Logo { get; set; }
         public string Webpage { get; set; }

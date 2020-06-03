@@ -24,6 +24,13 @@ namespace DAL.Repositories
         private SlotRepository slotRepository;
         private ServiceRepository serviceRepository;
         private ServiceCategoryRepository serviceCategoryRepository;
+        private PermissionRepository permissionRepository;
+        private CalendarSettingRepository pcalendarSettingRepository;
+        private CustomerNotificationRepository cNotificationRepository;
+        private TeamNotificationRepository tNotificationRepository;
+        private WorkingHourRepository wHourRepository;
+        private WorkingBreakRepository wBreakRepository;
+        private ClientRepository clientRepository;
         public DalUnitOfWork()
         { 
             db = new SBContext("SBContext");
@@ -44,6 +51,75 @@ namespace DAL.Repositories
                 if (bllServiceRepository == null)
                     bllServiceRepository = new BllServiceRepository(db);
                 return bllServiceRepository;
+            }
+        }
+        
+        public IRepository<Client> Clients
+        {
+            get
+            {
+                if (clientRepository == null)
+                    clientRepository = new ClientRepository(db);
+                return clientRepository;
+            }
+        }
+
+        public IRepository<WorkingBreak> WorkingBreaks
+        {
+            get
+            {
+                if (wBreakRepository == null)
+                    wBreakRepository = new WorkingBreakRepository(db);
+                return wBreakRepository;
+            }
+        }
+        public IRepository<WorkingHour> WorkingHours
+        {
+            get
+            {
+                if (wHourRepository == null)
+                    wHourRepository = new WorkingHourRepository(db);
+                return wHourRepository;
+            }
+        }
+
+        public IRepository<CalendarSetting> CalendarSettings
+        {
+            get
+            {
+                if (pcalendarSettingRepository == null)
+                    pcalendarSettingRepository = new CalendarSettingRepository(db);
+                return pcalendarSettingRepository;
+            }
+        }
+
+        public IRepository<CustomerNotification> CustomerNotifications
+        {
+            get
+            {
+                if (cNotificationRepository == null)
+                    cNotificationRepository = new CustomerNotificationRepository(db);
+                return cNotificationRepository;
+            }
+        }
+
+        public IRepository<TeamNotification> TeamNotifications
+        {
+            get
+            {
+                if (tNotificationRepository == null)
+                    tNotificationRepository = new TeamNotificationRepository(db);
+                return tNotificationRepository;
+            }
+        }
+
+        public IRepository<Permission> Permissions
+        {
+            get
+            {
+                if (permissionRepository == null)
+                    permissionRepository = new PermissionRepository(db);
+                return permissionRepository;
             }
         }
 

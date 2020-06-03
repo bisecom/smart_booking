@@ -21,6 +21,12 @@ namespace DAL.Interfaces
         IRepository<Slot> Slotes { get; }
         IRepository<Service> Services { get; }
         IRepository<ServiceCategory> ServiceCategories { get; }
-
+        IRepository<Permission> Permissions { get; }
+        IRepository<CalendarSetting> CalendarSettings { get; }
+        IRepository<CustomerNotification> CustomerNotifications { get; }
+        IRepository<TeamNotification> TeamNotifications { get; }
+        IRepository<WorkingHour> WorkingHours { get; }
+        IRepository<WorkingBreak> WorkingBreaks { get; }
+        IRepository<Client> Clients { get; }
     }
 }

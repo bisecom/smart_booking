@@ -55,11 +55,11 @@ namespace BLL.Services
             throw new NotImplementedException();
         }
 
-        public bool Delete(int id)
+        public async Task<bool> Delete(int id)
         {
             try
             {
-                Database.PageLanguages.Delete(id);
+                await Database.PageLanguages.Delete(id);
                 return true;
             }
             catch { return false; }

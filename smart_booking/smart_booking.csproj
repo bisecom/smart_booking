@@ -238,12 +238,22 @@
     <Compile Include="Controllers\BaseApiController.cs" />
     <Compile Include="Controllers\BookingsController.cs" />
     <Compile Include="Controllers\BusinessesController.cs" />
+    <Compile Include="Controllers\CalendarSettingsController.cs" />
+    <Compile Include="Controllers\ClientsController.cs" />
     <Compile Include="Controllers\CountriesController.cs" />
+    <Compile Include="Controllers\CustomerNotificationsController.cs" />
+    <Compile Include="Controllers\EmployeesController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\PermissionsController.cs" />
+    <Compile Include="Controllers\ServiceCategoriesController.cs" />
+    <Compile Include="Controllers\ServicesController.cs" />
     <Compile Include="Controllers\SlotsController.cs" />
+    <Compile Include="Controllers\TeamNotificationsController.cs" />
     <Compile Include="Controllers\Time_zonesController.cs" />
     <Compile Include="Controllers\UsersController.cs" />
     <Compile Include="Controllers\ValuesController.cs" />
+    <Compile Include="Controllers\WorkingBreaksController.cs" />
+    <Compile Include="Controllers\WorkingHoursController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>

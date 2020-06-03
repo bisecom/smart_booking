@@ -16,7 +16,7 @@ namespace smart_booking.Controllers
         public BusinessesController(IUnitOfWorkService repo)
             : base(repo) {  }
 
-        // POST: api/Businesses/businessDTM
+        // POST: Businesses/businessDTM
         public async Task<HttpResponseMessage> Post([FromBody] BusinessDTM businessDtm)
         {
             try
@@ -30,7 +30,7 @@ namespace smart_booking.Controllers
             }
         }
 
-        // GET: api/Businesses/1
+        // GET: Businesses/1
         public async Task<HttpResponseMessage> Get(int id)
         {
             try
@@ -52,14 +52,14 @@ namespace smart_booking.Controllers
             }
 
         }
-        // GET: api/Businesses
+        // GET: Businesses
         public async Task<List<BusinessDTM>> Get(SearchParams mSearch)
         {
             List<BusinessDTM> query = await TheRepo.BusinessesDTM.GetAll(mSearch);
             return query;
         }
 
-        // PUT: api/Businesses/businessDTM
+        // PUT: Businesses/businessDTM
         [HttpPatch]
         [HttpPut]
         public async Task<HttpResponseMessage> Put([FromBody]BusinessDTM businessDtm)
@@ -84,7 +84,7 @@ namespace smart_booking.Controllers
             }
         }
 
-        // DELETE: api/Businesses/1
+        // DELETE: Businesses/1
         public async Task<HttpResponseMessage> Delete(int id)
         {
             try

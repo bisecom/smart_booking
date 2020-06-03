@@ -43,11 +43,11 @@ namespace BLL.Services
             catch { return 0; }
         }
 
-        public bool Delete(int id)
+        public async Task<bool> Delete(int id)
         {
             try
             {
-                Database.Countries.Delete(id);
+                await Database.Countries.Delete(id);
                 return true;
             }
             catch { return false; }
@@ -60,7 +60,7 @@ namespace BLL.Services
 
         public async Task<CountryDTM> Get(int id)
         {
-            int firstCountryId = 1; int lastCountryId = 250;
+            int firstCountryId = 1; int lastCountryId = 999;
             if (id < firstCountryId || id > lastCountryId)
                 throw new ValidationException("Country id is not specified correctly", "");
             var country = await Database.Countries.Get(id);

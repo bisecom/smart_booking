@@ -35,11 +35,11 @@ namespace BLL.Services
 
         }
 
-        public bool Delete(string id)
+        public async Task<bool> Delete(string id)
         {
             try
             {
-                Database.Users.Delete(id);
+                await Database.Users.Delete(id);
                 return true;
             }
             catch { return false; }
@@ -47,13 +47,21 @@ namespace BLL.Services
 
         public async Task<List<UserDTM>> GetAll(SearchParams search)
         {
-            var config = new MapperConfiguration(cfg => cfg.CreateMap<User, UserDTM>());
-            var mapper = new Mapper(config);
-            return await Task.Run( () => (mapper.Map<List<UserDTM>>(
+            List<UserDTM> userListDtm = new List<UserDTM>();
+            List<User> userList = 
                  Database.Users.GetAll()
                 .OrderBy(u => u.SecondName)
                 .Skip(search.PageSize * search.Page)
-                .Take(search.PageSize))));
+                .Take(search.PageSize).ToList();
+
+            if (userList == null)
+                return null;
+
+            foreach(var u in userList)
+            {
+                userListDtm.Add(ModelFactory.changeToDTM(u));
+            }
+            return userListDtm;
         }
 
         public async Task <UserDTM> Get(string id)
@@ -64,33 +72,23 @@ namespace BLL.Services
             if (user == null)
                 throw new ValidationException("User is not found", "");
 
-            var config = new MapperConfiguration(cfg => cfg.CreateMap<User, UserDTM>());
-            var mapper = new Mapper(config);
-            return mapper.Map<UserDTM>(user);
+            var userDtm = ModelFactory.changeToDTM(user);
+            return userDtm;
         }
-
-        //public static bool test(UserDTM u)
-        //{
-        //    return true;
-        //}
-
-        //Func<UserDTM, bool> myTest = test;
-
 
         public IQueryable<UserDTM> Find(Func<UserDTM, bool> predicate)
         {
             throw new NotImplementedException();
         }
 
-        public bool Create(UserDTM userDtm)
+        public async Task<bool> Create(UserDTM userDtm)
         {
-            //Find(myTest);
-
             try
             {
                 User user = new User
                 {
                     Id = userDtm.Id,
+                    Email = userDtm.Email,
                     FirstName = userDtm.FirstName,
                     SecondName = userDtm.SecondName,
                     CountryId = userDtm.CountryId,
@@ -100,7 +98,7 @@ namespace BLL.Services
                     City = userDtm.City
 
                 };
-                Database.Users.Create(user);
+                await Database.Users.Create(user);
                 return true;
             }
             catch { return false; }

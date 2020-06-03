@@ -18,6 +18,10 @@
             <input type='text' name="businessName" id="txtBusName" class="form-control">
         </div>
         <div class="form-group">
+            <label for="txtMemberPlan">Member Plan {choose 1, 2, 3} </label>
+            <input type='text' name="MemberPlan" id="txtMemberPlan" class="form-control">
+        </div>
+        <div class="form-group">
             <label for="txtEmail">Email address </label>
             <input type='email' name="email" id="txtEmail" class="form-control">
         </div>
@@ -51,8 +55,9 @@
 <script>
     $(document).ready(function () {
         $("#register").on('click', function () {
-            var data = { FirstName: $("#txtFirstName").val().trim(), BusinessName: $("#txtBusName").val().trim(), Email: $("#txtEmail").val().trim(), Password: $("#textPwd").val().trim(), ConfirmPassword: $("#txtConfirmPwd").val().trim() };
+            var data = { FirstName: $("#txtFirstName").val().trim(), BusinessName: $("#txtBusName").val().trim(), MemberPlan: $("#txtMemberPlan").val().trim(), Email: $("#txtEmail").val().trim(), Password: $("#textPwd").val().trim(), ConfirmPassword: $("#txtConfirmPwd").val().trim() };
             $.ajax({
+                //url: "/api/Account/Register",
                 url: "/api/Account/Register",
                 type: 'POST',
                 data: data,
@@ -76,7 +81,8 @@
                         var authHeaders = {};
                         authHeaders.Authorization = 'Bearer ' + resp.access_token;
                         $.ajax({
-                            url: "/api/values",
+                            //url: "/api/values",
+                            url: "/values",
                             type: "GET",
                             headers: authHeaders,
                             success: function (response) {

@@ -38,11 +38,11 @@ namespace BLL.Services
             catch { return 0; }
         }
 
-        public bool Delete(int id)
+        public async Task<bool> Delete(int id)
         {
             try
             {
-                Database.Time_zones.Delete(id);
+                await Database.Time_zones.Delete(id);
                 return true;
             }
             catch { return false; }

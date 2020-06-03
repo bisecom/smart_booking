@@ -15,6 +15,6 @@ namespace BLL.Interfaces
         IQueryable<T> Find(Func<T, Boolean> predicate);
         Task<int> Create(T item);
         Task<bool> Update(T item);
-        bool Delete(int id);
+        Task<bool> Delete(int id);
     }
 }

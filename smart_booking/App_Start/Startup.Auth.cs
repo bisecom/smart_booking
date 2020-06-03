@@ -48,7 +48,8 @@ namespace smart_booking
             {
                 TokenEndpointPath = new PathString("/Token"),
                 Provider = new ApplicationOAuthProvider(PublicClientId),
-                AuthorizeEndpointPath = new PathString("/api/Account/ExternalLogin"),
+                //AuthorizeEndpointPath = new PathString("/api/Account/ExternalLogin"),
+                AuthorizeEndpointPath = new PathString("/Account/ExternalLogin"),
                 AccessTokenExpireTimeSpan = TimeSpan.FromDays(1),
                 // В рабочем режиме задайте AllowInsecureHttp = false
                 AllowInsecureHttp = true

@@ -1,4 +1,5 @@
-﻿using BLL.Interfaces;
+﻿using AutoMapper;
+using BLL.Interfaces;
 using BLL.Utils;
 using DAL.Interfaces;
 using smart_booking.BLL.DataTransferModels;
@@ -25,9 +26,18 @@ namespace BLL.Services
             throw new NotImplementedException();
         }
 
-        public Task<CurrencyDTM> Get(int id)
+        public async Task<CurrencyDTM> Get(int id)
         {
-            throw new NotImplementedException();
+            int firstCurrencyId = 1; int lastCurrencyId = 999;
+            if (id < firstCurrencyId || id > lastCurrencyId)
+                throw new ValidationException("Currency id is not specified correctly", "");
+            var currency = await Database.Currencies.Get(id);
+            if (currency == null)
+                throw new ValidationException("Currency is not found", "");
+
+            var config = new MapperConfiguration(cfg => cfg.CreateMap<Currency, CurrencyDTM>());
+            var mapper = new Mapper(config);
+            return mapper.Map<CurrencyDTM>(currency);
         }
 
         public IQueryable<CurrencyDTM> Find(Func<CurrencyDTM, bool> predicate)
@@ -51,7 +61,7 @@ namespace BLL.Services
             throw new NotImplementedException();
         }
 
-        public bool Delete(int id)
+        public async Task<bool> Delete(int id)
         {
             throw new NotImplementedException();
         }

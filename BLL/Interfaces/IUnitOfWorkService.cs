@@ -16,12 +16,20 @@ namespace BLL.Interfaces
         IServiceRepository<CountryDTM> CountriesDTM { get; }
         IServiceRepository<Time_zoneDTM> TimezonesDTM { get; }
         IServiceRepository<CurrencyDTM> CurrenciesDTM { get; }
-        IServiceRepository<BusinessDTM> BusinessesDTM { get; }
+        IBusinessServiceRepository BusinessesDTM { get; }
         IServiceRepository<BookingDTM> BookingsDTM { get; }
-        IServiceRepository<EmployeeDTM> EmployeesDTM { get; }
+        //IServiceRepository<EmployeeDTM> EmployeesDTM { get; }
         IServiceRepository<PageLanguageDTM> PageLanguagesDTM { get; }
         IServiceRepository<ServiceDTM> ServicesDTM { get; }
         IServiceRepository<ServiceCategoryDTM> ServiceCategoriesDTM { get; }
+        IServiceRepository<PermissionDTM> PermissionsDTM { get; }
+        IServiceRepository<CalendarSettingDTM> CalendarSettingsDTM { get; }
+        IServiceRepository<CustomerNotificationDTM> CustomerNotificationsDTM { get; }
+        IServiceRepository<TeamNotificationDTM> TeamNotificationsDTM { get; }
+        IServiceRepository<WorkingHourDTM> WorkingHoursDTM { get; }
+        IServiceRepository<WorkingBreakDTM> WorkingBreaksDTM { get; }
+        IServiceRepository<ClientDTM> ClientsDTM { get; }
+        IEmployeeServiceRepository EmployeesDTM { get; }
         //bool SaveChanges();
     }
 }

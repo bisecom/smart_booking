@@ -371,19 +371,42 @@ namespace smart_booking.Controllers
 
                     UserDTM newUser = new UserDTM();
                     newUser.Id = user.Id; newUser.FirstName = user.FirstName;
-                    await UserManager.AddToRoleAsync(user.Id, "FreeMember"); //FreeMember
-                    TheRepo.UsersDTM.Create(newUser);
+                    newUser.Email = user.UserName;
+                    if (model.MemberPlan == 1)
+                    {
+                        await UserManager.AddToRoleAsync(user.Id, "FreeMember");
+                        newUser.PlanId = 1;
+                    }
+                    if (model.MemberPlan == 2)
+                    {
+                        await UserManager.AddToRoleAsync(user.Id, "GoldMember");
+                        newUser.PlanId = 2;
+                    }
+                    if (model.MemberPlan == 3)
+                    {
+                        await UserManager.AddToRoleAsync(user.Id, "PlatinumMember");
+                        newUser.PlanId = 3;
+                    }
+                    if (model.MemberPlan == 777)
+                    {
+                        await UserManager.AddToRoleAsync(user.Id, "Admin");
+                        newUser.PlanId = 777;
+                    }
+                    if (model.MemberPlan == 888)
+                    {
+                        await UserManager.AddToRoleAsync(user.Id, "Moderator");
+                        newUser.PlanId = 888;
+                    }
+                    else
+                    { Request.CreateErrorResponse(HttpStatusCode.BadRequest, "Try again!"); }
+
+                    await TheRepo.UsersDTM.Create(newUser);
+
                     BusinessDTM busines = new BusinessDTM();
                     busines.Name = model.BusinessName;
                     int businessId = await TheRepo.BusinessesDTM.Create(busines);
-                    EmployeeDTM emplBoss = new EmployeeDTM();
-                    emplBoss.Business = await TheRepo.BusinessesDTM.Get(businessId);
-                    emplBoss.User = await TheRepo.UsersDTM.Get(newUser.Id);
-                    emplBoss.IsOwner = true;
-                    await TheRepo.EmployeesDTM.Create(emplBoss);
-                    BookingDTM bookingDtm = new BookingDTM();
-                    bookingDtm.BusinessId = businessId;
-                    await TheRepo.BookingsDTM.Create(bookingDtm);
+
+                    
                 }
 
             }
@@ -450,7 +473,7 @@ namespace smart_booking.Controllers
                     return Request.CreateResponse(HttpStatusCode.NotFound);
                 }
 
-                if (TheRepo.UsersDTM.Delete(userDtm.Id) /*&& TheRepo.SaveChanges()*/)
+                if (await TheRepo.UsersDTM.Delete(userDtm.Id) /*&& TheRepo.SaveChanges()*/)
                 {
                     var userToDelete = await UserManager.FindByIdAsync(id);
                     if (userToDelete != null)

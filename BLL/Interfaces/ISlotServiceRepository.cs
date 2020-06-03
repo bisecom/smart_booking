@@ -15,6 +15,6 @@ namespace BLL.Interfaces
         IQueryable<SlotDTM> Find(Func<SlotDTM, Boolean> predicate);
         Task<int> Create(SlotDTM item);
         Task<bool> Update(SlotDTM item);
-        bool Delete(int id);
+        Task<bool> Delete(int id);
     }
 }

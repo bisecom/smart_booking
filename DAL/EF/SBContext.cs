@@ -34,6 +34,7 @@ namespace smart_booking.DAL.EF
         public DbSet<CalendarSetting> CalendarSettings { get; set; }
         public DbSet<CustomerNotification> CustomerNotifications { get; set; }
         public DbSet<TeamNotification> TeamNotifications { get; set; }
+        public DbSet<PageLanguage> PageLanguages { get; set; }
 
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
@@ -56,6 +57,33 @@ namespace smart_booking.DAL.EF
                     .HasRequired<Service>(m => m.Service)
                     .WithMany(t => t.Slots)
                     .HasForeignKey(m => m.ServiceId);
+
+            //---------------------------------------------------
+            //modelBuilder.Entity<Employee>()
+            //.HasOptional<CalendarSetting>(a => a.CalendarSetting)
+            //.WithOptionalDependent()
+            //.WillCascadeOnDelete(true);
+
+            //modelBuilder.Entity<Employee>()
+            //.HasOptional<CustomerNotification>(a => a.CustomerNotification)
+            //.WithOptionalDependent()
+            //.WillCascadeOnDelete(true);
+
+            //modelBuilder.Entity<Employee>()
+            //.HasOptional<TeamNotification>(a => a.TeamNotification)
+            //.WithOptionalDependent()
+            //.WillCascadeOnDelete(true);
+
+            //modelBuilder.Entity<Employee>()
+            //.HasOptional<Permission>(a => a.Permission)
+            //.WithOptionalDependent()
+            //.WillCascadeOnDelete(true);
+
+            //modelBuilder.Entity<Employee>()
+            //.HasOptional<WorkingHour>(a => a.WorkingHour)
+            //.WithOptionalDependent()
+            //.WillCascadeOnDelete(true);
+
         }
     }
 }

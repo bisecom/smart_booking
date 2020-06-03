@@ -23,6 +23,13 @@ namespace BLL.Services
         private SlotDTMServiceRepo SlotDtmRepo;
         private ServiceDTMServiceRepo ServiceDtmRepo;
         private ServiceCategoryDTMServiceRepo ServiceCategoryDtmRepo;
+        private PermissionDTMServiceRepo PermissionDtmRepo;
+        private CalendarSettingDTMServiceRepo CalendarSettingDtmRepo;
+        private CustomerNotificationDTMServiceRepo CustomerNotificationDtmRepo;
+        private TeamNotificationDTMServiceRepo TeamNotificationDtmRepo;
+        private WorkingHourDTMServiceRepo WorkingHourDtmRepo;
+        private WorkingBreakDTMServiceRepo WorkingBreakDtmRepo;
+        private ClientDTMServiceRepo ClientDtmRepo;
         public BllUnitOfWork(IUnitOfWork db)
         {
             Database = db;
@@ -35,6 +42,75 @@ namespace BLL.Services
                 if (UsersDtmRepo == null)
                     UsersDtmRepo = new UserDTMServiceRepo(Database);
                 return UsersDtmRepo;
+            }
+        }
+
+        public IServiceRepository<ClientDTM> ClientsDTM
+        {
+            get
+            {
+                if (ClientDtmRepo == null)
+                    ClientDtmRepo = new ClientDTMServiceRepo(Database);
+                return ClientDtmRepo;
+            }
+        }
+
+        public IServiceRepository<TeamNotificationDTM> TeamNotificationsDTM
+        {
+            get
+            {
+                if (TeamNotificationDtmRepo == null)
+                    TeamNotificationDtmRepo = new TeamNotificationDTMServiceRepo(Database);
+                return TeamNotificationDtmRepo;
+            }
+        }
+
+        public IServiceRepository<WorkingHourDTM> WorkingHoursDTM
+        {
+            get
+            {
+                if (WorkingHourDtmRepo == null)
+                    WorkingHourDtmRepo = new WorkingHourDTMServiceRepo(Database);
+                return WorkingHourDtmRepo;
+            }
+        }
+        public IServiceRepository<WorkingBreakDTM> WorkingBreaksDTM
+        {
+            get
+            {
+                if (WorkingBreakDtmRepo == null)
+                    WorkingBreakDtmRepo = new WorkingBreakDTMServiceRepo(Database);
+                return WorkingBreakDtmRepo;
+            }
+        }
+
+        public IServiceRepository<CustomerNotificationDTM> CustomerNotificationsDTM
+        {
+            get
+            {
+                if (CustomerNotificationDtmRepo == null)
+                    CustomerNotificationDtmRepo = new CustomerNotificationDTMServiceRepo(Database);
+                return CustomerNotificationDtmRepo;
+            }
+        }
+
+        public IServiceRepository<CalendarSettingDTM> CalendarSettingsDTM
+        {
+            get
+            {
+                if (CalendarSettingDtmRepo == null)
+                    CalendarSettingDtmRepo = new CalendarSettingDTMServiceRepo(Database);
+                return CalendarSettingDtmRepo;
+            }
+        }
+
+        public IServiceRepository<PermissionDTM> PermissionsDTM
+        {
+            get
+            {
+                if (PermissionDtmRepo == null)
+                    PermissionDtmRepo = new PermissionDTMServiceRepo(Database);
+                return PermissionDtmRepo;
             }
         }
 
@@ -78,7 +154,7 @@ namespace BLL.Services
             }
         }
 
-        public IServiceRepository<EmployeeDTM> EmployeesDTM
+        public IEmployeeServiceRepository EmployeesDTM
         {
             get
             {
@@ -107,7 +183,7 @@ namespace BLL.Services
                 return BookingDtmRepo;
             }
         }
-        public IServiceRepository<BusinessDTM> BusinessesDTM
+        public IBusinessServiceRepository BusinessesDTM
         {
             get
             {
@@ -137,25 +213,30 @@ namespace BLL.Services
             }
         }
 
-        private bool disposed = false;
-
-        public virtual void Dispose(bool disposing)
-        {
-            if (!this.disposed)
-            {
-                if (disposing)
-                {
-                    Database.Dispose();
-                }
-                this.disposed = true;
-            }
-        }
-
         public void Dispose()
         {
-            Dispose(true);
-            GC.SuppressFinalize(this);
+            Database.Dispose();
         }
+
+        //private bool disposed = false;
+
+        //public virtual void Dispose(bool disposing)
+        //{
+        //    if (!this.disposed)
+        //    {
+        //        if (disposing)
+        //        {
+        //            Database.Dispose();
+        //        }
+        //        this.disposed = true;
+        //    }
+        //}
+
+        //public void Dispose()
+        //{
+        //    Dispose(true);
+        //    GC.SuppressFinalize(this);
+        //}
 
         //public bool SaveChanges()
         //{

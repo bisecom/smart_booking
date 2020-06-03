@@ -10,6 +10,7 @@ namespace smart_booking.DAL.Entities
     public class User
     {
         public string Id { get; set; }
+        public string Email { get; set; }
         public string FirstName { get; set; }
         public string SecondName { get; set; }
       
@@ -24,8 +25,8 @@ namespace smart_booking.DAL.Entities
         public string City { get; set; }
         public string State { get; set; }
         public string ZipCode { get; set; }
-        public int PlanId { get; set; }
-        public byte? PaymentOverdue { get; set; }
+        public int? PlanId { get; set; }
+        public bool? IsPaymentOverdue { get; set; }
         public bool? IsMale { get; set; }
         public DateTime? Birthdate { get; set; }
 
